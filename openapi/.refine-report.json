@@ -1,0 +1,48 @@
+{
+  "provider": "axuall",
+  "sources": [
+    "axuall-openapi.json"
+  ],
+  "outputs": [
+    "axuall-actor-api-openapi.yml",
+    "axuall-address-deduplications-api-openapi.yml",
+    "axuall-agent-api-openapi.yml",
+    "axuall-authentication-api-openapi.yml",
+    "axuall-case-log-artifact-api-openapi.yml",
+    "axuall-documents-api-openapi.yml",
+    "axuall-email-api-openapi.yml",
+    "axuall-fsmb-artifact-api-openapi.yml",
+    "axuall-facilities-api-openapi.yml",
+    "axuall-invite-api-openapi.yml",
+    "axuall-monitoring-reports-api-openapi.yml",
+    "axuall-provider-preview-api-openapi.yml",
+    "axuall-providers-api-openapi.yml",
+    "axuall-recipes-api-openapi.yml",
+    "axuall-tasks-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/axuall-openapi.json"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "axuall-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "axuall-openapi.json: declared missing tag: Actor",
+    "axuall-openapi.json: declared missing tag: Address Deduplications",
+    "axuall-openapi.json: declared missing tag: Agent",
+    "axuall-openapi.json: declared missing tag: Authentication",
+    "axuall-openapi.json: declared missing tag: Case Log Artifact",
+    "axuall-openapi.json: declared missing tag: Documents",
+    "axuall-openapi.json: declared missing tag: Email",
+    "axuall-openapi.json: declared missing tag: FSMB Artifact",
+    "axuall-openapi.json: declared missing tag: Facilities",
+    "axuall-openapi.json: declared missing tag: Invite",
+    "axuall-openapi.json: declared missing tag: Monitoring reports",
+    "axuall-openapi.json: declared missing tag: Provider Preview",
+    "axuall-openapi.json: declared missing tag: Providers",
+    "axuall-openapi.json: declared missing tag: Recipes",
+    "axuall-openapi.json: declared missing tag: Tasks",
+    "apis.yml register: written (+15 apis, 15 total)"
+  ],
+  "skipped": []
+}

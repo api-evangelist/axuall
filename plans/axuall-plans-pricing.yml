@@ -1,0 +1,23 @@
+generated: '2026-09-27'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.readme.com/main/docs/plans-and-pricing
+sources:
+- https://docs.readme.com/main/docs/plans-and-pricing
+- https://docs.readme.com/main/docs/payment-and-billing-info
+name: Axuall pricing
+audience: business-product
+pricing_basis: per-seat
+plans:
+- name: Starter
+  price_text: $0/month
+  price: 0
+  description: Perfect for Growing Teams
+- name: Pro
+  price_text: $250/month
+  price: 250
+  description: Advanced Features for Scaling Businesses
+- name: Enterprise
+  price_text: Custom pricing
+  description: Customized Solutions for Large Organizations
+docs: https://docs.readme.com/main/docs/plans-and-pricing

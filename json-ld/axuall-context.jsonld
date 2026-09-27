@@ -1,0 +1,1615 @@
+{
+  "@context": {
+    "@vocab": "https://axuall.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "axuall": "https://axuall.com/schema#",
+    "ABMSBoardCertSchema": "axuall:ABMSBoardCertSchema",
+    "board": {
+      "@id": "axuall:board",
+      "@type": "xsd:string"
+    },
+    "specialty": {
+      "@id": "axuall:specialty",
+      "@type": "xsd:string"
+    },
+    "Access": "axuall:Access",
+    "ActorSettings": "axuall:ActorSettings",
+    "referrer": {
+      "@id": "axuall:referrer"
+    },
+    "id_verification": {
+      "@id": "axuall:id_verification"
+    },
+    "credential_sets": {
+      "@id": "axuall:credential_sets"
+    },
+    "AddressDeduplicationRequestSchema": "axuall:AddressDeduplicationRequestSchema",
+    "target": {
+      "@id": "axuall:target",
+      "@type": "@id"
+    },
+    "candidates": {
+      "@id": "axuall:candidates",
+      "@container": "@list"
+    },
+    "record_type": {
+      "@id": "axuall:record_type"
+    },
+    "AddressDeduplicationSchema": "axuall:AddressDeduplicationSchema",
+    "AddressDeduplicationStatusSchema": "axuall:AddressDeduplicationStatusSchema",
+    "task_id": {
+      "@id": "axuall:task_id",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "axuall:status",
+      "@type": "@id"
+    },
+    "expires": {
+      "@id": "axuall:expires"
+    },
+    "result": {
+      "@id": "axuall:result"
+    },
+    "AddressDeduplicationTaskSchema": "axuall:AddressDeduplicationTaskSchema",
+    "AddressSchema": "axuall:AddressSchema",
+    "line_1": {
+      "@id": "axuall:line_1",
+      "@type": "xsd:string"
+    },
+    "line_2": {
+      "@id": "axuall:line_2"
+    },
+    "city": {
+      "@id": "axuall:city",
+      "@type": "xsd:string"
+    },
+    "state": {
+      "@id": "axuall:state",
+      "@type": "xsd:string"
+    },
+    "zip": {
+      "@id": "axuall:zip",
+      "@type": "xsd:string"
+    },
+    "zip4": {
+      "@id": "axuall:zip4"
+    },
+    "AddressSchema-Output": "axuall:AddressSchema-Output",
+    "name": {
+      "@id": "axuall:name"
+    },
+    "line1": {
+      "@id": "axuall:line1"
+    },
+    "line2": {
+      "@id": "axuall:line2"
+    },
+    "postal_code": {
+      "@id": "axuall:postal_code"
+    },
+    "country": {
+      "@id": "axuall:country"
+    },
+    "AffiliationSchema": "axuall:AffiliationSchema",
+    "institution": {
+      "@id": "axuall:institution",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "axuall:id"
+    },
+    "hospital_id": {
+      "@id": "axuall:hospital_id"
+    },
+    "work_history_id": {
+      "@id": "axuall:work_history_id"
+    },
+    "start_date": {
+      "@id": "axuall:start_date"
+    },
+    "end_date": {
+      "@id": "axuall:end_date"
+    },
+    "address": {
+      "@id": "axuall:address"
+    },
+    "type": {
+      "@id": "axuall:type"
+    },
+    "AffiliationsAddress": "axuall:AffiliationsAddress",
+    "AgentChatRequestSchema": "axuall:AgentChatRequestSchema",
+    "agent_type_id": {
+      "@id": "axuall:agent_type_id"
+    },
+    "agent_type_name": {
+      "@id": "axuall:agent_type_name"
+    },
+    "message": {
+      "@id": "axuall:message",
+      "@type": "xsd:string"
+    },
+    "confirm_holder_id": {
+      "@id": "axuall:confirm_holder_id"
+    },
+    "explore_npi": {
+      "@id": "axuall:explore_npi"
+    },
+    "conversation_id": {
+      "@id": "axuall:conversation_id"
+    },
+    "workforce_intel_saved_job_id": {
+      "@id": "axuall:workforce_intel_saved_job_id"
+    },
+    "client_stream_id": {
+      "@id": "axuall:client_stream_id"
+    },
+    "AgentChatResponseSchema": "axuall:AgentChatResponseSchema",
+    "AgentConversationItemSchema": "axuall:AgentConversationItemSchema",
+    "title": {
+      "@id": "axuall:title"
+    },
+    "created_at": {
+      "@id": "axuall:created_at",
+      "@type": "xsd:string"
+    },
+    "modified_at": {
+      "@id": "axuall:modified_at",
+      "@type": "xsd:string"
+    },
+    "AgentConversationsListSchema": "axuall:AgentConversationsListSchema",
+    "total": {
+      "@id": "axuall:total",
+      "@type": "xsd:integer"
+    },
+    "conversations": {
+      "@id": "axuall:conversations",
+      "@container": "@list"
+    },
+    "AgentMessageFeedbackRequestSchema": "axuall:AgentMessageFeedbackRequestSchema",
+    "action": {
+      "@id": "axuall:action",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "axuall:value"
+    },
+    "AgentMessageFeedbackResponseSchema": "axuall:AgentMessageFeedbackResponseSchema",
+    "feedback_rating": {
+      "@id": "axuall:feedback_rating"
+    },
+    "copy_count": {
+      "@id": "axuall:copy_count",
+      "@type": "xsd:integer"
+    },
+    "AgentMessageSchema": "axuall:AgentMessageSchema",
+    "role": {
+      "@id": "axuall:role",
+      "@type": "xsd:string"
+    },
+    "content": {
+      "@id": "axuall:content"
+    },
+    "feedback_updated_at": {
+      "@id": "axuall:feedback_updated_at"
+    },
+    "AgentSuggestPromptItemSchema": "axuall:AgentSuggestPromptItemSchema",
+    "display_name": {
+      "@id": "axuall:display_name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "axuall:description"
+    },
+    "prompt_text": {
+      "@id": "axuall:prompt_text",
+      "@type": "xsd:string"
+    },
+    "sort_order": {
+      "@id": "axuall:sort_order",
+      "@type": "xsd:integer"
+    },
+    "AgentSuggestPromptsListSchema": "axuall:AgentSuggestPromptsListSchema",
+    "suggest_prompts": {
+      "@id": "axuall:suggest_prompts",
+      "@container": "@list"
+    },
+    "AgentTaskStatusSchema": "axuall:AgentTaskStatusSchema",
+    "error": {
+      "@id": "axuall:error"
+    },
+    "AppReqStatus": "axuall:AppReqStatus",
+    "ApplicationRequirementSchema": "axuall:ApplicationRequirementSchema",
+    "app_req": {
+      "@id": "axuall:app_req",
+      "@type": "xsd:string"
+    },
+    "recipe_type": {
+      "@id": "axuall:recipe_type"
+    },
+    "provider_type": {
+      "@id": "axuall:provider_type",
+      "@container": "@list"
+    },
+    "ApplicationRequirementsSchema": "axuall:ApplicationRequirementsSchema",
+    "app_reqs": {
+      "@id": "axuall:app_reqs",
+      "@container": "@list"
+    },
+    "AssignTaskMessage": "axuall:AssignTaskMessage",
+    "AssignTaskRequestSchema": "axuall:AssignTaskRequestSchema",
+    "dry_run": {
+      "@id": "axuall:dry_run"
+    },
+    "required_for_share": {
+      "@id": "axuall:required_for_share"
+    },
+    "AssignWorkflowMessage": "axuall:AssignWorkflowMessage",
+    "AssignWorkflowRequestSchema": "axuall:AssignWorkflowRequestSchema",
+    "AssignedTaskSchema": "axuall:AssignedTaskSchema",
+    "provider_id": {
+      "@id": "axuall:provider_id"
+    },
+    "task_name": {
+      "@id": "axuall:task_name",
+      "@type": "xsd:string"
+    },
+    "task_status": {
+      "@id": "axuall:task_status",
+      "@type": "xsd:string"
+    },
+    "assigned": {
+      "@id": "axuall:assigned"
+    },
+    "completed": {
+      "@id": "axuall:completed"
+    },
+    "AttestedMetaData": "axuall:AttestedMetaData",
+    "continuity_id": {
+      "@id": "axuall:continuity_id"
+    },
+    "values_hash": {
+      "@id": "axuall:values_hash"
+    },
+    "AttestedReq": "axuall:AttestedReq",
+    "profile": {
+      "@id": "axuall:profile"
+    },
+    "documents": {
+      "@id": "axuall:documents"
+    },
+    "questions": {
+      "@id": "axuall:questions"
+    },
+    "docusign_details": {
+      "@id": "axuall:docusign_details"
+    },
+    "aha_certification": {
+      "@id": "axuall:aha_certification"
+    },
+    "optional_documents": {
+      "@id": "axuall:optional_documents"
+    },
+    "other_certifications": {
+      "@id": "axuall:other_certifications"
+    },
+    "AttestedRequirementSchema": "axuall:AttestedRequirementSchema",
+    "attested_reqs": {
+      "@id": "axuall:attested_reqs"
+    },
+    "AuthError": "axuall:AuthError",
+    "error_description": {
+      "@id": "axuall:error_description"
+    },
+    "AuthRequest": "axuall:AuthRequest",
+    "client_id": {
+      "@id": "axuall:client_id",
+      "@type": "xsd:string"
+    },
+    "client_secret": {
+      "@id": "axuall:client_secret",
+      "@type": "xsd:string"
+    },
+    "audience": {
+      "@id": "axuall:audience"
+    },
+    "grant_type": {
+      "@id": "axuall:grant_type"
+    },
+    "AuthResponse": "axuall:AuthResponse",
+    "access_token": {
+      "@id": "axuall:access_token",
+      "@type": "xsd:string"
+    },
+    "scope": {
+      "@id": "axuall:scope",
+      "@type": "xsd:string"
+    },
+    "expires_in": {
+      "@id": "axuall:expires_in",
+      "@type": "xsd:integer"
+    },
+    "token_type": {
+      "@id": "axuall:token_type",
+      "@type": "xsd:string"
+    },
+    "BasicInfo": "axuall:BasicInfo",
+    "verified.axuall_id.artifact": {
+      "@id": "axuall:verified.axuall_id.artifact"
+    },
+    "verified.axuall_id.meta": {
+      "@id": "axuall:verified.axuall_id.meta"
+    },
+    "verified.axuall_id.first_name": {
+      "@id": "axuall:verified.axuall_id.first_name",
+      "@type": "xsd:string"
+    },
+    "verified.axuall_id.middle_name": {
+      "@id": "axuall:verified.axuall_id.middle_name"
+    },
+    "verified.axuall_id.last_name": {
+      "@id": "axuall:verified.axuall_id.last_name",
+      "@type": "xsd:string"
+    },
+    "verified.axuall_id.date_of_birth": {
+      "@id": "axuall:verified.axuall_id.date_of_birth",
+      "@type": "xsd:string"
+    },
+    "attested.basic_info.suffix": {
+      "@id": "axuall:attested.basic_info.suffix"
+    },
+    "attested.basic_info.gender": {
+      "@id": "axuall:attested.basic_info.gender"
+    },
+    "verified.ecfmg.number": {
+      "@id": "axuall:verified.ecfmg.number"
+    },
+    "attested.basic_info.occupation_code": {
+      "@id": "axuall:attested.basic_info.occupation_code"
+    },
+    "attested.basic_info.social_security": {
+      "@id": "axuall:attested.basic_info.social_security"
+    },
+    "attested.basic_info.other_names.first_name": {
+      "@id": "axuall:attested.basic_info.other_names.first_name"
+    },
+    "attested.basic_info.other_names.middle_name": {
+      "@id": "axuall:attested.basic_info.other_names.middle_name"
+    },
+    "attested.basic_info.other_names.last_name": {
+      "@id": "axuall:attested.basic_info.other_names.last_name"
+    },
+    "attested.basic_info.other_names.suffix": {
+      "@id": "axuall:attested.basic_info.other_names.suffix"
+    },
+    "attested.basic_info.other_names.prefilled": {
+      "@id": "axuall:attested.basic_info.other_names.prefilled"
+    },
+    "attested.basic_info.alias_first_name": {
+      "@id": "axuall:attested.basic_info.alias_first_name"
+    },
+    "attested.basic_info.alias_last_name": {
+      "@id": "axuall:attested.basic_info.alias_last_name"
+    },
+    "attested.basic_info.phone_number": {
+      "@id": "axuall:attested.basic_info.phone_number"
+    },
+    "attested.basic_info.email": {
+      "@id": "axuall:attested.basic_info.email",
+      "@type": "xsd:string"
+    },
+    "attested.basic_info.place_of_birth.city": {
+      "@id": "axuall:attested.basic_info.place_of_birth.city"
+    },
+    "attested.basic_info.place_of_birth.state": {
+      "@id": "axuall:attested.basic_info.place_of_birth.state"
+    },
+    "attested.basic_info.place_of_birth.country": {
+      "@id": "axuall:attested.basic_info.place_of_birth.country"
+    },
+    "attested.basic_info.race": {
+      "@id": "axuall:attested.basic_info.race"
+    },
+    "attested.basic_info.ethnicity": {
+      "@id": "axuall:attested.basic_info.ethnicity"
+    },
+    "attested.basic_info.languages": {
+      "@id": "axuall:attested.basic_info.languages"
+    },
+    "attested.basic_info.citizenship.0": {
+      "@id": "axuall:attested.basic_info.citizenship.0"
+    },
+    "external_file_name": {
+      "@id": "axuall:external_file_name"
+    },
+    "readable_file_name": {
+      "@id": "axuall:readable_file_name"
+    },
+    "BoardCertification": "axuall:BoardCertification",
+    "verified.board_certification.specialty_type": {
+      "@id": "axuall:verified.board_certification.specialty_type"
+    },
+    "verified.board_certification.issue_date": {
+      "@id": "axuall:verified.board_certification.issue_date"
+    },
+    "verified.board_certification.expiration_date": {
+      "@id": "axuall:verified.board_certification.expiration_date"
+    },
+    "verified.board_certification.complete": {
+      "@id": "axuall:verified.board_certification.complete"
+    },
+    "verified.board_certification.additional_requirements_compliance_status": {
+      "@id": "axuall:verified.board_certification.additional_requirements_compliance_status"
+    },
+    "verified.board_certification.duration": {
+      "@id": "axuall:verified.board_certification.duration"
+    },
+    "verified.board_certification.board_name": {
+      "@id": "axuall:verified.board_certification.board_name"
+    },
+    "verified.board_certification.certification_number": {
+      "@id": "axuall:verified.board_certification.certification_number"
+    },
+    "verified.board_certification.external_board_name": {
+      "@id": "axuall:verified.board_certification.external_board_name"
+    },
+    "verified.board_certification.external_board_code": {
+      "@id": "axuall:verified.board_certification.external_board_code"
+    },
+    "verified.board_certification.artifact": {
+      "@id": "axuall:verified.board_certification.artifact"
+    },
+    "verified.board_certification.meta": {
+      "@id": "axuall:verified.board_certification.meta"
+    },
+    "verified.board_certification.dispute_details": {
+      "@id": "axuall:verified.board_certification.dispute_details"
+    },
+    "attested.board_certification.board_name": {
+      "@id": "axuall:attested.board_certification.board_name"
+    },
+    "attested.board_certification.number": {
+      "@id": "axuall:attested.board_certification.number"
+    },
+    "attested.board_certification.certified": {
+      "@id": "axuall:attested.board_certification.certified"
+    },
+    "attested.board_certification.exam_date": {
+      "@id": "axuall:attested.board_certification.exam_date"
+    },
+    "attested.board_certification.exam_status": {
+      "@id": "axuall:attested.board_certification.exam_status"
+    },
+    "attested.board_certification.explanation": {
+      "@id": "axuall:attested.board_certification.explanation"
+    },
+    "attested.board_certification.specialty_id": {
+      "@id": "axuall:attested.board_certification.specialty_id"
+    },
+    "attested.board_certification.external_board_name": {
+      "@id": "axuall:attested.board_certification.external_board_name"
+    },
+    "attested.board_certification.external_board_code": {
+      "@id": "axuall:attested.board_certification.external_board_code"
+    },
+    "BoardCertificationDuration": "axuall:BoardCertificationDuration",
+    "BoardCertificationSchema": "axuall:BoardCertificationSchema",
+    "board_name": {
+      "@id": "axuall:board_name",
+      "@type": "xsd:string"
+    },
+    "board_number": {
+      "@id": "axuall:board_number"
+    },
+    "CDSLicense": "axuall:CDSLicense",
+    "verified.cds.number": {
+      "@id": "axuall:verified.cds.number"
+    },
+    "verified.cds.expiration_date": {
+      "@id": "axuall:verified.cds.expiration_date"
+    },
+    "verified.cds.issue_date": {
+      "@id": "axuall:verified.cds.issue_date"
+    },
+    "verified.cds.state": {
+      "@id": "axuall:verified.cds.state"
+    },
+    "verified.cds.institution": {
+      "@id": "axuall:verified.cds.institution"
+    },
+    "verified.cds.artifact": {
+      "@id": "axuall:verified.cds.artifact"
+    },
+    "verified.cds.meta": {
+      "@id": "axuall:verified.cds.meta"
+    },
+    "verified.cds.dispute_details": {
+      "@id": "axuall:verified.cds.dispute_details"
+    },
+    "attested.cds.number": {
+      "@id": "axuall:attested.cds.number"
+    },
+    "attested.cds.state": {
+      "@id": "axuall:attested.cds.state"
+    },
+    "attested.cds.institution": {
+      "@id": "axuall:attested.cds.institution"
+    },
+    "attested.cds.meta": {
+      "@id": "axuall:attested.cds.meta"
+    },
+    "CancelTaskRequestSchema": "axuall:CancelTaskRequestSchema",
+    "CaseLogType": "axuall:CaseLogType",
+    "Changes": "axuall:Changes",
+    "credential_changes": {
+      "@id": "axuall:credential_changes",
+      "@container": "@list"
+    },
+    "self_attested_changes": {
+      "@id": "axuall:self_attested_changes",
+      "@container": "@list"
+    },
+    "ClinicianIdSchema": "axuall:ClinicianIdSchema",
+    "external_id": {
+      "@id": "axuall:external_id",
+      "@type": "xsd:string"
+    },
+    "external_system": {
+      "@id": "axuall:external_system"
+    },
+    "ClinicianSettingsSchema": "axuall:ClinicianSettingsSchema",
+    "alternate_emails": {
+      "@id": "axuall:alternate_emails"
+    },
+    "application_due_date": {
+      "@id": "axuall:application_due_date"
+    },
+    "degree_type": {
+      "@id": "axuall:degree_type",
+      "@type": "xsd:string"
+    },
+    "employment_relationship": {
+      "@id": "axuall:employment_relationship"
+    },
+    "primary_facility": {
+      "@id": "axuall:primary_facility"
+    },
+    "request_received_date": {
+      "@id": "axuall:request_received_date"
+    },
+    "CredentialChange": "axuall:CredentialChange",
+    "latest_value": {
+      "@id": "axuall:latest_value"
+    },
+    "last_updated": {
+      "@id": "axuall:last_updated",
+      "@type": "xsd:dateTime"
+    },
+    "CredentialDimensionOption": "axuall:CredentialDimensionOption",
+    "category": {
+      "@id": "axuall:category",
+      "@type": "xsd:string"
+    },
+    "CycleType": "axuall:CycleType",
+    "DEALicense": "axuall:DEALicense",
+    "verified.dea.number": {
+      "@id": "axuall:verified.dea.number"
+    },
+    "verified.dea.expiration_date": {
+      "@id": "axuall:verified.dea.expiration_date"
+    },
+    "verified.dea.payment_indicator": {
+      "@id": "axuall:verified.dea.payment_indicator"
+    },
+    "verified.dea.drug_schedule": {
+      "@id": "axuall:verified.dea.drug_schedule"
+    },
+    "verified.dea.drug_schedule_formatted": {
+      "@id": "axuall:verified.dea.drug_schedule_formatted"
+    },
+    "verified.dea.activity": {
+      "@id": "axuall:verified.dea.activity"
+    },
+    "verified.dea.patients_permitted": {
+      "@id": "axuall:verified.dea.patients_permitted"
+    },
+    "verified.dea.uin": {
+      "@id": "axuall:verified.dea.uin"
+    },
+    "verified.dea.state": {
+      "@id": "axuall:verified.dea.state"
+    },
+    "verified.dea.address": {
+      "@id": "axuall:verified.dea.address"
+    },
+    "verified.dea.artifact": {
+      "@id": "axuall:verified.dea.artifact"
+    },
+    "verified.dea.meta": {
+      "@id": "axuall:verified.dea.meta"
+    },
+    "verified.dea.dispute_details": {
+      "@id": "axuall:verified.dea.dispute_details"
+    },
+    "attested.dea.license_number": {
+      "@id": "axuall:attested.dea.license_number"
+    },
+    "attested.dea.state": {
+      "@id": "axuall:attested.dea.state"
+    },
+    "attested.dea.institution": {
+      "@id": "axuall:attested.dea.institution"
+    },
+    "attested.dea.meta": {
+      "@id": "axuall:attested.dea.meta"
+    },
+    "DEALicenseSchema": "axuall:DEALicenseSchema",
+    "license_number": {
+      "@id": "axuall:license_number",
+      "@type": "xsd:string"
+    },
+    "DeactivationSchema": "axuall:DeactivationSchema",
+    "DegreeLevelEnum": "axuall:DegreeLevelEnum",
+    "Disclosures": "axuall:Disclosures",
+    "Document": "axuall:Document",
+    "url": {
+      "@id": "axuall:url",
+      "@type": "@id"
+    },
+    "document_id": {
+      "@id": "axuall:document_id"
+    },
+    "document_type": {
+      "@id": "axuall:document_type"
+    },
+    "expires_at": {
+      "@id": "axuall:expires_at",
+      "@type": "xsd:dateTime"
+    },
+    "meta": {
+      "@id": "axuall:meta"
+    },
+    "DocumentType": "axuall:DocumentType",
+    "Education": "axuall:Education",
+    "verified.cfmg.initial_year": {
+      "@id": "axuall:verified.cfmg.initial_year"
+    },
+    "verified.ecfmg.issue_date": {
+      "@id": "axuall:verified.ecfmg.issue_date"
+    },
+    "verified.education.country": {
+      "@id": "axuall:verified.education.country"
+    },
+    "verified.education.foreign": {
+      "@id": "axuall:verified.education.foreign"
+    },
+    "verified.university_transcript.year": {
+      "@id": "axuall:verified.university_transcript.year"
+    },
+    "verified.university_transcript.name": {
+      "@id": "axuall:verified.university_transcript.name"
+    },
+    "verified.university_transcript.degree": {
+      "@id": "axuall:verified.university_transcript.degree"
+    },
+    "verified.university_transcript.complete": {
+      "@id": "axuall:verified.university_transcript.complete"
+    },
+    "verified.university_transcript.artifact": {
+      "@id": "axuall:verified.university_transcript.artifact"
+    },
+    "verified.university_transcript.meta": {
+      "@id": "axuall:verified.university_transcript.meta"
+    },
+    "attested.nsc.code": {
+      "@id": "axuall:attested.nsc.code"
+    },
+    "verified.nsc.city": {
+      "@id": "axuall:verified.nsc.city"
+    },
+    "verified.nsc.state": {
+      "@id": "axuall:verified.nsc.state"
+    },
+    "attested.university_transcript.graduation_month": {
+      "@id": "axuall:attested.university_transcript.graduation_month"
+    },
+    "attested.education.institution": {
+      "@id": "axuall:attested.education.institution"
+    },
+    "attested.education.facility_code": {
+      "@id": "axuall:attested.education.facility_code"
+    },
+    "attested.education.graduation_date": {
+      "@id": "axuall:attested.education.graduation_date"
+    },
+    "attested.education.start_date": {
+      "@id": "axuall:attested.education.start_date",
+      "@type": "xsd:string"
+    },
+    "attested.education.start_date_full": {
+      "@id": "axuall:attested.education.start_date_full"
+    },
+    "attested.education.end_date_full": {
+      "@id": "axuall:attested.education.end_date_full"
+    },
+    "attested.education.facility_city": {
+      "@id": "axuall:attested.education.facility_city"
+    },
+    "attested.education.facility_state": {
+      "@id": "axuall:attested.education.facility_state"
+    },
+    "attested.education.degree_level": {
+      "@id": "axuall:attested.education.degree_level"
+    },
+    "attested.education.external_type_code": {
+      "@id": "axuall:attested.education.external_type_code"
+    },
+    "attested.education.foreign_education": {
+      "@id": "axuall:attested.education.foreign_education"
+    },
+    "attested.education.nursing_program": {
+      "@id": "axuall:attested.education.nursing_program"
+    },
+    "verified.nsc.attendance_start_date": {
+      "@id": "axuall:verified.nsc.attendance_start_date"
+    },
+    "verified.nsc.attendance_end_date": {
+      "@id": "axuall:verified.nsc.attendance_end_date"
+    },
+    "verified.nsc.institution": {
+      "@id": "axuall:verified.nsc.institution"
+    },
+    "verified.nsc.degree": {
+      "@id": "axuall:verified.nsc.degree"
+    },
+    "verified.nsc.first_name": {
+      "@id": "axuall:verified.nsc.first_name"
+    },
+    "verified.nsc.last_name": {
+      "@id": "axuall:verified.nsc.last_name"
+    },
+    "verified.nsc.status": {
+      "@id": "axuall:verified.nsc.status"
+    },
+    "verified.nsc.award_date": {
+      "@id": "axuall:verified.nsc.award_date"
+    },
+    "verified.nsc.artifact": {
+      "@id": "axuall:verified.nsc.artifact"
+    },
+    "verified.nsc.meta": {
+      "@id": "axuall:verified.nsc.meta"
+    },
+    "verified_dispute_details": {
+      "@id": "axuall:verified_dispute_details"
+    },
+    "institution_id": {
+      "@id": "axuall:institution_id"
+    },
+    "education.external_institution_code": {
+      "@id": "axuall:education.external_institution_code"
+    },
+    "attested.education.meta": {
+      "@id": "axuall:attested.education.meta"
+    },
+    "EducationEntry": "axuall:EducationEntry",
+    "institution_name": {
+      "@id": "axuall:institution_name",
+      "@type": "xsd:string"
+    },
+    "institution_code": {
+      "@id": "axuall:institution_code",
+      "@type": "xsd:string"
+    },
+    "graduation_year": {
+      "@id": "axuall:graduation_year"
+    },
+    "graduation_month": {
+      "@id": "axuall:graduation_month"
+    },
+    "degree_level": {
+      "@id": "axuall:degree_level",
+      "@type": "@id"
+    },
+    "highest_practicing_degree": {
+      "@id": "axuall:highest_practicing_degree"
+    },
+    "EmploymentRelationship": "axuall:EmploymentRelationship",
+    "Expirable": "axuall:Expirable",
+    "dimensions": {
+      "@id": "axuall:dimensions"
+    },
+    "verification": {
+      "@id": "axuall:verification",
+      "@type": "@id"
+    },
+    "expiration_date": {
+      "@id": "axuall:expiration_date",
+      "@type": "xsd:date"
+    },
+    "issue_date": {
+      "@id": "axuall:issue_date"
+    },
+    "reported_at": {
+      "@id": "axuall:reported_at",
+      "@type": "xsd:dateTime"
+    },
+    "artifact_id": {
+      "@id": "axuall:artifact_id",
+      "@type": "xsd:string"
+    },
+    "ExpirableStatus": "axuall:ExpirableStatus",
+    "FacilitiesSchema": "axuall:FacilitiesSchema",
+    "facilities": {
+      "@id": "axuall:facilities",
+      "@container": "@list"
+    },
+    "FacilityEnrollmentReponse": "axuall:FacilityEnrollmentReponse",
+    "enrolled": {
+      "@id": "axuall:enrolled",
+      "@container": "@list"
+    },
+    "unenrolled": {
+      "@id": "axuall:unenrolled",
+      "@container": "@list"
+    },
+    "FacilityEnrollmentSchema": "axuall:FacilityEnrollmentSchema",
+    "enroll": {
+      "@id": "axuall:enroll",
+      "@container": "@list"
+    },
+    "unenroll": {
+      "@id": "axuall:unenroll",
+      "@container": "@list"
+    },
+    "FacilitySchema": "axuall:FacilitySchema",
+    "FileType": "axuall:FileType",
+    "Finding": "axuall:Finding",
+    "activation_date": {
+      "@id": "axuall:activation_date"
+    },
+    "most_current": {
+      "@id": "axuall:most_current",
+      "@type": "xsd:boolean"
+    },
+    "FsmbBoardActionsV2": "axuall:FsmbBoardActionsV2",
+    "order_id": {
+      "@id": "axuall:order_id",
+      "@type": "xsd:string"
+    },
+    "order_category_description": {
+      "@id": "axuall:order_category_description",
+      "@type": "xsd:string"
+    },
+    "term_days": {
+      "@id": "axuall:term_days"
+    },
+    "term_years": {
+      "@id": "axuall:term_years"
+    },
+    "order_date": {
+      "@id": "axuall:order_date"
+    },
+    "order_effective_date": {
+      "@id": "axuall:order_effective_date"
+    },
+    "action_effective_date": {
+      "@id": "axuall:action_effective_date"
+    },
+    "basis_code": {
+      "@id": "axuall:basis_code",
+      "@type": "xsd:string"
+    },
+    "basis_code_description": {
+      "@id": "axuall:basis_code_description"
+    },
+    "action_code": {
+      "@id": "axuall:action_code",
+      "@type": "xsd:string"
+    },
+    "action_code_description": {
+      "@id": "axuall:action_code_description",
+      "@type": "xsd:string"
+    },
+    "FsmbDataV2": "axuall:FsmbDataV2",
+    "demographics": {
+      "@id": "axuall:demographics"
+    },
+    "state_licenses": {
+      "@id": "axuall:state_licenses"
+    },
+    "FsmbDemographics": "axuall:FsmbDemographics",
+    "school_name": {
+      "@id": "axuall:school_name",
+      "@type": "xsd:string"
+    },
+    "year_of_grad": {
+      "@id": "axuall:year_of_grad"
+    },
+    "degree": {
+      "@id": "axuall:degree",
+      "@type": "xsd:string"
+    },
+    "FsmbLicenseData": "axuall:FsmbLicenseData",
+    "license_status": {
+      "@id": "axuall:license_status"
+    },
+    "initial_date": {
+      "@id": "axuall:initial_date"
+    },
+    "artifact": {
+      "@id": "axuall:artifact"
+    },
+    "board_actions": {
+      "@id": "axuall:board_actions"
+    },
+    "GenericErrorSchema": "axuall:GenericErrorSchema",
+    "detail": {
+      "@id": "axuall:detail",
+      "@type": "xsd:string"
+    },
+    "HTTPValidationError": "axuall:HTTPValidationError",
+    "HomeAddress": "axuall:HomeAddress",
+    "attested.home_address.line1": {
+      "@id": "axuall:attested.home_address.line1",
+      "@type": "xsd:string"
+    },
+    "attested.home_address.line2": {
+      "@id": "axuall:attested.home_address.line2"
+    },
+    "attested.home_address.city": {
+      "@id": "axuall:attested.home_address.city",
+      "@type": "xsd:string"
+    },
+    "attested.home_address.state": {
+      "@id": "axuall:attested.home_address.state",
+      "@type": "xsd:string"
+    },
+    "attested.home_address.zip": {
+      "@id": "axuall:attested.home_address.zip",
+      "@type": "xsd:string"
+    },
+    "attested.home_address.zip4": {
+      "@id": "axuall:attested.home_address.zip4",
+      "@type": "xsd:string"
+    },
+    "HospitalAffiliation": "axuall:HospitalAffiliation",
+    "attested.affiliations.id": {
+      "@id": "axuall:attested.affiliations.id"
+    },
+    "attested.affiliations.name": {
+      "@id": "axuall:attested.affiliations.name"
+    },
+    "attested.affiliations.start_date": {
+      "@id": "axuall:attested.affiliations.start_date"
+    },
+    "attested.affiliations.start_date_full": {
+      "@id": "axuall:attested.affiliations.start_date_full"
+    },
+    "attested.affiliations.end_date": {
+      "@id": "axuall:attested.affiliations.end_date"
+    },
+    "attested.affiliations.end_date_full": {
+      "@id": "axuall:attested.affiliations.end_date_full"
+    },
+    "attested.affiliation.address_line1.number": {
+      "@id": "axuall:attested.affiliation.address_line1.number"
+    },
+    "attested.affiliations.street_address": {
+      "@id": "axuall:attested.affiliations.street_address"
+    },
+    "attested.affiliations.address_line1": {
+      "@id": "axuall:attested.affiliations.address_line1"
+    },
+    "attested.affiliations.address_line2": {
+      "@id": "axuall:attested.affiliations.address_line2"
+    },
+    "attested.affiliations.address_city": {
+      "@id": "axuall:attested.affiliations.address_city"
+    },
+    "attested.affiliations.address_state": {
+      "@id": "axuall:attested.affiliations.address_state"
+    },
+    "attested.affiliations.address_zip": {
+      "@id": "axuall:attested.affiliations.address_zip"
+    },
+    "attested.affiliations.address_country": {
+      "@id": "axuall:attested.affiliations.address_country"
+    },
+    "attested.affiliations.phone_number": {
+      "@id": "axuall:attested.affiliations.phone_number"
+    },
+    "attested.affiliations.external_institution_code": {
+      "@id": "axuall:attested.affiliations.external_institution_code"
+    },
+    "attested.affiliations.meta": {
+      "@id": "axuall:attested.affiliations.meta"
+    },
+    "attested.affiliations.external_id": {
+      "@id": "axuall:attested.affiliations.external_id"
+    },
+    "attested.affiliations.source": {
+      "@id": "axuall:attested.affiliations.source"
+    },
+    "attested.affiliations.status": {
+      "@id": "axuall:attested.affiliations.status"
+    },
+    "verified.hospital_affilation.start_date": {
+      "@id": "axuall:verified.hospital_affilation.start_date"
+    },
+    "verified.hospital_affilation.end_date": {
+      "@id": "axuall:verified.hospital_affilation.end_date"
+    },
+    "verified.hospital_affilation.department": {
+      "@id": "axuall:verified.hospital_affilation.department"
+    },
+    "verified.hospital_affiliations.artifact": {
+      "@id": "axuall:verified.hospital_affiliations.artifact"
+    },
+    "verified_hospital_affiliations.meta": {
+      "@id": "axuall:verified_hospital_affiliations.meta"
+    },
+    "verified.affiliations.dispute_details": {
+      "@id": "axuall:verified.affiliations.dispute_details"
+    },
+    "IDVerification": "axuall:IDVerification",
+    "IDVerifiedStatus": "axuall:IDVerifiedStatus",
+    "InvitationStatus": "axuall:InvitationStatus",
+    "InviteExternalDelegateSchema": "axuall:InviteExternalDelegateSchema",
+    "email": {
+      "@id": "axuall:email",
+      "@type": "xsd:string"
+    },
+    "InviteSchema": "axuall:InviteSchema",
+    "invite_id": {
+      "@id": "axuall:invite_id",
+      "@type": "xsd:string"
+    },
+    "LifeSupport": "axuall:LifeSupport",
+    "verified.life_support.training_type": {
+      "@id": "axuall:verified.life_support.training_type",
+      "@type": "xsd:string"
+    },
+    "verified.life_support.training_reference": {
+      "@id": "axuall:verified.life_support.training_reference",
+      "@type": "xsd:string"
+    },
+    "verified.life_support.issue_date": {
+      "@id": "axuall:verified.life_support.issue_date",
+      "@type": "xsd:date"
+    },
+    "verified.life_support.expiration_date": {
+      "@id": "axuall:verified.life_support.expiration_date",
+      "@type": "xsd:date"
+    },
+    "verified.life_support.verifier": {
+      "@id": "axuall:verified.life_support.verifier",
+      "@type": "xsd:string"
+    },
+    "verified.life_support.artifact": {
+      "@id": "axuall:verified.life_support.artifact"
+    },
+    "verified.life_support.meta": {
+      "@id": "axuall:verified.life_support.meta",
+      "@type": "@id"
+    },
+    "verified.life_support.dispute_details": {
+      "@id": "axuall:verified.life_support.dispute_details"
+    },
+    "LifeSupportSchema": "axuall:LifeSupportSchema",
+    "aha_ecard": {
+      "@id": "axuall:aha_ecard",
+      "@type": "xsd:string"
+    },
+    "Malpractice": "axuall:Malpractice",
+    "self_insured": {
+      "@id": "axuall:self_insured"
+    },
+    "carries_insurance": {
+      "@id": "axuall:carries_insurance"
+    },
+    "policies": {
+      "@id": "axuall:policies",
+      "@container": "@list"
+    },
+    "MalpracticePolicy": "axuall:MalpracticePolicy",
+    "insurer_name": {
+      "@id": "axuall:insurer_name"
+    },
+    "external_institution_code": {
+      "@id": "axuall:external_institution_code"
+    },
+    "policy_number": {
+      "@id": "axuall:policy_number"
+    },
+    "original_effective_date": {
+      "@id": "axuall:original_effective_date"
+    },
+    "effective_date": {
+      "@id": "axuall:effective_date"
+    },
+    "occurence_coverage": {
+      "@id": "axuall:occurence_coverage"
+    },
+    "aggregate_coverage": {
+      "@id": "axuall:aggregate_coverage"
+    },
+    "document": {
+      "@id": "axuall:document"
+    },
+    "attested.malpractice.id": {
+      "@id": "axuall:attested.malpractice.id"
+    },
+    "attested_meta": {
+      "@id": "axuall:attested_meta"
+    },
+    "attested_status": {
+      "@id": "axuall:attested_status"
+    },
+    "attested_source": {
+      "@id": "axuall:attested_source"
+    },
+    "MedicaidID": "axuall:MedicaidID",
+    "attested.medicaid.participation": {
+      "@id": "axuall:attested.medicaid.participation",
+      "@type": "xsd:string"
+    },
+    "attested.medicaid.number": {
+      "@id": "axuall:attested.medicaid.number"
+    },
+    "attested.medicaid.attested_meta": {
+      "@id": "axuall:attested.medicaid.attested_meta"
+    },
+    "MedicareID": "axuall:MedicareID",
+    "verified.medicare.artifact": {
+      "@id": "axuall:verified.medicare.artifact"
+    },
+    "verified.medicare.meta": {
+      "@id": "axuall:verified.medicare.meta"
+    },
+    "verified.medicare.participation": {
+      "@id": "axuall:verified.medicare.participation"
+    },
+    "verified.medicare.dispute_details": {
+      "@id": "axuall:verified.medicare.dispute_details"
+    },
+    "attested.medicare.participation": {
+      "@id": "axuall:attested.medicare.participation"
+    },
+    "attested.medicare.number": {
+      "@id": "axuall:attested.medicare.number"
+    },
+    "attested.medicare.state": {
+      "@id": "axuall:attested.medicare.state"
+    },
+    "attested.medicare.meta": {
+      "@id": "axuall:attested.medicare.meta"
+    },
+    "MetaData": "axuall:MetaData",
+    "verification_type": {
+      "@id": "axuall:verification_type"
+    },
+    "source": {
+      "@id": "axuall:source"
+    },
+    "most_recent_verification": {
+      "@id": "axuall:most_recent_verification"
+    },
+    "initial_verification_date": {
+      "@id": "axuall:initial_verification_date"
+    },
+    "MonitoringProfile": "axuall:MonitoringProfile",
+    "first_name": {
+      "@id": "axuall:first_name",
+      "@type": "xsd:string"
+    },
+    "middle_name": {
+      "@id": "axuall:middle_name"
+    },
+    "last_name": {
+      "@id": "axuall:last_name",
+      "@type": "xsd:string"
+    },
+    "degree_name": {
+      "@id": "axuall:degree_name"
+    },
+    "holder_id": {
+      "@id": "axuall:holder_id",
+      "@type": "xsd:string"
+    },
+    "checklist_id": {
+      "@id": "axuall:checklist_id",
+      "@type": "xsd:string"
+    },
+    "checklist_url": {
+      "@id": "axuall:checklist_url",
+      "@type": "xsd:string"
+    },
+    "MonitoringResultSet_Expirable_": "axuall:MonitoringResultSet_Expirable_",
+    "total_clinicians": {
+      "@id": "axuall:total_clinicians",
+      "@type": "xsd:integer"
+    },
+    "filtered_clinicians": {
+      "@id": "axuall:filtered_clinicians",
+      "@type": "xsd:integer"
+    },
+    "results": {
+      "@id": "axuall:results",
+      "@container": "@list"
+    },
+    "MonitoringResultSet_Finding_": "axuall:MonitoringResultSet_Finding_",
+    "NPIID": "axuall:NPIID",
+    "verified.npi.number": {
+      "@id": "axuall:verified.npi.number",
+      "@type": "xsd:string"
+    },
+    "verified.npi.status": {
+      "@id": "axuall:verified.npi.status",
+      "@type": "xsd:string"
+    },
+    "verified.npi.artifact": {
+      "@id": "axuall:verified.npi.artifact"
+    },
+    "verified.npi.meta": {
+      "@id": "axuall:verified.npi.meta",
+      "@type": "@id"
+    },
+    "verified.npi.dispute_details": {
+      "@id": "axuall:verified.npi.dispute_details"
+    },
+    "NameSchema-Input": "axuall:NameSchema-Input",
+    "suffix": {
+      "@id": "axuall:suffix"
+    },
+    "NameSchema-Output": "axuall:NameSchema-Output",
+    "OngoingMonitoring": "axuall:OngoingMonitoring",
+    "npdb": {
+      "@id": "axuall:npdb",
+      "@container": "@list"
+    },
+    "hhs_oig": {
+      "@id": "axuall:hhs_oig"
+    },
+    "medicaid": {
+      "@id": "axuall:medicaid",
+      "@container": "@list"
+    },
+    "medicare_participation": {
+      "@id": "axuall:medicare_participation"
+    },
+    "sam_participation": {
+      "@id": "axuall:sam_participation"
+    },
+    "ofac": {
+      "@id": "axuall:ofac"
+    },
+    "monitoring": {
+      "@id": "axuall:monitoring"
+    },
+    "OngoingMonitoringFindingsReported": "axuall:OngoingMonitoringFindingsReported",
+    "verified.monitoring.findings_reported": {
+      "@id": "axuall:verified.monitoring.findings_reported",
+      "@type": "xsd:boolean"
+    },
+    "verified.monitoring.artifact": {
+      "@id": "axuall:verified.monitoring.artifact"
+    },
+    "verified.monitoring.meta": {
+      "@id": "axuall:verified.monitoring.meta",
+      "@type": "@id"
+    },
+    "verified.monitoring.dispute_details": {
+      "@id": "axuall:verified.monitoring.dispute_details"
+    },
+    "OngoingMonitoringHHS": "axuall:OngoingMonitoringHHS",
+    "verified.hhs_oig.participation": {
+      "@id": "axuall:verified.hhs_oig.participation",
+      "@type": "xsd:boolean"
+    },
+    "verified.hhs_oig.artifact": {
+      "@id": "axuall:verified.hhs_oig.artifact"
+    },
+    "verified.hhs_oig.meta": {
+      "@id": "axuall:verified.hhs_oig.meta",
+      "@type": "@id"
+    },
+    "verified.hhs_oig.dispute_details": {
+      "@id": "axuall:verified.hhs_oig.dispute_details"
+    },
+    "OngoingMonitoringMedicaid": "axuall:OngoingMonitoringMedicaid",
+    "verified.medicaid.participation": {
+      "@id": "axuall:verified.medicaid.participation",
+      "@type": "xsd:boolean"
+    },
+    "verified.medicaid.state": {
+      "@id": "axuall:verified.medicaid.state",
+      "@type": "xsd:string"
+    },
+    "verified.medicaid.artifact": {
+      "@id": "axuall:verified.medicaid.artifact"
+    },
+    "verified.medicaid.meta": {
+      "@id": "axuall:verified.medicaid.meta",
+      "@type": "@id"
+    },
+    "verified.medicaid.dispute_details": {
+      "@id": "axuall:verified.medicaid.dispute_details"
+    },
+    "OngoingMonitoringMedicare": "axuall:OngoingMonitoringMedicare",
+    "verified.medicare_participation.participation": {
+      "@id": "axuall:verified.medicare_participation.participation",
+      "@type": "xsd:boolean"
+    },
+    "verified.medicare_participation.artifact": {
+      "@id": "axuall:verified.medicare_participation.artifact"
+    },
+    "verified.medicare_participation.meta": {
+      "@id": "axuall:verified.medicare_participation.meta",
+      "@type": "@id"
+    },
+    "verified.medicare_participation.dispute_details": {
+      "@id": "axuall:verified.medicare_participation.dispute_details"
+    },
+    "OngoingMonitoringNPDB": "axuall:OngoingMonitoringNPDB",
+    "verified.npdb.facility_name": {
+      "@id": "axuall:verified.npdb.facility_name"
+    },
+    "verified.npdb.db_subject_id": {
+      "@id": "axuall:verified.npdb.db_subject_id"
+    },
+    "verified.npdb.report_dcn": {
+      "@id": "axuall:verified.npdb.report_dcn"
+    },
+    "verified.npdb.enrollment_status": {
+      "@id": "axuall:verified.npdb.enrollment_status"
+    },
+    "verified.npdb.enrollment_start_date": {
+      "@id": "axuall:verified.npdb.enrollment_start_date"
+    },
+    "verified.npdb.enrollment_end_date": {
+      "@id": "axuall:verified.npdb.enrollment_end_date"
+    },
+    "verified.npdb.medical_malpractice_payment_report": {
+      "@id": "axuall:verified.npdb.medical_malpractice_payment_report"
+    },
+    "verified.npdb.state_licensure_action": {
+      "@id": "axuall:verified.npdb.state_licensure_action"
+    },
+    "verified.npdb.exclusion_or_debarrment_action": {
+      "@id": "axuall:verified.npdb.exclusion_or_debarrment_action"
+    },
+    "verified.npdb.government_administrative_action": {
+      "@id": "axuall:verified.npdb.government_administrative_action"
+    },
+    "verified.npdb.clinical_privileges_action": {
+      "@id": "axuall:verified.npdb.clinical_privileges_action"
+    },
+    "verified.npdb.health_plan_action": {
+      "@id": "axuall:verified.npdb.health_plan_action"
+    },
+    "verified.npdb.professional_society_action": {
+      "@id": "axuall:verified.npdb.professional_society_action"
+    },
+    "verified.npdb.dea_federal_license_action": {
+      "@id": "axuall:verified.npdb.dea_federal_license_action"
+    },
+    "verified.npdb.judgement_or_conviction_report": {
+      "@id": "axuall:verified.npdb.judgement_or_conviction_report"
+    },
+    "verified.npdb.peer_review_org_actions": {
+      "@id": "axuall:verified.npdb.peer_review_org_actions"
+    },
+    "verified.npdb.artifact": {
+      "@id": "axuall:verified.npdb.artifact"
+    },
+    "verified.npdb.meta": {
+      "@id": "axuall:verified.npdb.meta"
+    },
+    "verified.npdb.dispute_details": {
+      "@id": "axuall:verified.npdb.dispute_details"
+    },
+    "OngoingMonitoringOFAC": "axuall:OngoingMonitoringOFAC",
+    "verified.ofac.participation": {
+      "@id": "axuall:verified.ofac.participation",
+      "@type": "xsd:boolean"
+    },
+    "verified.ofac.artifact": {
+      "@id": "axuall:verified.ofac.artifact"
+    },
+    "verified.ofac.meta": {
+      "@id": "axuall:verified.ofac.meta",
+      "@type": "@id"
+    },
+    "verified.ofac.dispute_details": {
+      "@id": "axuall:verified.ofac.dispute_details"
+    },
+    "OngoingMonitoringSAM": "axuall:OngoingMonitoringSAM",
+    "verified.sam_participation.participation": {
+      "@id": "axuall:verified.sam_participation.participation",
+      "@type": "xsd:boolean"
+    },
+    "verified.sam_participation.artifact": {
+      "@id": "axuall:verified.sam_participation.artifact"
+    },
+    "verified.sam_participation.meta": {
+      "@id": "axuall:verified.sam_participation.meta",
+      "@type": "@id"
+    },
+    "verified.sam_participation.dispute_details": {
+      "@id": "axuall:verified.sam_participation.dispute_details"
+    },
+    "OtherCertifications": "axuall:OtherCertifications",
+    "attested.basic_life_support.answer": {
+      "@id": "axuall:attested.basic_life_support.answer"
+    },
+    "attested.basic_life_support.expiration": {
+      "@id": "axuall:attested.basic_life_support.expiration"
+    },
+    "attested.basic_life_support.url": {
+      "@id": "axuall:attested.basic_life_support.url"
+    },
+    "attested.cpr.answer": {
+      "@id": "axuall:attested.cpr.answer"
+    },
+    "attested.cpr.expiration": {
+      "@id": "axuall:attested.cpr.expiration"
+    },
+    "attested.cpr.url": {
+      "@id": "axuall:attested.cpr.url"
+    },
+    "attested.advanced_cardiac_life_support.answer": {
+      "@id": "axuall:attested.advanced_cardiac_life_support.answer"
+    },
+    "attested.advanced_cardiac_life_support.expiration": {
+      "@id": "axuall:attested.advanced_cardiac_life_support.expiration"
+    },
+    "attested.advanced_cardiac_life_support.url": {
+      "@id": "axuall:attested.advanced_cardiac_life_support.url"
+    },
+    "attested.neonatal_advanced_life_support.answer": {
+      "@id": "axuall:attested.neonatal_advanced_life_support.answer"
+    },
+    "attested.neonatal_advanced_life_support.expiration": {
+      "@id": "axuall:attested.neonatal_advanced_life_support.expiration"
+    },
+    "attested.neonatal_advanced_life_support.url": {
+      "@id": "axuall:attested.neonatal_advanced_life_support.url"
+    },
+    "attested.advanced_life_support_ob.answer": {
+      "@id": "axuall:attested.advanced_life_support_ob.answer"
+    },
+    "attested.advanced_life_support_ob.expiration": {
+      "@id": "axuall:attested.advanced_life_support_ob.expiration"
+    },
+    "attested.advanced_life_support_ob.url": {
+      "@id": "axuall:attested.advanced_life_support_ob.url"
+    },
+    "attested.advanced_trauma_life_support.answer": {
+      "@id": "axuall:attested.advanced_trauma_life_support.answer"
+    },
+    "attested.advanced_trauma_life_support.expiration": {
+      "@id": "axuall:attested.advanced_trauma_life_support.expiration"
+    },
+    "attested.advanced_trauma_life_support.url": {
+      "@id": "axuall:attested.advanced_trauma_life_support.url"
+    },
+    "attested.pediatric_advanced_life_support.answer": {
+      "@id": "axuall:attested.pediatric_advanced_life_support.answer"
+    },
+    "attested.pediatric_advanced_life_support.expiration": {
+      "@id": "axuall:attested.pediatric_advanced_life_support.expiration"
+    },
+    "attested.pediatric_advanced_life_support.url": {
+      "@id": "axuall:attested.pediatric_advanced_life_support.url"
+    },
+    "OtherIDs": "axuall:OtherIDs",
+    "medicare": {
+      "@id": "axuall:medicare"
+    },
+    "npi": {
+      "@id": "axuall:npi"
+    },
+    "PaginatedResultsSchema_AssignedTaskSchema_": "axuall:PaginatedResultsSchema_AssignedTaskSchema_",
+    "total_results": {
+      "@id": "axuall:total_results",
+      "@type": "xsd:integer"
+    },
+    "PaginatedResultsSchema_SubscriberGroupTaskSchema_": "axuall:PaginatedResultsSchema_SubscriberGroupTaskSchema_",
+    "PaginatedResultsSchema_TaskSetSchema_": "axuall:PaginatedResultsSchema_TaskSetSchema_",
+    "PayerEnrollmentStatus": "axuall:PayerEnrollmentStatus",
+    "medicare_part_b": {
+      "@id": "axuall:medicare_part_b"
+    },
+    "medicare_dme": {
+      "@id": "axuall:medicare_dme"
+    },
+    "medicare_hha": {
+      "@id": "axuall:medicare_hha"
+    },
+    "medicare_pmd": {
+      "@id": "axuall:medicare_pmd"
+    },
+    "PayerEnrollmentStatusMedicareDME": "axuall:PayerEnrollmentStatusMedicareDME",
+    "verified.participation_reported.active": {
+      "@id": "axuall:verified.participation_reported.active",
+      "@type": "xsd:boolean"
+    },
+    "verified.participation_reported.artifact": {
+      "@id": "axuall:verified.participation_reported.artifact"
+    },
+    "verified.participation_reported.meta": {
+      "@id": "axuall:verified.participation_reported.meta",
+      "@type": "@id"
+    },
+    "verified.participation_reported.dispute_details": {
+      "@id": "axuall:verified.participation_reported.dispute_details"
+    },
+    "PayerEnrollmentStatusMedicareHHA": "axuall:PayerEnrollmentStatusMedicareHHA",
+    "PayerEnrollmentStatusMedicarePMD": "axuall:PayerEnrollmentStatusMedicarePMD",
+    "PayerEnrollmentStatusMedicarePartB": "axuall:PayerEnrollmentStatusMedicarePartB",
+    "ProfessionalIDs": "axuall:ProfessionalIDs",
+    "dea": {
+      "@id": "axuall:dea",
+      "@container": "@list"
+    },
+    "cds": {
+      "@id": "axuall:cds",
+      "@container": "@list"
+    },
+    "rn_licenses": {
+      "@id": "axuall:rn_licenses",
+      "@container": "@list"
+    },
+    "ProviderFile": "axuall:ProviderFile",
+    "file_type": {
+      "@id": "axuall:file_type",
+      "@type": "@id"
+    },
+    "ProviderPrefillDemographicsSchema": "axuall:ProviderPrefillDemographicsSchema",
+    "ProviderPrefillIdType": "axuall:ProviderPrefillIdType",
+    "ProviderPrefillIdentifiersSchema": "axuall:ProviderPrefillIdentifiersSchema",
+    "id_type": {
+      "@id": "axuall:id_type",
+      "@type": "@id"
+    },
+    "ncsbn": {
+      "@id": "axuall:ncsbn"
+    },
+    "clinician_id": {
+      "@id": "axuall:clinician_id"
+    },
+    "ProviderPrefillSchema": "axuall:ProviderPrefillSchema",
+    "identifiers": {
+      "@id": "axuall:identifiers",
+      "@type": "@id"
+    },
+    "ProviderPrefillSource": "axuall:ProviderPrefillSource",
+    "ProviderPreviewSchema": "axuall:ProviderPreviewSchema",
+    "date_of_birth": {
+      "@id": "axuall:date_of_birth"
+    },
+    "dea_licenses": {
+      "@id": "axuall:dea_licenses",
+      "@container": "@list"
+    },
+    "abms_board_certifications": {
+      "@id": "axuall:abms_board_certifications",
+      "@container": "@list"
+    },
+    "ProviderProfile": "axuall:ProviderProfile",
+    "id_verified": {
+      "@id": "axuall:id_verified"
+    },
+    "ProviderRegistrationMessage": "axuall:ProviderRegistrationMessage"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Axuall API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Axuall's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-09-27) from openapi/axuall-openapi.json.",
+  "dcterms:created": "2026-09-27",
+  "dcterms:source": [
+    "openapi/axuall-openapi.json"
+  ]
+}

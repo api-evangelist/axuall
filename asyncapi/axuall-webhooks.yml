@@ -1,0 +1,20 @@
+generated: '2026-09-27'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://axuall.readme.io/docs/provider-update-webhooks.md
+sources:
+- https://axuall.readme.io/docs/provider-update-webhooks.md
+- https://axuall.readme.io/recipes/webhook-signature-verification.md
+- https://axuall.readme.io/docs/provider-update-webhooks
+- https://docs.readme.com/main/docs/personalized-docs-webhook
+description: Axuall Provider Update Webhooks allow external users to receive predefined events via HTTP requests.
+events:
+- event: new_credential
+  description: A provider was issued a new credential.
+- event: revoked_credential
+  description: A provider's previous issued credential was revoked.
+delivery:
+  signature: X-Axuall-Signature
+  content_type: application/json
+note: The signature is calculated using a shared Verification token (HMAC‑SHA256). No retry policy is documented on the pages.
+docs: https://axuall.readme.io/docs/provider-update-webhooks.md

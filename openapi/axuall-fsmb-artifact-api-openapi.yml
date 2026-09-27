@@ -1,0 +1,119 @@
+openapi: 3.2.0
+info:
+  title: Axuall FSMB Artifact API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: FSMB Artifact
+paths:
+  /v2/fsmb/artifact:
+    get:
+      tags:
+      - FSMB Artifact
+      summary: Get Fsmb Artifact
+      description: The FSMB Artifact allows you to download a PDF with FSMB data for the given provider.
+      operationId: get_fsmb_artifact_v2_fsmb_artifact_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: npi
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          title: Npi
+          description: National Provider Identifier
+          example: '1234567890'
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Generated FSMB Artifact as PDF
+          content:
+            application/pdf: {}
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

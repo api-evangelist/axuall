@@ -1,0 +1,19 @@
+generated: '2026-09-27'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://axuall.readme.io/reference/authenticate_user_v2_auth_post
+sources:
+- https://axuall.readme.io/reference/authenticate_user_v2_auth_post
+- https://docs.readme.com/main/docs/oauth-workflows-in-try-it
+- https://docs.readme.com/main/docs/two-factor-authentication
+- https://axuall.readme.io/reference/authenticate_user_v2_auth_post.md
+description: Authentication schemes for Axuall API
+schemes:
+- type: oauth2
+  name: Auth0
+  evidence: The Axuall API uses Auth0 to authenticate all API clients.
+  flows:
+  - client_credentials
+  token_url: https://api.axuall.net/v2/auth
+  how_to_obtain: Send a POST request to the token URL with client_id and client_secret in the JSON body.
+docs: https://axuall.readme.io/reference/authenticate_user_v2_auth_post

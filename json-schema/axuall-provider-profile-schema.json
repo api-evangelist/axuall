@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axuall/main/json-schema/axuall-provider-profile-schema.json",
+  "title": "ProviderProfile",
+  "x-generated": "2026-09-27",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axuall-openapi.json#/components/schemas/ProviderProfile",
+  "properties": {
+    "first_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "First Name",
+      "description": "First name of provider"
+    },
+    "last_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Name",
+      "description": "Last name of provider"
+    },
+    "date_of_birth": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Date Of Birth",
+      "description": "Provider's date of birth"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email",
+      "description": "Provider's email"
+    },
+    "npi": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 10,
+          "title": "National Provider Identifier",
+          "description": "National Provider Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Npi"
+    },
+    "ncsbn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "National Council of State Boards of Nursing",
+          "description": "National Council of State Boards of Nursing ID"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ncsbn"
+    },
+    "id_verified": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/IDVerifiedStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The status of the providers identification verification"
+    }
+  },
+  "type": "object",
+  "$defs": {
+    "IDVerifiedStatus": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "incomplete"
+      ],
+      "title": "IDVerifiedStatus"
+    }
+  }
+}

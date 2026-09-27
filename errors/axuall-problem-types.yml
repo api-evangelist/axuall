@@ -1,0 +1,76 @@
+generated: '2026-09-27'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/axuall-openapi.json
+format: custom
+envelope:
+  media_type: application/json
+  schema: GenericErrorSchema
+coverage:
+  operations: 43
+  statuses_declared: 9
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  operations: 2
+  media_types:
+  - application/json
+  schema: AuthError
+- status: 401
+  title: Unauthorized
+  description: Not authenticated
+  operations: 43
+  media_types:
+  - application/json
+  schema: GenericErrorSchema
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  operations: 2
+  media_types:
+  - application/json
+  schema: AuthError
+- status: 404
+  title: Not Found
+  description: Not found
+  operations: 43
+  media_types:
+  - application/json
+  schema: GenericErrorSchema
+- status: 405
+  title: Method Not Allowed
+  description: Method Not Allowed
+  operations: 2
+  media_types:
+  - application/json
+  schema: AuthError
+- status: 418
+  title: I'm a Teapot
+  description: Insufficient permissions
+  operations: 43
+  media_types:
+  - application/json
+  schema: GenericErrorSchema
+- status: 422
+  title: Unprocessable Content
+  description: Validation Error
+  operations: 41
+  media_types:
+  - application/json
+  schema: HTTPValidationError
+- status: 429
+  title: Too Many Requests
+  description: Too many requests
+  operations: 2
+  media_types:
+  - application/json
+  schema: AuthError
+- status: 500
+  title: Internal Server Error
+  description: Internal server error
+  operations: 43
+  media_types:
+  - application/json
+  schema: GenericErrorSchema

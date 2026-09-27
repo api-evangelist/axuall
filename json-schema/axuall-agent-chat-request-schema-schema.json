@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axuall/main/json-schema/axuall-agent-chat-request-schema-schema.json",
+  "title": "AgentChatRequestSchema",
+  "description": "Request body for POST /agent/chat.",
+  "x-generated": "2026-09-27",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axuall-openapi.json#/components/schemas/AgentChatRequestSchema",
+  "properties": {
+    "agent_type_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Type Id",
+      "description": "Agent type UUID; use agent_type_name if not set"
+    },
+    "agent_type_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Agent Type Name",
+      "description": "Agent type name (e.g. admin_assistant); use agent_type_id if not set"
+    },
+    "message": {
+      "type": "string",
+      "title": "Message",
+      "description": "User message text"
+    },
+    "confirm_holder_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Confirm Holder Id",
+      "description": "Optional Confirm holder (actor) to scope the conversation"
+    },
+    "explore_npi": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 10
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Explore Npi",
+      "description": "Optional Explore NPI to scope the conversation"
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Conversation Id",
+      "description": "Optional; omit to start new, set to continue thread"
+    },
+    "workforce_intel_saved_job_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Workforce Intel Saved Job Id",
+      "description": "Optional Explore saved job row id (workforce_intel_saved_job.id) to scope AskAI job-description tools"
+    },
+    "client_stream_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 128
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Client Stream Id",
+      "description": "Optional client correlation id for AppSync agent stream events (Explore Ask AI streaming POC)."
+    }
+  },
+  "type": "object",
+  "required": [
+    "message"
+  ]
+}

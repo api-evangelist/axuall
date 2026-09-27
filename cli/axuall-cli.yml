@@ -1,0 +1,45 @@
+generated: '2026-09-27'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.readme.com/main/docs/postman-1
+sources:
+- https://docs.readme.com/main/docs/postman-1
+- https://docs.readme.com/main/docs/cli
+- https://docs.readme.com/main/docs/rdme
+- https://docs.readme.com/main/docs/api-exploration-tools
+install:
+- method: npx
+  command: npx @readme/cli
+commands:
+- group: lint
+  commands:
+  - lint
+  - lint --fix
+  - lint --json
+  - lint --github
+- group: oas
+  commands:
+  - oas:validate
+  - oas:sync
+- group: dev
+  commands:
+  - dev
+  - dev --port 3000
+- group: setup
+  commands:
+  - setup
+  - setup:ci
+  - setup:github
+  - setup:github --blacksmith
+  - setup:gitlab
+  - setup:bitbucket
+  - setup:circleci
+  - setup:rwx
+- group: versions
+  commands:
+  - versions
+- group: help
+  commands:
+  - help
+binary: '@readme/cli'
+docs: https://docs.readme.com/main/docs/postman-1

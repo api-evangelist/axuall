@@ -1,0 +1,11 @@
+generated: '2026-09-27'
+method: generated
+generator: extract-docs-artifacts.py skills (local)
+source: openapi/axuall-openapi.json
+skills:
+- file: skills/axuall-send-message-and-retrieve-response.md
+  name: axuall-send-message-and-retrieve-response
+  api: openapi/axuall-openapi.json
+  operations:
+  - agent_chat_v2_agent_chat_post
+  - get_agent_conversation_messages_v2_agent_conversations__conversation_id__messages_get

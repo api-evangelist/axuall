@@ -1,0 +1,1107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axuall/main/json-schema/axuall-provider-registration-request-schema-schema.json",
+  "title": "ProviderRegistrationRequestSchema",
+  "x-generated": "2026-09-27",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axuall-openapi.json#/components/schemas/ProviderRegistrationRequestSchema",
+  "properties": {
+    "dry_run": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Dry Run",
+      "description": "Useful for testing purposes. When set to `true`, Axuall will not register the practitioner.",
+      "default": false
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name"
+    },
+    "middle_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Middle Name",
+      "default": ""
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name"
+    },
+    "date_of_birth": {
+      "type": "string",
+      "format": "date",
+      "title": "Date Of Birth"
+    },
+    "social_security_number": {
+      "type": "string",
+      "pattern": "^[0-9]{3}-[0-9]{2}-[0-9]{4}$",
+      "title": "Social Security Number"
+    },
+    "email_address": {
+      "type": "string",
+      "format": "email",
+      "title": "Email Address"
+    },
+    "address": {
+      "$ref": "#/$defs/AddressSchema"
+    },
+    "aliases": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/NameSchema-Input"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Aliases",
+      "default": []
+    },
+    "app_req_id": {
+      "type": "string",
+      "format": "uuid",
+      "title": "App Req Id",
+      "description": "ID of application requirement"
+    },
+    "facilities": {
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "type": "array",
+      "title": "Facilities",
+      "description": "List of facilities to associate with the provider"
+    },
+    "labels": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Labels (e.g. tags) used for marking providers to help make those providers easily searchable."
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Labels",
+      "default": []
+    },
+    "add_to_my_clinicians": {
+      "type": "boolean",
+      "title": "Add To My Clinicians",
+      "default": false
+    },
+    "npi": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 10,
+          "title": "National Provider Identifier",
+          "description": "National Provider Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Npi"
+    },
+    "ncsbn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "title": "National Council of State Boards of Nursing",
+          "description": "National Council of State Boards of Nursing ID"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ncsbn"
+    },
+    "degree": {
+      "type": "string",
+      "enum": [
+        "AA",
+        "APA",
+        "ATC",
+        "AUD",
+        "BCBA",
+        "CAA",
+        "CCP",
+        "CGC",
+        "CNIM",
+        "CNM",
+        "CNS",
+        "CO",
+        "CPO",
+        "CRNA",
+        "CST",
+        "DA",
+        "DC",
+        "DDS",
+        "DMD",
+        "DO",
+        "DPM",
+        "EDD",
+        "EMT",
+        "IBCLC",
+        "IONM",
+        "LAC",
+        "LADC",
+        "LBS",
+        "LCPC",
+        "LCSW",
+        "LISW",
+        "LMFT",
+        "LMHC",
+        "LMSW",
+        "LMT",
+        "LPC",
+        "LPCC",
+        "LPE",
+        "LPN",
+        "LSW",
+        "MA",
+        "MBBS",
+        "MD",
+        "MPSY",
+        "ND",
+        "NP",
+        "OD",
+        "OT",
+        "OTA",
+        "PA",
+        "PHARMD",
+        "PHD",
+        "PSYD",
+        "PT",
+        "PTA",
+        "RBT",
+        "RD",
+        "RDA",
+        "RN",
+        "RNFA",
+        "RRA",
+        "RT",
+        "SA",
+        "SFA",
+        "SLP",
+        "SLPA"
+      ],
+      "title": "Degree"
+    },
+    "affiliations": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/AffiliationSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Affiliations",
+      "default": []
+    },
+    "work_history": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/WorkHistorySchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Work History",
+      "default": []
+    },
+    "university_transcript": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/UniversityTranscriptSchema"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "education": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/EducationEntry"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Education",
+      "default": []
+    },
+    "state_licenses": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/StateLicenseSchema-Input"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "State Licenses",
+      "default": []
+    },
+    "dea_licenses": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/StateLicenseSchema-Input"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Dea Licenses",
+      "default": []
+    },
+    "cds_licenses": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/StateLicenseSchema-Input"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cds Licenses",
+      "default": []
+    },
+    "rn_licenses": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/StateLicenseSchema-Input"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Rn Licenses",
+      "default": []
+    },
+    "board_certifications": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/BoardCertificationSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Board Certifications",
+      "default": []
+    },
+    "life_support": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/LifeSupportSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Life Support",
+      "default": []
+    },
+    "clinician_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ClinicianIdSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Clinician Ids",
+      "description": "Optional client clinician IDs to record at onboarding. At most one entry per external system. Entries omitting `external_system` are stamped with the subscriber group's configured default."
+    }
+  },
+  "type": "object",
+  "required": [
+    "first_name",
+    "last_name",
+    "date_of_birth",
+    "social_security_number",
+    "email_address",
+    "address",
+    "app_req_id",
+    "facilities",
+    "degree"
+  ],
+  "$defs": {
+    "AddressSchema": {
+      "properties": {
+        "line_1": {
+          "type": "string",
+          "title": "Line 1"
+        },
+        "line_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Line 2",
+          "default": ""
+        },
+        "city": {
+          "type": "string",
+          "title": "City"
+        },
+        "state": {
+          "type": "string",
+          "title": "State"
+        },
+        "zip": {
+          "type": "string",
+          "title": "Zip"
+        },
+        "zip4": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zip4",
+          "default": ""
+        }
+      },
+      "type": "object",
+      "required": [
+        "line_1",
+        "city",
+        "state",
+        "zip"
+      ],
+      "title": "AddressSchema"
+    },
+    "AffiliationSchema": {
+      "properties": {
+        "institution": {
+          "type": "string",
+          "title": "Institution"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Id"
+        },
+        "hospital_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Hospital Id"
+        },
+        "work_history_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Work History Id"
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-1][0-9]/[1-2][0-9]{3}$"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start Date"
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-1][0-9]/[1-2][0-9]{3}$"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End Date"
+        },
+        "address": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AffiliationsAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Type",
+          "default": "affiliation"
+        }
+      },
+      "type": "object",
+      "required": [
+        "institution"
+      ],
+      "title": "AffiliationSchema"
+    },
+    "AffiliationsAddress": {
+      "properties": {
+        "line_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Line 1",
+          "default": ""
+        },
+        "line_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Line 2",
+          "default": ""
+        },
+        "city": {
+          "type": "string",
+          "title": "City"
+        },
+        "state": {
+          "type": "string",
+          "title": "State"
+        },
+        "zip": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zip",
+          "default": ""
+        },
+        "zip4": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zip4",
+          "default": ""
+        },
+        "country": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Country",
+          "default": ""
+        }
+      },
+      "type": "object",
+      "required": [
+        "city",
+        "state"
+      ],
+      "title": "AffiliationsAddress"
+    },
+    "BoardCertificationSchema": {
+      "properties": {
+        "board_name": {
+          "type": "string",
+          "enum": [
+            "ANCC",
+            "AANP",
+            "NCCPA",
+            "NBCRNA",
+            "AANPCB",
+            "AAMFT",
+            "AACN",
+            "AANA",
+            "ABCOP",
+            "ABCP",
+            "ABCS",
+            "ABCSW",
+            "ABDPH",
+            "ABE",
+            "ABFAS",
+            "ABGC",
+            "ABNM",
+            "ABO",
+            "ABOMP",
+            "ABOMS",
+            "ABOI",
+            "ABOM",
+            "ABOP",
+            "ABPD",
+            "ABPTS",
+            "ABPS",
+            "ABPM",
+            "ABPP",
+            "ABP",
+            "ABPN",
+            "ABRET",
+            "ABSA",
+            "ABWM",
+            "AMCB",
+            "AOC",
+            "ARRT",
+            "ASCP",
+            "ASHA",
+            "BACB",
+            "BCBA",
+            "BCD",
+            "BBS",
+            "BPS",
+            "CCCSLP",
+            "CBDCE",
+            "NCCAOM",
+            "CNIM",
+            "CAA",
+            "CDA",
+            "CHT",
+            "COA",
+            "CPFDA",
+            "CRNFA",
+            "CDR",
+            "DANB",
+            "NASC",
+            "NAPNES",
+            "NASW",
+            "NBCOT",
+            "NBCC",
+            "NBSTSA",
+            "NCCT",
+            "NCBAHM",
+            "NCBTMB",
+            "NCCAP",
+            "NCC",
+            "NCCAA",
+            "NCCSA",
+            "NSAA",
+            "NPLEX",
+            "ONCC",
+            "PNCB",
+            "RBT",
+            "NBRC",
+            "WOCNCB"
+          ],
+          "title": "Board Name"
+        },
+        "board_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Board Number",
+          "description": "An applicable board certification number"
+        }
+      },
+      "type": "object",
+      "required": [
+        "board_name"
+      ],
+      "title": "BoardCertificationSchema"
+    },
+    "ClinicianIdSchema": {
+      "properties": {
+        "external_id": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1,
+          "title": "External Id",
+          "description": "The clinician's ID in the external system."
+        },
+        "external_system": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "enum": [
+            "credential_stream",
+            "custom",
+            "echo",
+            "modio",
+            "onbase",
+            "symplr"
+          ],
+          "title": "External System",
+          "description": "External system this ID belongs to. Omit to use the subscriber group's configured default external system; omitting it when no default is configured is a validation error."
+        }
+      },
+      "type": "object",
+      "required": [
+        "external_id"
+      ],
+      "title": "ClinicianIdSchema",
+      "description": "One client-supplied clinician ID, optionally scoped to an external system.\n\nAlways nested under a ``clinician_ids`` list. ``external_id`` is the DAL's own\ncolumn name -- ``external_clinician_ids`` inherits it from the mixin it shares with\nthe affiliation, education and role mapping tables -- and keeping it here means a\nrequest entry passes through ``normalize_clinician_ids`` and into the\n``user_creator`` job body without remapping."
+    },
+    "DegreeLevelEnum": {
+      "type": "string",
+      "enum": [
+        "graduate",
+        "undergraduate"
+      ],
+      "title": "DegreeLevelEnum"
+    },
+    "EducationEntry": {
+      "properties": {
+        "institution_name": {
+          "type": "string",
+          "title": "Institution Name",
+          "description": "Name of institution"
+        },
+        "institution_code": {
+          "type": "string",
+          "title": "Institution Code",
+          "description": "NSC Code"
+        },
+        "graduation_year": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1900.0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Graduation Year"
+        },
+        "graduation_month": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "maximum": 12.0,
+              "minimum": 1.0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Graduation Month"
+        },
+        "degree_level": {
+          "$ref": "#/$defs/DegreeLevelEnum",
+          "description": "Level of degree (graduate or undergraduate)"
+        },
+        "highest_practicing_degree": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Highest Practicing Degree",
+          "default": false
+        }
+      },
+      "type": "object",
+      "required": [
+        "institution_name",
+        "institution_code",
+        "degree_level"
+      ],
+      "title": "EducationEntry"
+    },
+    "LifeSupportSchema": {
+      "properties": {
+        "aha_ecard": {
+          "type": "string",
+          "title": "Aha Ecard"
+        }
+      },
+      "type": "object",
+      "required": [
+        "aha_ecard"
+      ],
+      "title": "LifeSupportSchema"
+    },
+    "NameSchema-Input": {
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "title": "First Name"
+        },
+        "middle_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Middle Name",
+          "default": ""
+        },
+        "last_name": {
+          "type": "string",
+          "title": "Last Name"
+        },
+        "suffix": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Suffix",
+          "default": ""
+        }
+      },
+      "type": "object",
+      "required": [
+        "first_name",
+        "last_name"
+      ],
+      "title": "NameSchema"
+    },
+    "StateLicenseSchema-Input": {
+      "properties": {
+        "state": {
+          "type": "string",
+          "maxLength": 2,
+          "minLength": 2,
+          "title": "State"
+        },
+        "license_number": {
+          "type": "string",
+          "title": "License Number"
+        }
+      },
+      "type": "object",
+      "required": [
+        "state",
+        "license_number"
+      ],
+      "title": "StateLicenseSchema"
+    },
+    "UniversityTranscriptSchema": {
+      "properties": {
+        "institution": {
+          "type": "string",
+          "title": "Institution",
+          "description": "Name of institution"
+        },
+        "code": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Code",
+          "description": "NSC Code"
+        },
+        "graduation_month": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "maximum": 12.0,
+              "minimum": 1.0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Graduation Month"
+        },
+        "graduation_year": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1900.0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Graduation Year"
+        }
+      },
+      "type": "object",
+      "required": [
+        "institution"
+      ],
+      "title": "UniversityTranscriptSchema"
+    },
+    "WorkHistoryAddress": {
+      "properties": {
+        "line_1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Line 1",
+          "default": ""
+        },
+        "line_2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Line 2",
+          "default": ""
+        },
+        "city": {
+          "type": "string",
+          "title": "City"
+        },
+        "state": {
+          "type": "string",
+          "title": "State"
+        },
+        "zip": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zip",
+          "default": ""
+        },
+        "zip4": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Zip4",
+          "default": ""
+        },
+        "country": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Country",
+          "default": ""
+        }
+      },
+      "type": "object",
+      "required": [
+        "city",
+        "state"
+      ],
+      "title": "WorkHistoryAddress"
+    },
+    "WorkHistorySchema": {
+      "properties": {
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Id"
+        },
+        "institution": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Institution",
+          "description": "Instition name",
+          "default": ""
+        },
+        "address": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WorkHistoryAddress"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Position",
+          "default": ""
+        },
+        "department": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Department",
+          "default": ""
+        },
+        "start_date": {
+          "type": "string",
+          "pattern": "^[0-1][0-9]/[1-2][0-9]{3}$",
+          "title": "Start Date"
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-1][0-9]/[1-2][0-9]{3}$"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End Date"
+        }
+      },
+      "type": "object",
+      "required": [
+        "start_date"
+      ],
+      "title": "WorkHistorySchema"
+    }
+  }
+}

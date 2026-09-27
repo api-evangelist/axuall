@@ -1,0 +1,444 @@
+generated: '2026-09-27'
+method: derived
+generator: derive-vocabulary.py
+source: openapi/axuall-openapi.json
+vocabulary:
+  name: Axuall Domain Vocabulary
+  description: 'Terms declared by Axuall''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-09-27'
+  terms:
+  - term: ABMSBoardCertSchema
+    definition: 'Object declared by the contract with fields: board, specialty.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/ABMSBoardCertSchema
+  - term: Access
+    definition: 'Enumeration declared by the contract with values: super_user, integrator, admin, owner, recruiter, operations, medical_service_provider,
+      analyst, recruiter_analyst, owner_analyst, operations_analyst, read_only. (13 more)'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/Access
+  - term: ActorSettings
+    definition: 'Object declared by the contract with fields: referrer, id_verification, credential_sets.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/ActorSettings
+  - term: AddressDeduplicationRequestSchema
+    definition: Request body for POST /address_deduplications.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AddressDeduplicationRequestSchema
+  - term: AddressDeduplicationSchema
+    definition: 'Completed result: the target and its ranked candidates, in request order.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AddressDeduplicationSchema
+  - term: AddressDeduplicationStatusSchema
+    definition: The state of a dispatched run, with the ranked result once it completes.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AddressDeduplicationStatusSchema
+  - term: AddressDeduplicationTaskSchema
+    definition: The dispatched task id, for polling GET /address_deduplications/{task_id}.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AddressDeduplicationTaskSchema
+  - term: AddressSchema
+    definition: 'Object declared by the contract with fields: line_1, line_2, city, state, zip, zip4.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AddressSchema
+  - term: AddressSchema
+    definition: A loosely structured postal address. Every field is optional.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AddressSchema-Output
+  - term: AffiliationSchema
+    definition: 'Object declared by the contract with fields: institution, id, hospital_id, work_history_id, start_date, end_date, address, type.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AffiliationSchema
+  - term: AffiliationsAddress
+    definition: 'Object declared by the contract with fields: line_1, line_2, city, state, zip, zip4, country.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AffiliationsAddress
+  - term: AgentChatRequestSchema
+    definition: Request body for POST /agent/chat.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentChatRequestSchema
+  - term: AgentChatResponseSchema
+    definition: 'Response for POST /agent/chat: Flow task id for polling GET /agent/task/{task_id}.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentChatResponseSchema
+  - term: AgentConversationItemSchema
+    definition: Single conversation in list response.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentConversationItemSchema
+  - term: AgentConversationsListSchema
+    definition: Response for GET /agent/conversations.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentConversationsListSchema
+  - term: AgentMessageFeedbackRequestSchema
+    definition: Request body for POST .../messages/{message_id}/feedback.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentMessageFeedbackRequestSchema
+  - term: AgentMessageFeedbackResponseSchema
+    definition: Response after recording message feedback.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentMessageFeedbackResponseSchema
+  - term: AgentMessageSchema
+    definition: Single message in a conversation.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentMessageSchema
+  - term: AgentSuggestPromptItemSchema
+    definition: One suggested starter prompt for AI chat.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentSuggestPromptItemSchema
+  - term: AgentSuggestPromptsListSchema
+    definition: Response for GET /agent/suggest-prompts.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentSuggestPromptsListSchema
+  - term: AgentTaskStatusSchema
+    definition: Response for GET /agent/task/{task_id}.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AgentTaskStatusSchema
+  - term: AppReqStatus
+    definition: 'Enumeration declared by the contract with values: active, inactive, pending.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/AppReqStatus
+  - term: ApplicationRequirementSchema
+    definition: 'Object declared by the contract with fields: app_req, name, recipe_type, provider_type.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/ApplicationRequirementSchema
+  - term: ApplicationRequirementsSchema
+    definition: 'Object declared by the contract with fields: app_reqs.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/ApplicationRequirementsSchema
+  - term: AssignTaskMessage
+    definition: 'Object declared by the contract with fields: message.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AssignTaskMessage
+  - term: AssignTaskRequestSchema
+    definition: 'Object declared by the contract with fields: dry_run, task_id, required_for_share.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AssignTaskRequestSchema
+  - term: AssignWorkflowMessage
+    definition: 'Object declared by the contract with fields: message.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AssignWorkflowMessage
+  - term: AssignWorkflowRequestSchema
+    definition: 'Object declared by the contract with fields: dry_run, app_req.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AssignWorkflowRequestSchema
+  - term: AssignedTaskSchema
+    definition: 'Object declared by the contract with fields: id, provider_id, task_id, task_name, task_status, required_for_share, assigned,
+      completed.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AssignedTaskSchema
+  - term: AttestedMetaData
+    definition: 'Object declared by the contract with fields: continuity_id, values_hash.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AttestedMetaData
+  - term: AttestedReq
+    definition: 'Object declared by the contract with fields: profile, documents, questions, docusign_details, aha_certification, optional_documents,
+      other_certifications.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AttestedReq
+  - term: AttestedRequirementSchema
+    definition: 'Object declared by the contract with fields: attested_reqs.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AttestedRequirementSchema
+  - term: AuthError
+    definition: 'Object declared by the contract with fields: error, error_description.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AuthError
+  - term: AuthRequest
+    definition: 'Object declared by the contract with fields: client_id, client_secret, audience, grant_type.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AuthRequest
+  - term: AuthResponse
+    definition: Authentication response contains a token which is valid for 24 hours
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/AuthResponse
+  - term: BasicInfo
+    definition: 'Object declared by the contract with fields: verified.axuall_id.artifact, verified.axuall_id.meta, verified.axuall_id.first_name,
+      verified.axuall_id.middle_name, verified.axuall_id.last_name, verified.axuall_id.date_of_birth, attested.basic_info.suffix, attested.basic_info.gender,
+      verified.ecfmg.number, attested.basic_info.occupation_code, attested.basic_info.social_security, attested.basic_info.other_names.first_name.
+      (17 more)'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/BasicInfo
+  - term: BoardCertification
+    definition: 'Object declared by the contract with fields: verified.board_certification.specialty_type, verified.board_certification.issue_date,
+      verified.board_certification.expiration_date, verified.board_certification.complete, verified.board_certification.additional_requirements_compliance_status,
+      verified.board_certification.duration, verified.board_certification.board_name, verified.board_certification.certification_number, verified.board_certification.external_board_name,
+      verified.board_certification.external_board_code, verified.board_certification.artifact, verified.board_certification.meta. (12 more)'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/BoardCertification
+  - term: BoardCertificationDuration
+    definition: 'Enumeration declared by the contract with values: lifetime, continuous, time_limited.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/BoardCertificationDuration
+  - term: BoardCertificationSchema
+    definition: 'Object declared by the contract with fields: board_name, board_number.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/BoardCertificationSchema
+  - term: CDSLicense
+    definition: Controlled Dangerous Substance (CDS) License information. This information has been verified against the pertinent CDS website.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/CDSLicense
+  - term: CancelTaskRequestSchema
+    definition: 'Object declared by the contract with fields: dry_run, task_id.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/CancelTaskRequestSchema
+  - term: CaseLogType
+    definition: 'Enumeration declared by the contract with values: all, encounters, procedures, all_12m, encounters_12m, procedures_12m.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/CaseLogType
+  - term: Changes
+    definition: 'Object declared by the contract with fields: credential_changes, self_attested_changes.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/Changes
+  - term: ClinicianIdSchema
+    definition: One client-supplied clinician ID, optionally scoped to an external system. Always nested under a ``clinician_ids`` list. ``external_id``
+      is the DAL's own column name -- ``external_clinician_ids`` inherits it from the mixin it shares with the affiliation, education and role
+      mapping tables -- and keeping it here means a request entry passes through ``normalize_clinician_ids`` and into the ``user_cre
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/ClinicianIdSchema
+  - term: ClinicianSettingsSchema
+    definition: 'Object declared by the contract with fields: alternate_emails, application_due_date, degree_type, employment_relationship, primary_facility,
+      request_received_date.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/ClinicianSettingsSchema
+  - term: CredentialChange
+    definition: 'Object declared by the contract with fields: values_hash, record_type, latest_value, last_updated, continuity_id.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/CredentialChange
+  - term: CredentialDimensionOption
+    definition: 'Object declared by the contract with fields: id, name, category.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/CredentialDimensionOption
+  - term: CycleType
+    definition: 'Enumeration declared by the contract with values: initial, continuous_monitoring, re_appointment, prescreen, intersystem, task_only.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/CycleType
+  - term: DEALicense
+    definition: DEA license information. This information has been verified using the DEA as a primary source.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/DEALicense
+  - term: DEALicenseSchema
+    definition: 'Object declared by the contract with fields: state, license_number.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/DEALicenseSchema
+  - term: DeactivationSchema
+    definition: 'Object declared by the contract with fields: status.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/DeactivationSchema
+  - term: DegreeLevelEnum
+    definition: 'Enumeration declared by the contract with values: graduate, undergraduate.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/DegreeLevelEnum
+  - term: Disclosures
+    definition: 'Object declared by the contract with fields: attested.caqh|licensure.revoked, attested.caqh|licensure.revoked.explanation, attested.caqh|licensure.revoked.document,
+      attested.caqh|licensure.challenged, attested.caqh|licensure.challenged.explanation, attested.caqh|licensure.challenged.document, attested.caqh|privileges.revoked,
+      attested.caqh|privileges.revoked.explanation, attested.caqh|privileges.revoked.document, attested.caqh|privileges.surrendered, attested.caqh|privileges.surrendered.explanation,
+      attested.caqh|privileges.surrendered.document. (72 more)'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/Disclosures
+  - term: Document
+    definition: 'Object declared by the contract with fields: url, name, document_id, document_type, created_at, expires_at, external_file_name,
+      readable_file_name, meta.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/Document
+  - term: DocumentType
+    definition: 'Enumeration declared by the contract with values: case_log_all, case_log_encounters, case_log_procedures, case_log_all_12m, case_log_encounters_12m,
+      case_log_procedures_12m, professional_history_affiliations_profile.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/DocumentType
+  - term: Education
+    definition: 'Object declared by the contract with fields: verified.cfmg.initial_year, verified.ecfmg.number, verified.ecfmg.issue_date, verified.education.country,
+      verified.education.foreign, verified.university_transcript.year, verified.university_transcript.name, verified.university_transcript.degree,
+      verified.university_transcript.complete, verified.university_transcript.artifact, verified.university_transcript.meta, attested.nsc.code.
+      (31 more)'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/Education
+  - term: EducationEntry
+    definition: 'Object declared by the contract with fields: institution_name, institution_code, graduation_year, graduation_month, degree_level,
+      highest_practicing_degree.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/EducationEntry
+  - term: EmploymentRelationship
+    definition: 'Enumeration declared by the contract with values: employed, contract.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/EmploymentRelationship
+  - term: Expirable
+    definition: 'Object declared by the contract with fields: id, dimensions, profile, verification, license_number, expiration_date, issue_date,
+      status, reported_at, artifact_id.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/Expirable
+  - term: ExpirableStatus
+    definition: 'Enumeration declared by the contract with values: unknown, active, expired.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/ExpirableStatus
+  - term: FacilitiesSchema
+    definition: 'Object declared by the contract with fields: facilities.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FacilitiesSchema
+  - term: FacilityEnrollmentReponse
+    definition: 'Object declared by the contract with fields: enrolled, unenrolled.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FacilityEnrollmentReponse
+  - term: FacilityEnrollmentSchema
+    definition: 'Object declared by the contract with fields: enroll, unenroll.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FacilityEnrollmentSchema
+  - term: FacilitySchema
+    definition: 'Object declared by the contract with fields: id, name, status.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FacilitySchema
+  - term: FileType
+    definition: File type categories artifact - File associated with a verified credential attestation - File associated with a providers attestations
+      document - File uploaded and shared by a provider signature - File of a document with a provider's signature supplemental - File associated
+      with a providers supplemental information
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/FileType
+  - term: Finding
+    definition: 'Object declared by the contract with fields: id, dimensions, profile, verification, reported_at, activation_date, most_current,
+      artifact_id.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/Finding
+  - term: FsmbBoardActionsV2
+    definition: 'Object declared by the contract with fields: order_id, order_category_description, term_days, term_years, order_date, order_effective_date,
+      action_effective_date, basis_code, basis_code_description, action_code, action_code_description.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FsmbBoardActionsV2
+  - term: FsmbDataV2
+    definition: 'Object declared by the contract with fields: demographics, state_licenses.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FsmbDataV2
+  - term: FsmbDemographics
+    definition: 'Object declared by the contract with fields: school_name, city, state, year_of_grad, degree.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FsmbDemographics
+  - term: FsmbLicenseData
+    definition: State medical license information. This information has been verified using the pertinent state license website or attested to
+      by the practitioner.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/FsmbLicenseData
+  - term: GenericErrorSchema
+    definition: 'Object declared by the contract with fields: detail.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/GenericErrorSchema
+  - term: HTTPValidationError
+    definition: 'Object declared by the contract with fields: detail.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/HTTPValidationError
+  - term: HomeAddress
+    definition: 'Object declared by the contract with fields: attested.home_address.line1, attested.home_address.line2, attested.home_address.city,
+      attested.home_address.state, attested.home_address.zip, attested.home_address.zip4.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/HomeAddress
+  - term: HospitalAffiliation
+    definition: 'Object declared by the contract with fields: attested.affiliations.id, attested.affiliations.name, attested.affiliations.start_date,
+      attested.affiliations.start_date_full, attested.affiliations.end_date, attested.affiliations.end_date_full, attested.affiliation.address_line1.number,
+      attested.affiliations.street_address, attested.affiliations.address_line1, attested.affiliations.address_line2, attested.affiliations.address_city,
+      attested.affiliations.address_state. (18 more)'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/HospitalAffiliation
+  - term: IDVerification
+    definition: 'Enumeration declared by the contract with values: not_started, pending, finished, invalid.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/IDVerification
+  - term: IDVerifiedStatus
+    definition: 'Enumeration declared by the contract with values: complete, incomplete.'
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/IDVerifiedStatus
+  - term: InvitationStatus
+    definition: Invitation status based on provider events.
+    tags:
+    - Enumeration
+    source: openapi/axuall-openapi.json#/components/schemas/InvitationStatus
+  - term: InviteExternalDelegateSchema
+    definition: Optional external delegate assigned during Admin Invite Clinician. Display name is collected at enroll time; invite only needs
+      the email so ``user_creator`` can enqueue ``create_external_delegate`` after the holder actor exists.
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/InviteExternalDelegateSchema
+  - term: InviteSchema
+    definition: 'Object declared by the contract with fields: invite_id.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/InviteSchema
+  - term: LifeSupport
+    definition: 'Object declared by the contract with fields: verified.life_support.training_type, verified.life_support.training_reference, verified.life_support.issue_date,
+      verified.life_support.expiration_date, verified.life_support.verifier, verified.life_support.artifact, verified.life_support.meta, verified.life_support.dispute_details,
+      external_file_name, readable_file_name.'
+    tags:
+    - Object
+    source: openapi/axuall-openapi.json#/components/schemas/LifeSupport

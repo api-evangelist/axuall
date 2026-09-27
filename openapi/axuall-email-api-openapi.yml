@@ -1,0 +1,121 @@
+openapi: 3.2.0
+info:
+  title: Axuall Email API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Email
+paths:
+  /v2/email/inbound:
+    post:
+      tags:
+      - Email
+      summary: Email Inbound
+      description: 'Receives SNS notifications for inbound outreach emails.
+
+
+        Handles two SNS message types:
+
+        - SubscriptionConfirmation: confirms the SNS subscription with AuthenticateOnUnsubscribe=true
+
+        - Notification: acknowledges receipt of a new inbound email event from S3'
+      operationId: email_inbound_v2_email_inbound_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Email Inbound V2 Email Inbound Post
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+  /v2/verification-emails/inbound:
+    post:
+      tags:
+      - Email
+      summary: Verification Email Inbound
+      description: 'Receives SNS notifications for inbound verification emails.
+
+
+        Handles two SNS message types:
+
+        - SubscriptionConfirmation: confirms the SNS subscription with AuthenticateOnUnsubscribe=true
+
+        - Notification: queues the stored email for processing and acknowledges receipt'
+      operationId: verification_email_inbound_v2_verification_emails_inbound_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Verification Email Inbound V2 Verification Emails Inbound Post
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+components:
+  schemas:
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

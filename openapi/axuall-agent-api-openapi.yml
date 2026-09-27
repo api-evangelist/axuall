@@ -1,0 +1,797 @@
+openapi: 3.2.0
+info:
+  title: Axuall Agent API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Agent
+paths:
+  /v2/agent/chat:
+    post:
+      tags:
+      - Agent
+      summary: Send message to agent
+      description: Enqueue a StrandsAgent run; response body is task_id only. Poll GET /agent/task/{task_id} for status, conversation_id, and assistant reply.
+      operationId: agent_chat_v2_agent_chat_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentChatRequestSchema'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentChatResponseSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/agent/suggest-prompts:
+    get:
+      tags:
+      - Agent
+      summary: List suggested prompts for an agent type
+      description: Return non-deleted starter prompts with show_in_ux enabled (tool-only prompts excluded).
+      operationId: list_agent_suggest_prompts_v2_agent_suggest_prompts_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: agent_type_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Agent type UUID
+          title: Agent Type Id
+        description: Agent type UUID
+      - name: agent_type_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Agent type name (e.g. explore_clinician_assistant)
+          title: Agent Type Name
+        description: Agent type name (e.g. explore_clinician_assistant)
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentSuggestPromptsListSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/agent/conversations:
+    get:
+      tags:
+      - Agent
+      summary: List agent conversations
+      description: List conversations for the current user, subscriber_group, and optional holder.
+      operationId: list_agent_conversations_v2_agent_conversations_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: agent_type_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Agent type UUID
+          title: Agent Type Id
+        description: Agent type UUID
+      - name: agent_type_name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Agent type name (e.g. admin_assistant)
+          title: Agent Type Name
+        description: Agent type name (e.g. admin_assistant)
+      - name: confirm_holder_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional Confirm holder to filter by
+          title: Confirm Holder Id
+        description: Optional Confirm holder to filter by
+      - name: explore_npi
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 10
+          - type: 'null'
+          description: Optional Explore NPI to filter by
+          title: Explore Npi
+        description: Optional Explore NPI to filter by
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentConversationsListSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/agent/task/{task_id}:
+    get:
+      tags:
+      - Agent
+      summary: Get agent task status
+      description: Poll for status and result of an agent chat task.
+      operationId: get_agent_task_status_v2_agent_task__task_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentTaskStatusSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/agent/conversations/{conversation_id}/messages:
+    get:
+      tags:
+      - Agent
+      summary: Get conversation messages
+      description: List messages for a conversation (scope-checked).
+      operationId: get_agent_conversation_messages_v2_agent_conversations__conversation_id__messages_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: conversation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Conversation Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgentMessageSchema'
+                title: Response Get Agent Conversation Messages V2 Agent Conversations  Conversation Id  Messages Get
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/agent/conversations/{conversation_id}/messages/{message_id}/feedback:
+    post:
+      tags:
+      - Agent
+      summary: Record feedback on an assistant message
+      description: Thumbs (positive/negative/clear) or copy counter; assistant messages only.
+      operationId: post_agent_message_feedback_v2_agent_conversations__conversation_id__messages__message_id__feedback_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: conversation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Conversation Id
+      - name: message_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Message Id
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentMessageFeedbackRequestSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgentMessageFeedbackResponseSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AgentSuggestPromptsListSchema:
+      properties:
+        suggest_prompts:
+          items:
+            $ref: '#/components/schemas/AgentSuggestPromptItemSchema'
+          type: array
+          title: Suggest Prompts
+          description: Non-deleted suggestions with show_in_ux true (chat UI chips)
+      type: object
+      required:
+      - suggest_prompts
+      title: AgentSuggestPromptsListSchema
+      description: Response for GET /agent/suggest-prompts.
+    AgentTaskStatusSchema:
+      properties:
+        status:
+          type: string
+          title: Status
+          description: PENDING, SUCCESS, or FAILURE
+        conversation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Conversation Id
+          description: Set on SUCCESS
+        content:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Content
+          description: Assistant reply as envelope (parts) on SUCCESS
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: Error message on FAILURE
+      type: object
+      required:
+      - status
+      title: AgentTaskStatusSchema
+      description: Response for GET /agent/task/{task_id}.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AgentChatRequestSchema:
+      properties:
+        agent_type_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Agent Type Id
+          description: Agent type UUID; use agent_type_name if not set
+        agent_type_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Agent Type Name
+          description: Agent type name (e.g. admin_assistant); use agent_type_id if not set
+        message:
+          type: string
+          title: Message
+          description: User message text
+        confirm_holder_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Confirm Holder Id
+          description: Optional Confirm holder (actor) to scope the conversation
+        explore_npi:
+          anyOf:
+          - type: string
+            maxLength: 10
+          - type: 'null'
+          title: Explore Npi
+          description: Optional Explore NPI to scope the conversation
+        conversation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Conversation Id
+          description: Optional; omit to start new, set to continue thread
+        workforce_intel_saved_job_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workforce Intel Saved Job Id
+          description: Optional Explore saved job row id (workforce_intel_saved_job.id) to scope AskAI job-description tools
+        client_stream_id:
+          anyOf:
+          - type: string
+            maxLength: 128
+          - type: 'null'
+          title: Client Stream Id
+          description: Optional client correlation id for AppSync agent stream events (Explore Ask AI streaming POC).
+      type: object
+      required:
+      - message
+      title: AgentChatRequestSchema
+      description: Request body for POST /agent/chat.
+    AgentSuggestPromptItemSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Suggested prompt UUID
+        display_name:
+          type: string
+          title: Display Name
+          description: Short label for the suggestion
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Optional longer helper text (subtitle, tooltip, extra context)
+        prompt_text:
+          type: string
+          title: Prompt Text
+          description: Full prompt text to send or prefill
+        sort_order:
+          type: integer
+          title: Sort Order
+          description: Display order within the agent type (lower values first)
+      type: object
+      required:
+      - id
+      - display_name
+      - prompt_text
+      - sort_order
+      title: AgentSuggestPromptItemSchema
+      description: One suggested starter prompt for AI chat.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AgentMessageSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Message UUID
+        role:
+          type: string
+          title: Role
+          description: user or assistant
+        content:
+          additionalProperties: true
+          type: object
+          title: Content
+          description: Message body as envelope (parts)
+        created_at:
+          type: string
+          title: Created At
+          description: ISO 8601 timestamp
+        feedback_rating:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Feedback Rating
+          description: 1 positive, -1 negative, null if unset or cleared (assistant messages)
+        feedback_updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Updated At
+          description: ISO 8601 when feedback_rating last changed, if any
+        copy_count:
+          type: integer
+          title: Copy Count
+          description: Number of copy events recorded for this message (assistant messages)
+          default: 0
+      type: object
+      required:
+      - id
+      - role
+      - content
+      - created_at
+      title: AgentMessageSchema
+      description: Single message in a conversation.
+    AgentConversationItemSchema:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Conversation UUID
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: Short label from first user message, if set
+        created_at:
+          type: string
+          title: Created At
+          description: ISO 8601 created timestamp
+        modified_at:
+          type: string
+          title: Modified At
+          description: ISO 8601 modified timestamp
+      type: object
+      required:
+      - id
+      - created_at
+      - modified_at
+      title: AgentConversationItemSchema
+      description: Single conversation in list response.
+    AgentMessageFeedbackRequestSchema:
+      properties:
+        action:
+          type: string
+          enum:
+          - rating
+          - copy
+          title: Action
+          description: rating (thumbs) or copy (increment copy counter)
+        value:
+          anyOf:
+          - type: string
+            enum:
+            - positive
+            - negative
+            - clear
+          - type: 'null'
+          title: Value
+          description: 'Required when action is rating: positive, negative, or clear'
+      type: object
+      required:
+      - action
+      title: AgentMessageFeedbackRequestSchema
+      description: Request body for POST .../messages/{message_id}/feedback.
+    AgentMessageFeedbackResponseSchema:
+      properties:
+        feedback_rating:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Feedback Rating
+          description: 1 positive, -1 negative, null if cleared or not set
+        copy_count:
+          type: integer
+          title: Copy Count
+          description: Total copy events recorded for this message
+      type: object
+      required:
+      - copy_count
+      title: AgentMessageFeedbackResponseSchema
+      description: Response after recording message feedback.
+    AgentConversationsListSchema:
+      properties:
+        total:
+          type: integer
+          title: Total
+          description: Total count for scope
+        conversations:
+          items:
+            $ref: '#/components/schemas/AgentConversationItemSchema'
+          type: array
+          title: Conversations
+          description: Page of conversations
+      type: object
+      required:
+      - total
+      - conversations
+      title: AgentConversationsListSchema
+      description: Response for GET /agent/conversations.
+    AgentChatResponseSchema:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: Flow task ID; poll GET /agent/task/{task_id} for conversation_id and assistant reply
+      type: object
+      required:
+      - task_id
+      title: AgentChatResponseSchema
+      description: 'Response for POST /agent/chat: Flow task id for polling GET /agent/task/{task_id}.'
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

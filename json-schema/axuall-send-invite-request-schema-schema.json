@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axuall/main/json-schema/axuall-send-invite-request-schema-schema.json",
+  "title": "SendInviteRequestSchema",
+  "x-generated": "2026-09-27",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axuall-openapi.json#/components/schemas/SendInviteRequestSchema",
+  "properties": {
+    "invite_id": {
+      "type": "string",
+      "title": "Invite Id"
+    },
+    "first_name": {
+      "type": "string",
+      "title": "First Name"
+    },
+    "middle_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Middle Name",
+      "default": ""
+    },
+    "last_name": {
+      "type": "string",
+      "title": "Last Name"
+    },
+    "suffix": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Suffix",
+      "default": ""
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email"
+    },
+    "npi": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 10,
+          "title": "National Provider Identifier",
+          "description": "National Provider Identifier"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Npi"
+    },
+    "ncsbn": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 50,
+          "title": "National Council of State Boards of Nursing",
+          "description": "National Council of State Boards of Nursing ID"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Ncsbn"
+    },
+    "phone": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Phone",
+      "default": ""
+    },
+    "start_date": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Start Date"
+    },
+    "credentialer_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Credentialer Name",
+      "default": ""
+    },
+    "credentialer_email": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Credentialer Email",
+      "default": ""
+    },
+    "credentialer_phone": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Credentialer Phone",
+      "default": ""
+    },
+    "settings": {
+      "$ref": "#/$defs/ClinicianSettingsSchema"
+    },
+    "cc_emails": {
+      "items": {
+        "type": "string",
+        "format": "email"
+      },
+      "type": "array",
+      "title": "Cc Emails",
+      "default": []
+    },
+    "labels": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string",
+            "maxLength": 255,
+            "description": "Labels (e.g. tags) used for marking providers to help make those providers easily searchable."
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Labels",
+      "default": []
+    },
+    "tasks": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tasks",
+      "default": {}
+    },
+    "excluded_task_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Excluded Task Ids"
+    },
+    "add_to_my_clinicians": {
+      "type": "boolean",
+      "title": "Add To My Clinicians",
+      "default": false
+    },
+    "external_delegates": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/InviteExternalDelegateSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "External Delegates",
+      "default": []
+    },
+    "clinician_ids": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/ClinicianIdSchema"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Clinician Ids",
+      "description": "Optional client clinician IDs to record at onboarding. At most one entry per external system. Entries omitting `external_system` are stamped with the subscriber group's configured default."
+    }
+  },
+  "type": "object",
+  "required": [
+    "invite_id",
+    "first_name",
+    "last_name",
+    "email",
+    "settings"
+  ],
+  "$defs": {
+    "ClinicianIdSchema": {
+      "properties": {
+        "external_id": {
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1,
+          "title": "External Id",
+          "description": "The clinician's ID in the external system."
+        },
+        "external_system": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "enum": [
+            "credential_stream",
+            "custom",
+            "echo",
+            "modio",
+            "onbase",
+            "symplr"
+          ],
+          "title": "External System",
+          "description": "External system this ID belongs to. Omit to use the subscriber group's configured default external system; omitting it when no default is configured is a validation error."
+        }
+      },
+      "type": "object",
+      "required": [
+        "external_id"
+      ],
+      "title": "ClinicianIdSchema",
+      "description": "One client-supplied clinician ID, optionally scoped to an external system.\n\nAlways nested under a ``clinician_ids`` list. ``external_id`` is the DAL's own\ncolumn name -- ``external_clinician_ids`` inherits it from the mixin it shares with\nthe affiliation, education and role mapping tables -- and keeping it here means a\nrequest entry passes through ``normalize_clinician_ids`` and into the\n``user_creator`` job body without remapping."
+    },
+    "ClinicianSettingsSchema": {
+      "properties": {
+        "alternate_emails": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string",
+                "format": "email"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Alternate Emails"
+        },
+        "application_due_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Application Due Date"
+        },
+        "degree_type": {
+          "type": "string",
+          "enum": [
+            "AA",
+            "APA",
+            "ATC",
+            "AUD",
+            "BCBA",
+            "CAA",
+            "CCP",
+            "CGC",
+            "CNIM",
+            "CNM",
+            "CNS",
+            "CO",
+            "CPO",
+            "CRNA",
+            "CST",
+            "DA",
+            "DC",
+            "DDS",
+            "DMD",
+            "DO",
+            "DPM",
+            "EDD",
+            "EMT",
+            "IBCLC",
+            "IONM",
+            "LAC",
+            "LADC",
+            "LBS",
+            "LCPC",
+            "LCSW",
+            "LISW",
+            "LMFT",
+            "LMHC",
+            "LMSW",
+            "LMT",
+            "LPC",
+            "LPCC",
+            "LPE",
+            "LPN",
+            "LSW",
+            "MA",
+            "MBBS",
+            "MD",
+            "MPSY",
+            "ND",
+            "NP",
+            "OD",
+            "OT",
+            "OTA",
+            "PA",
+            "PHARMD",
+            "PHD",
+            "PSYD",
+            "PT",
+            "PTA",
+            "RBT",
+            "RD",
+            "RDA",
+            "RN",
+            "RNFA",
+            "RRA",
+            "RT",
+            "SA",
+            "SFA",
+            "SLP",
+            "SLPA"
+          ],
+          "title": "Degree Type"
+        },
+        "employment_relationship": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EmploymentRelationship"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "primary_facility": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Primary Facility"
+        },
+        "request_received_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Request Received Date"
+        }
+      },
+      "type": "object",
+      "required": [
+        "degree_type"
+      ],
+      "title": "ClinicianSettingsSchema"
+    },
+    "EmploymentRelationship": {
+      "type": "string",
+      "enum": [
+        "employed",
+        "contract"
+      ],
+      "title": "EmploymentRelationship"
+    },
+    "InviteExternalDelegateSchema": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email"
+        }
+      },
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "title": "InviteExternalDelegateSchema",
+      "description": "Optional external delegate assigned during Admin Invite Clinician.\n\nDisplay name is collected at enroll time; invite only needs the email so\n``user_creator`` can enqueue ``create_external_delegate`` after the holder\nactor exists."
+    }
+  }
+}

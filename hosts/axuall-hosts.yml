@@ -1,0 +1,204 @@
+generated: '2026-09-27'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 14
+  own: 3
+  other_domain: 11
+  platform: 0
+  roles:
+  - api
+  - docs
+  - other
+  - partner
+  - portal
+  - sandbox
+  - support
+  - website
+hosts:
+- host: api.axuall.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: axuall.com
+  role: api
+  relation: own
+- host: api.axuall.net
+  found_by:
+  - apis[]
+  - probed
+  - site-links
+  - namespace-probe
+  - spec-found
+  types: []
+  serves:
+  - api
+  - spec
+  status: 200
+  registrable_domain: axuall.net
+  role: api
+  relation: other-domain
+- host: api.readme.io
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: readme.io
+  role: api
+  relation: other-domain
+- host: apis.readme.io
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - well-known
+  types: []
+  serves: []
+  title: Transaction Inquiry
+  status: 200
+  registrable_domain: readme.io
+  role: api
+  relation: other-domain
+- host: axuall.com
+  found_by:
+  - pointer
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Leadership
+  - ChangeLog
+  - Website
+  - PrivacyPolicy
+  - TermsOfService
+  serves:
+  - docs
+  registrable_domain: axuall.com
+  role: website
+  relation: own
+- host: axuall.readme.io
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Documentation
+  - APIReference
+  - GettingStarted
+  serves:
+  - docs
+  - cdn
+  - developer-portal
+  - documentation
+  vendor: cloudflare
+  registrable_domain: readme.io
+  role: docs
+  relation: other-domain
+- host: dev.readme.io
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - docs-index
+  - well-known
+  types: []
+  serves:
+  - docs
+  title: Getting Started with dev-guide
+  status: 200
+  registrable_domain: readme.io
+  role: other
+  relation: other-domain
+- host: developers.readme.io
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - well-known
+  types: []
+  serves: []
+  title: Welcome to ReadMe
+  status: 200
+  registrable_domain: readme.io
+  role: portal
+  relation: other-domain
+- host: docs.readme.com
+  found_by:
+  - docs-index
+  types: []
+  serves:
+  - docs
+  registrable_domain: readme.com
+  role: docs
+  relation: other-domain
+- host: docs.readme.io
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  - well-known
+  types: []
+  serves: []
+  title: Welcome to ReadMe
+  status: 200
+  registrable_domain: readme.io
+  role: docs
+  relation: other-domain
+- host: help.axuall.net
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Support
+  serves:
+  - cdn
+  vendor: cloudfront
+  registrable_domain: axuall.net
+  role: support
+  relation: other-domain
+- host: partners.readme.io
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  types: []
+  serves: []
+  title: Partners
+  status: 200
+  registrable_domain: readme.io
+  role: partner
+  relation: other-domain
+- host: sandbox.readme.io
+  found_by:
+  - probed
+  - site-links
+  - namespace-probe
+  types: []
+  serves: []
+  title: Welcome to Sandbox
+  status: 200
+  registrable_domain: readme.io
+  role: sandbox
+  relation: other-domain
+- host: trust.axuall.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - well-known
+  types:
+  - TrustCenter
+  serves: []
+  registrable_domain: axuall.com
+  role: other
+  relation: own

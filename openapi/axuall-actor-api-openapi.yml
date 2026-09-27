@@ -1,0 +1,254 @@
+openapi: 3.2.0
+info:
+  title: Axuall Actor API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Actor
+paths:
+  /v2/current_actor:
+    get:
+      tags:
+      - Actor
+      summary: Get Current Actor
+      description: 'Retrieve the current actor information for the authenticated user.
+
+        Returns wallet owner information and indicates if the user is accessing as a delegate.
+
+
+        External delegates who have not yet selected a clinician (no holder ``person_actor``)
+
+        still resolve: ``get_actors_for_delegation`` returns their own ``Role.delegate`` Actor
+
+        as both wallet and delegate, so ``id`` is the delegate Actor, ``is_delegate`` is true,
+
+        and ``delegate_kind`` is ``"external"`` until ``link-delegate`` switches the wallet
+
+        to a clinician holder.'
+      operationId: get_current_actor_v2_current_actor_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_WalletActor_'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IDVerification:
+      type: string
+      enum:
+      - not_started
+      - pending
+      - finished
+      - invalid
+      title: IDVerification
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ActorSettings:
+      properties:
+        referrer:
+          anyOf:
+          - type: string
+            format: uuid4
+          - type: 'null'
+          title: Referrer
+          description: Original referrer of the actor to Axuall
+        id_verification:
+          anyOf:
+          - $ref: '#/components/schemas/IDVerification'
+          - type: 'null'
+          description: ID Verification status for the actor
+        credential_sets:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Credential Sets
+          description: Credential sets associated with the actor
+      type: object
+      title: ActorSettings
+    Access:
+      type: string
+      enum:
+      - super_user
+      - integrator
+      - admin
+      - owner
+      - recruiter
+      - operations
+      - medical_service_provider
+      - analyst
+      - recruiter_analyst
+      - owner_analyst
+      - operations_analyst
+      - read_only
+      - read_only_analyst
+      - explore_integrator
+      - explore_confirm_integrator
+      - medical_service_provider_analyst
+      - medical_service_provider_delegate
+      - delegate_only
+      - owner_delegate
+      - recruiter_delegate
+      - operations_delegate
+      - owner_analyst_delegate
+      - operations_analyst_delegate
+      - recruiter_analyst_delegate
+      - medical_service_provider_analyst_delegate
+      title: Access
+    WalletActor:
+      properties:
+        id:
+          type: string
+          format: uuid4
+          title: Id
+          description: Actor's id
+          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
+        is_delegate:
+          type: boolean
+          title: Is Delegate
+          description: Whether the actor is a delegate
+          example: false
+        delegate_kind:
+          anyOf:
+          - type: string
+            enum:
+            - subscriber
+            - external
+          - type: 'null'
+          title: Delegate Kind
+          description: Kind of delegate accessing the wallet when ``is_delegate`` is true. ``null`` when the current user is not a delegate. 'subscriber' is the admin/facility delegate flow; 'external' is an external (designated) delegate.
+          example: subscriber
+        access_level:
+          $ref: '#/components/schemas/Access'
+          description: Actor's access level
+          example: owner
+        actions:
+          items:
+            type: string
+          type: array
+          title: Actions
+          description: List of actions the actor can take
+          example:
+          - get_notification_preferences
+        subscriber_group:
+          anyOf:
+          - type: string
+            format: uuid4
+          - type: 'null'
+          title: Subscriber Group
+          description: The subscriber group id this actor belongs to
+          example: 4e551c20-2556-4ef5-8877-54cd87f8389d
+        subscriber_group_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subscriber Group Name
+          description: The name of the subscriber group this actor belongs to
+        settings:
+          anyOf:
+          - $ref: '#/components/schemas/ActorSettings'
+          - type: 'null'
+          description: An object of settings this actor has applied
+          default: {}
+        intercom_user_jwt:
+          type: string
+          title: Intercom User Jwt
+          description: Intercom user JWT token for support integration
+          default: ''
+      type: object
+      required:
+      - id
+      - is_delegate
+      - access_level
+      - actions
+      title: WalletActor
+    Response_WalletActor_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/WalletActor'
+          - type: 'null'
+      type: object
+      title: Response[WalletActor]
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,313 @@
+openapi: 3.2.0
+info:
+  title: Axuall Authentication API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Authentication
+paths:
+  /v2/auth:
+    post:
+      tags:
+      - Authentication
+      summary: Authenticate User
+      description: 'The Axuall API uses Auth0 to authenticate all API clients.
+
+        Before making subsequent API calls, you will need to retrieve a token using this request.'
+      operationId: authenticate_user_v2_auth_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/sso:
+    get:
+      tags:
+      - Authentication
+      summary: Sso Initiation
+      description: Retrieve a URI for initiating SSO.
+      operationId: sso_initiation_v2_sso_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: sso_application
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: SSO application
+          default: clinician_app
+          title: Sso Application
+        description: SSO application
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_SSOResponse_'
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+          description: Unauthorized
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+          description: Not Found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+          description: Bad Request
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+          description: Forbidden
+        '405':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+          description: Method Not Allowed
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AuthResponse:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+          description: The token for clients to use when querying the Axuall API
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        scope:
+          type: string
+          title: Scope
+          example: openid email profile
+        expires_in:
+          type: integer
+          title: Expires In
+          example: 86400
+        token_type:
+          type: string
+          title: Token Type
+          example: Bearer
+      type: object
+      required:
+      - access_token
+      - scope
+      - expires_in
+      - token_type
+      title: AuthResponse
+      description: Authentication response contains a token which is valid for 24 hours
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AuthRequest:
+      properties:
+        client_id:
+          type: string
+          title: Client Id
+          description: The Client ID as provided by Axuall for your account
+        client_secret:
+          type: string
+          title: Client Secret
+          description: The Client secret key as provided by Axuall
+        audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience
+          default: cred-api
+        grant_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Type
+          default: client_credentials
+      type: object
+      required:
+      - client_id
+      - client_secret
+      title: AuthRequest
+    Response_SSOResponse_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/SSOResponse'
+          - type: 'null'
+      type: object
+      title: Response[SSOResponse]
+    SSOResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+          example: https://example.com/authorize?state=state&grant=grant
+      type: object
+      required:
+      - url
+      title: SSOResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AuthError:
+      properties:
+        error:
+          type: string
+          title: Error
+        error_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Description
+      type: object
+      required:
+      - error
+      - error_description
+      title: AuthError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

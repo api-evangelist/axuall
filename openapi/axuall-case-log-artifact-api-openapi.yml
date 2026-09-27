@@ -1,0 +1,143 @@
+openapi: 3.2.0
+info:
+  title: Axuall Case Log Artifact API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Case Log Artifact
+paths:
+  /v2/case_logs/{npi}/{type}:
+    get:
+      tags:
+      - Case Log Artifact
+      summary: Get Case Log Artifact
+      description: The artifact includes an XLSX file with clinician case logs over the past 2 years.
+      operationId: get_case_log_artifact_v2_case_logs__npi___type__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: npi
+        in: path
+        required: true
+        schema:
+          type: string
+          minLength: 10
+          maxLength: 10
+          title: Npi
+          description: National Provider Identifier
+          example: '1234567890'
+      - name: type
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/CaseLogType'
+      - name: Accept
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accept
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Get Axuall Case Log Artifact
+          content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: {}
+            application/pdf: {}
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    CaseLogType:
+      type: string
+      enum:
+      - all
+      - encounters
+      - procedures
+      - all_12m
+      - encounters_12m
+      - procedures_12m
+      title: CaseLogType
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

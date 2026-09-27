@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Axuall Facilities API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Facilities
+paths:
+  /v2/facility_list:
+    get:
+      tags:
+      - Facilities
+      summary: List Facilities
+      description: Retrieve available facilities where a clinician can be privileged.
+      operationId: list_facilities_v2_facility_list_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successfully fetched facilities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_FacilitiesSchema_'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Response_FacilitiesSchema_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/FacilitiesSchema'
+          - type: 'null'
+      type: object
+      title: Response[FacilitiesSchema]
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FacilitiesSchema:
+      properties:
+        facilities:
+          items:
+            $ref: '#/components/schemas/FacilitySchema'
+          type: array
+          title: Facilities
+          default: []
+      type: object
+      title: FacilitiesSchema
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    SubscriptionStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - inactive
+      - adding
+      - addition_failed
+      - terminating
+      - termination_failed
+      - pending_termination
+      title: SubscriptionStatus
+    FacilitySchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          example: 78e4081d-1150-4957-88a4-4558cafc505d
+        name:
+          type: string
+          title: Name
+          example: Medical Center West Dunshire
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SubscriptionStatus'
+          - type: 'null'
+          example: active
+      type: object
+      required:
+      - id
+      - name
+      title: FacilitySchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

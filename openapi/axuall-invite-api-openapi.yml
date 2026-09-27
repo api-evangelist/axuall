@@ -1,0 +1,608 @@
+openapi: 3.2.0
+info:
+  title: Axuall Invite API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Invite
+paths:
+  /v2/invite:
+    post:
+      tags:
+      - Invite
+      summary: Create Invite
+      description: 'Creation of an Invite.
+
+
+        The invite resource is a mechanism to describe the information that
+
+        is being requested from the clinician.
+
+
+        This can include but is not limited to:
+
+        - Credentials that require verification
+
+        - Attested Information
+
+        - Employment History Requirements
+
+        - Malpractice History Requirements
+
+        - Supplemental Documents
+
+        - Disclosure Questions
+
+        - Delineation of Privilege forms.
+
+
+        ### Form Data Expectations
+
+
+        The data attribute of the form data given to this endpoint is structured like so:
+
+
+        - `subscriber_list`: The list of facilities where the clinician is to be credentialed.
+
+        - Type: `array`
+
+        - Example: `[''Test Facility'']`
+
+        - `app_req_id`: The application requirements of the subscriptions to be generated.
+
+        - Type: `string`
+
+        - `npi`: The clinician''s NPI number (Required if ncsbn is not provider)
+
+        - Type: `string`
+
+        - Example: `''1234567890''`
+
+        - `ncsbn`: The clinician''s NCSBN number (Required if npi not provided)
+
+        - Type: ''string''
+
+        - Example: `''3214561''`
+
+
+        This should be ran through `JSON.stringify` and placed into the `data` attribute of the `form`.
+
+
+        > You must supply either NPI or NCSBN in your `data` object.'
+      operationId: create_invite_v2_invite_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successfully created an invite id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_InviteSchema_'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  example: '{"subscriber_list": ["********-****-****-****-************"], "app_req_id": "********-****-****-****-************", "npi": "1234567890"}'
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                resume:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+  /v2/send_invite:
+    post:
+      tags:
+      - Invite
+      summary: Send Invite
+      description: 'Send an invitation email to onboard a new clinician to Axuall and share their credentials.
+
+
+        The information shared is configured based on the invite ID.'
+      operationId: send_invite_v2_send_invite_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendInviteRequestSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    EmploymentRelationship:
+      type: string
+      enum:
+      - employed
+      - contract
+      title: EmploymentRelationship
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    InviteExternalDelegateSchema:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          example: delegate@email.com
+      type: object
+      required:
+      - email
+      title: InviteExternalDelegateSchema
+      description: 'Optional external delegate assigned during Admin Invite Clinician.
+
+
+        Display name is collected at enroll time; invite only needs the email so
+
+        ``user_creator`` can enqueue ``create_external_delegate`` after the holder
+
+        actor exists.'
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ClinicianIdSchema:
+      properties:
+        external_id:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: External Id
+          description: The clinician's ID in the external system.
+          example: CS-10042
+        external_system:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - credential_stream
+          - custom
+          - echo
+          - modio
+          - onbase
+          - symplr
+          title: External System
+          description: External system this ID belongs to. Omit to use the subscriber group's configured default external system; omitting it when no default is configured is a validation error.
+      type: object
+      required:
+      - external_id
+      title: ClinicianIdSchema
+      description: 'One client-supplied clinician ID, optionally scoped to an external system.
+
+
+        Always nested under a ``clinician_ids`` list. ``external_id`` is the DAL''s own
+
+        column name -- ``external_clinician_ids`` inherits it from the mixin it shares with
+
+        the affiliation, education and role mapping tables -- and keeping it here means a
+
+        request entry passes through ``normalize_clinician_ids`` and into the
+
+        ``user_creator`` job body without remapping.'
+    Response_InviteSchema_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/InviteSchema'
+          - type: 'null'
+      type: object
+      title: Response[InviteSchema]
+    ClinicianSettingsSchema:
+      properties:
+        alternate_emails:
+          anyOf:
+          - items:
+              type: string
+              format: email
+            type: array
+          - type: 'null'
+          title: Alternate Emails
+          example:
+          - alias@email.com
+        application_due_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Application Due Date
+          example: '2022-01-01'
+        degree_type:
+          type: string
+          enum:
+          - AA
+          - APA
+          - ATC
+          - AUD
+          - BCBA
+          - CAA
+          - CCP
+          - CGC
+          - CNIM
+          - CNM
+          - CNS
+          - CO
+          - CPO
+          - CRNA
+          - CST
+          - DA
+          - DC
+          - DDS
+          - DMD
+          - DO
+          - DPM
+          - EDD
+          - EMT
+          - IBCLC
+          - IONM
+          - LAC
+          - LADC
+          - LBS
+          - LCPC
+          - LCSW
+          - LISW
+          - LMFT
+          - LMHC
+          - LMSW
+          - LMT
+          - LPC
+          - LPCC
+          - LPE
+          - LPN
+          - LSW
+          - MA
+          - MBBS
+          - MD
+          - MPSY
+          - ND
+          - NP
+          - OD
+          - OT
+          - OTA
+          - PA
+          - PHARMD
+          - PHD
+          - PSYD
+          - PT
+          - PTA
+          - RBT
+          - RD
+          - RDA
+          - RN
+          - RNFA
+          - RRA
+          - RT
+          - SA
+          - SFA
+          - SLP
+          - SLPA
+          title: Degree Type
+          example: MD
+        employment_relationship:
+          anyOf:
+          - $ref: '#/components/schemas/EmploymentRelationship'
+          - type: 'null'
+          example: employed
+        primary_facility:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Primary Facility
+          example: a188fe7a-0948-4651-aad8-87cb1c57d0d8
+        request_received_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Request Received Date
+          example: '2022-11-25'
+      type: object
+      required:
+      - degree_type
+      title: ClinicianSettingsSchema
+    SendInviteRequestSchema:
+      properties:
+        invite_id:
+          type: string
+          title: Invite Id
+          example: XYASDJ1231kKAS
+        first_name:
+          type: string
+          title: First Name
+          example: Joe
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+          default: ''
+          example: Stanley
+        last_name:
+          type: string
+          title: Last Name
+          example: Doe
+        suffix:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Suffix
+          default: ''
+          example: Jr
+        email:
+          type: string
+          format: email
+          title: Email
+          example: stanely.doe+filter@email.com
+        npi:
+          anyOf:
+          - type: string
+            maxLength: 10
+            minLength: 10
+            title: National Provider Identifier
+            description: National Provider Identifier
+            example: '1234567890'
+          - type: 'null'
+          title: Npi
+        ncsbn:
+          anyOf:
+          - type: string
+            maxLength: 50
+            title: National Council of State Boards of Nursing
+            description: National Council of State Boards of Nursing ID
+            example: '12345678'
+          - type: 'null'
+          title: Ncsbn
+        phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone
+          default: ''
+          example: 432-455-5555
+        start_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Start Date
+          example: '2019-12-01'
+        credentialer_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Credentialer Name
+          default: ''
+          example: Marquis Smith
+        credentialer_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Credentialer Email
+          default: ''
+          example: person@email.com
+        credentialer_phone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Credentialer Phone
+          default: ''
+          example: 555-555-5555
+        settings:
+          $ref: '#/components/schemas/ClinicianSettingsSchema'
+        cc_emails:
+          items:
+            type: string
+            format: email
+          type: array
+          title: Cc Emails
+          default: []
+          example:
+          - first@emai.com
+          - second@email.com
+        labels:
+          anyOf:
+          - items:
+              type: string
+              maxLength: 255
+              description: Labels (e.g. tags) used for marking providers to help make those providers easily searchable.
+              example: Initial Appointment
+            type: array
+          - type: 'null'
+          title: Labels
+          default: []
+          example:
+          - Initial Appointment
+        tasks:
+          anyOf:
+          - additionalProperties:
+              type: boolean
+            type: object
+          - type: 'null'
+          title: Tasks
+          default: {}
+        excluded_task_ids:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Excluded Task Ids
+        add_to_my_clinicians:
+          type: boolean
+          title: Add To My Clinicians
+          default: false
+        external_delegates:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InviteExternalDelegateSchema'
+            type: array
+          - type: 'null'
+          title: External Delegates
+          default: []
+          example:
+          - email: delegate@email.com
+        clinician_ids:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ClinicianIdSchema'
+            type: array
+          - type: 'null'
+          title: Clinician Ids
+          description: Optional client clinician IDs to record at onboarding. At most one entry per external system. Entries omitting `external_system` are stamped with the subscriber group's configured default.
+          example:
+          - external_id: CS-10042
+            external_system: credential_stream
+      type: object
+      required:
+      - invite_id
+      - first_name
+      - last_name
+      - email
+      - settings
+      title: SendInviteRequestSchema
+    InviteSchema:
+      properties:
+        invite_id:
+          type: string
+          title: Invite Id
+      type: object
+      required:
+      - invite_id
+      title: InviteSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

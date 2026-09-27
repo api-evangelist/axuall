@@ -1,23 +1,428 @@
 aid: axuall
 name: Axuall
-description: 'Axuall is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: Axuall provides a healthcare data network that empowers credentialing teams with AI‑assisted insights. Their platform integrates
+  with enterprise systems to streamline verification of clinicians, reduce administrative workload, and improve patient access. Axuall offers
+  solutions for exploring, confirming, and syncing credential data, targeting hospitals, health systems, and insurers.
 url: https://raw.githubusercontent.com/api-evangelist/axuall/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-09-27 (modular-v1; was harvest)
 specificationVersion: '0.20'
 created: '2026-09-27'
 modified: '2026-09-27'
 tags:
 - Company
-apis: []
+- Healthcare
+- Data
+- Credentialing
+- AI
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/axuall-agentic-access.yml
+- type: Plans
+  url: plans/axuall-plans-pricing.yml
+- type: Spectral
+  url: rules/axuall-rules.yml
+- type: JSONLD
+  url: json-ld/axuall-context.jsonld
+- type: Vocabulary
+  url: vocabulary/axuall-vocabulary.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/axuall-webhooks.yml
+- type: DataModel
+  url: data-model/axuall-data-model.yml
+- type: CLI
+  url: cli/axuall-cli.yml
+- type: Authentication
+  url: authentication/axuall-authentication.yml
+- type: ErrorCatalog
+  url: errors/axuall-problem-types.yml
+- type: Conformance
+  url: conformance/axuall-conformance.yml
+- type: SecurityTxt
+  url: well-known/axuall-help-security.txt
+- type: WellKnown
+  url: well-known/axuall-well-known.yml
+- type: Hosts
+  url: hosts/axuall-hosts.yml
+- type: Vendors
+  url: vendors/axuall-vendors.yml
+- type: TrustCenter
+  url: https://trust.axuall.com/
+- type: Leadership
+  url: https://axuall.com/about-axuall/team
+- type: ChangeLog
+  url: https://axuall.com/post/whats-new
+- type: DomainSecurity
+  url: security/axuall-domain-security.yml
 - type: Website
-  url: https://equityzen.com/company/axuall
+  url: https://axuall.com
+- type: Documentation
+  url: https://axuall.readme.io
+- type: APIReference
+  url: https://axuall.readme.io/reference
+- type: GettingStarted
+  url: https://axuall.readme.io/docs/welcome-to-axuall
+- type: Support
+  url: https://help.axuall.net/en
+- type: PrivacyPolicy
+  url: https://axuall.com/utility/privacy
+- type: TermsOfService
+  url: https://axuall.com/utility/termsofuse
+apis:
+- aid: axuall:axuall-actor-api
+  name: Axuall Actor API
+  description: The Actor API from Axuall — 1 operation(s) for actor.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Actor
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-actor-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-address-deduplications-api
+  name: Axuall Address Deduplications API
+  description: The Address Deduplications API from Axuall — 2 operation(s) for address deduplications.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Address Deduplications
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-address-deduplications-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-agent-api
+  name: Axuall Agent API
+  description: The Agent API from Axuall — 6 operation(s) for agent.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Agent
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-agent-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-authentication-api
+  name: Axuall Authentication API
+  description: The Authentication API from Axuall — 2 operation(s) for authentication.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-authentication-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-case-log-artifact-api
+  name: Axuall Case Log Artifact API
+  description: The Case Log Artifact API from Axuall — 1 operation(s) for case log artifact.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Case Log Artifact
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-case-log-artifact-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-documents-api
+  name: Axuall Documents API
+  description: The Documents API from Axuall — 1 operation(s) for documents.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-documents-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-email-api
+  name: Axuall Email API
+  description: The Email API from Axuall — 2 operation(s) for email.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Email
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-email-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-facilities-api
+  name: Axuall Facilities API
+  description: The Facilities API from Axuall — 1 operation(s) for facilities.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Facilities
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-facilities-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-fsmb-artifact-api
+  name: Axuall FSMB Artifact API
+  description: The FSMB Artifact API from Axuall — 1 operation(s) for fsmb artifact.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - FSMB Artifact
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-fsmb-artifact-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-invite-api
+  name: Axuall Invite API
+  description: The Invite API from Axuall — 2 operation(s) for invite.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Invite
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-invite-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-monitoring-reports-api
+  name: Axuall Monitoring reports API
+  description: The Monitoring reports API from Axuall — 5 operation(s) for monitoring reports.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Monitoring reports
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-monitoring-reports-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-provider-preview-api
+  name: Axuall Provider Preview API
+  description: The Provider Preview API from Axuall — 2 operation(s) for provider preview.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Provider Preview
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-provider-preview-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-providers-api
+  name: Axuall Providers API
+  description: The Providers API from Axuall — 13 operation(s) for providers.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Providers
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-providers-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-recipes-api
+  name: Axuall Recipes API
+  description: The Recipes API from Axuall — 1 operation(s) for recipes.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Recipes
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-recipes-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+- aid: axuall:axuall-tasks-api
+  name: Axuall Tasks API
+  description: The Tasks API from Axuall — 3 operation(s) for tasks.
+  humanURL: https://axuall.readme.io/reference
+  baseURL: https://api.axuall.net
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/axuall-tasks-api-openapi.yml
+  - type: JSONSchema
+    url: json-schema/axuall-provider-registration-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-search-result-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-send-invite-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-agent-chat-request-schema-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-file-schema.json
+  - type: JSONSchema
+    url: json-schema/axuall-provider-profile-schema.json
+x-coverage:
+  state: gated
+  reason: partner-login
+  method: derived
+  generated: '2026-09-27'
+  generator: derive-coverage.py (pre-flight evidence)
+  detail: the company serves an API surface but requires credentials before any description of it can be read
+  evidence:
+  - url: https://axuall.readme.io/mcp
+    status: 401
+  - url: https://equityzen.com/company/axuall
+    status: 403
+x-enrichment:
+  date: '2026-09-27'
+  status: enriched
+  artifacts_added: 26
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local

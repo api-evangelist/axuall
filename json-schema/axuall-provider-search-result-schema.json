@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axuall/main/json-schema/axuall-provider-search-result-schema.json",
+  "title": "ProviderSearchResult",
+  "x-generated": "2026-09-27",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axuall-openapi.json#/components/schemas/ProviderSearchResult",
+  "properties": {
+    "first_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "First Name",
+      "description": "First name of provider",
+      "default": ""
+    },
+    "last_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Name",
+      "description": "Last name of provider",
+      "default": ""
+    },
+    "date_of_birth": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Date Of Birth",
+      "description": "Date of birth of provider"
+    },
+    "provider_types": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Provider Types",
+      "description": "List of provider types"
+    },
+    "tags": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Tags",
+      "description": "Tags associated with the provider as defined by the subscriber"
+    },
+    "provider_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 10,
+          "title": "National Provider Identifier",
+          "description": "National Provider Identifier"
+        },
+        {
+          "type": "string",
+          "title": "National Council of State Boards of Nursing",
+          "description": "National Council of State Boards of Nursing ID"
+        }
+      ],
+      "title": "Provider Id"
+    },
+    "registration_status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RegistrationStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The status of the provider's registration"
+    },
+    "invitation_status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/InvitationStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The status of the provider's invitation"
+    },
+    "subscription_status": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SubscriptionBillingStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The status of the provider's subscription"
+    },
+    "id_verified": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/IDVerifiedStatus"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The status of the provider's ID verification"
+    },
+    "app_reqs": {
+      "anyOf": [
+        {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "App Reqs",
+      "description": "The app_req_ids applied to this provider (may be filtered by query params)"
+    },
+    "last_wallet_shared": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Wallet Shared",
+      "description": "Timestamp of the most recent manual share by a provider"
+    },
+    "last_share_refresh": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Share Refresh",
+      "description": "Timestamp of when all verification jobs were completed after share"
+    },
+    "last_updated": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Updated",
+      "description": "Timestamp of when the last presentation change occurred"
+    },
+    "last_task_completed_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Last Task Completed At",
+      "description": "Timestamp of when the last task was completed"
+    },
+    "licenses": {
+      "anyOf": [
+        {
+          "additionalProperties": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Licenses",
+      "description": "An object containing verified dea and state licenses"
+    },
+    "cycle_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cycle Type",
+      "description": "The provider's most recently completed cycle type"
+    }
+  },
+  "type": "object",
+  "required": [
+    "provider_id"
+  ],
+  "$defs": {
+    "IDVerifiedStatus": {
+      "type": "string",
+      "enum": [
+        "complete",
+        "incomplete"
+      ],
+      "title": "IDVerifiedStatus"
+    },
+    "InvitationStatus": {
+      "type": "string",
+      "enum": [
+        "invitation_sent",
+        "invite_bounced",
+        "invite_canceled",
+        "in_process",
+        "application_submitted",
+        "account_shared",
+        "account_created",
+        "invite_bounced",
+        "reminder_sent",
+        "delegate_removed",
+        "delegate_revoked",
+        "delegate_granted",
+        "delegate_login",
+        "external_delegate_login"
+      ],
+      "title": "InvitationStatus",
+      "description": "Invitation status based on provider events.\n"
+    },
+    "RegistrationStatus": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "invitation_sent",
+        "in_progress",
+        "account_shared"
+      ],
+      "title": "RegistrationStatus",
+      "description": "Inferred status based on provider events"
+    },
+    "SubscriptionBillingStatus": {
+      "type": "string",
+      "enum": [
+        "cancelled",
+        "deactivated",
+        "activated",
+        "deactivation_failed",
+        "cancellation_failed",
+        "deactivating",
+        "cancelling",
+        "pending"
+      ],
+      "title": "SubscriptionBillingStatus",
+      "description": "Inferred subscription status based on provider billing status"
+    }
+  }
+}

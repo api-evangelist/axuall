@@ -1,0 +1,173 @@
+openapi: 3.2.0
+info:
+  title: Axuall Recipes API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Recipes
+paths:
+  /v2/app_req_list:
+    get:
+      tags:
+      - Recipes
+      summary: List Application Requirements
+      description: Retrieve all available Recipe Configurations that can be included in an invite.
+      operationId: list_application_requirements_v2_app_req_list_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successfully fetched app req list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response_ApplicationRequirementsSchema_'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Response_ApplicationRequirementsSchema_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ApplicationRequirementsSchema'
+          - type: 'null'
+      type: object
+      title: Response[ApplicationRequirementsSchema]
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CycleType:
+      type: string
+      enum:
+      - initial
+      - continuous_monitoring
+      - re_appointment
+      - prescreen
+      - intersystem
+      - task_only
+      title: CycleType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ApplicationRequirementsSchema:
+      properties:
+        app_reqs:
+          items:
+            $ref: '#/components/schemas/ApplicationRequirementSchema'
+          type: array
+          title: App Reqs
+      type: object
+      required:
+      - app_reqs
+      title: ApplicationRequirementsSchema
+    ApplicationRequirementSchema:
+      properties:
+        app_req:
+          type: string
+          format: uuid
+          title: App Req
+          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
+        name:
+          type: string
+          title: Name
+          example: Initial Appoinment
+        recipe_type:
+          anyOf:
+          - $ref: '#/components/schemas/CycleType'
+          - type: 'null'
+          example: initial
+        provider_type:
+          items:
+            type: string
+          type: array
+          title: Provider Type
+          description: The provider types associated with the application requirement.
+          default: []
+      type: object
+      required:
+      - app_req
+      - name
+      - recipe_type
+      title: ApplicationRequirementSchema
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,466 @@
+openapi: 3.2.0
+info:
+  title: Axuall Provider Preview API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Provider Preview
+paths:
+  /v2/provider_preview:
+    get:
+      tags:
+      - Provider Preview
+      summary: Provider Preview
+      description: 'Instantly retrieve available information for a clinician.
+
+
+        This can include qualified name, state licenses, dea licenses, and ABMS board certifications
+
+        for Physicians.
+
+
+        Please note this information is subject to availability and not always comprehensive.
+
+
+        Only NPIs belonging to an individual clinician are supported. Organizational NPIs and
+
+        deactivated NPIs are rejected with a 400.'
+      operationId: provider_preview_v2_provider_preview_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: npi
+        in: query
+        required: true
+        schema:
+          type: string
+          description: The NPI of the practitioner
+          title: Npi
+        description: The NPI of the practitioner
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: '
+
+            Successfully retrieved a complete or partial response for the clinician''s NPI
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderPreviewSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/provider_prefill:
+    get:
+      tags:
+      - Provider Preview
+      summary: Provider Prefill
+      operationId: provider_prefill_v2_provider_prefill_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: provider_id
+        in: query
+        required: true
+        schema:
+          type: string
+          description: Provider identifier value
+          title: Provider Id
+        description: Provider identifier value
+      - name: id_type
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/ProviderPrefillIdType'
+          description: Identifier type
+        description: Identifier type
+      - name: include_facilities
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Facilities
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Invite prefill payload from existing clinician or NPPES fallback
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProviderPrefillSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ProviderPrefillSource:
+      type: string
+      enum:
+      - existing_clinician
+      - nppes
+      - resume_reader
+      title: ProviderPrefillSource
+    ProviderPreviewSchema:
+      properties:
+        name:
+          $ref: '#/components/schemas/NameSchema-Output'
+        degree:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree
+          example: MD
+        date_of_birth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date Of Birth
+          example: 01-05-1970
+        state_licenses:
+          items:
+            $ref: '#/components/schemas/StateLicenseSchema-Output'
+          type: array
+          title: State Licenses
+          default: []
+        dea_licenses:
+          items:
+            $ref: '#/components/schemas/DEALicenseSchema'
+          type: array
+          title: Dea Licenses
+          default: []
+        abms_board_certifications:
+          items:
+            $ref: '#/components/schemas/ABMSBoardCertSchema'
+          type: array
+          title: Abms Board Certifications
+          default: []
+      type: object
+      required:
+      - name
+      title: ProviderPreviewSchema
+    ProviderPrefillDemographicsSchema:
+      properties:
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          example: Jane
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+          example: A
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+          example: Dough
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+          example: jane@example.com
+        degree:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree
+          example: MD
+        suffix:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Suffix
+          example: Jr
+      type: object
+      title: ProviderPrefillDemographicsSchema
+    StateLicenseSchema-Output:
+      properties:
+        state:
+          type: string
+          title: State
+          example: PA
+        license_number:
+          type: string
+          title: License Number
+          example: AS1234
+        status:
+          type: string
+          title: Status
+          example: Active
+        board_actions:
+          type: boolean
+          title: Board Actions
+          example: false
+      type: object
+      required:
+      - state
+      - license_number
+      - status
+      - board_actions
+      title: StateLicenseSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProviderPrefillSchema:
+      properties:
+        source:
+          $ref: '#/components/schemas/ProviderPrefillSource'
+        demographics:
+          $ref: '#/components/schemas/ProviderPrefillDemographicsSchema'
+        identifiers:
+          $ref: '#/components/schemas/ProviderPrefillIdentifiersSchema'
+        facilities:
+          items:
+            $ref: '#/components/schemas/FacilitySchema'
+          type: array
+          title: Facilities
+          default: []
+      type: object
+      required:
+      - source
+      - demographics
+      - identifiers
+      title: ProviderPrefillSchema
+    ProviderPrefillIdentifiersSchema:
+      properties:
+        id_type:
+          $ref: '#/components/schemas/ProviderPrefillIdType'
+        npi:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Npi
+          example: '1234567890'
+        ncsbn:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ncsbn
+          example: '12345678'
+        clinician_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Clinician Id
+          description: The clinician's ID for this client's default external system, or null when they hold none for it. Only ever populated for the `existing_clinician` source; NPPES and resume-reader prefills have no clinician ID to offer.
+          example: CS-10042
+      type: object
+      required:
+      - id_type
+      title: ProviderPrefillIdentifiersSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DEALicenseSchema:
+      properties:
+        state:
+          type: string
+          title: State
+          example: OH
+        license_number:
+          type: string
+          title: License Number
+          example: DE1234
+      type: object
+      required:
+      - state
+      - license_number
+      title: DEALicenseSchema
+    ProviderPrefillIdType:
+      type: string
+      enum:
+      - NPI
+      - NCSBN
+      title: ProviderPrefillIdType
+    ABMSBoardCertSchema:
+      properties:
+        board:
+          type: string
+          title: Board
+          example: American Board of Medicine
+        specialty:
+          type: string
+          title: Specialty
+          example: Internal Medicine
+      type: object
+      required:
+      - board
+      - specialty
+      title: ABMSBoardCertSchema
+    NameSchema-Output:
+      properties:
+        first_name:
+          type: string
+          title: First Name
+          example: Jane
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+          example: Pizza
+        last_name:
+          type: string
+          title: Last Name
+          example: Dough
+        suffix:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Suffix
+          example: Jr
+      type: object
+      required:
+      - first_name
+      - last_name
+      title: NameSchema
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    SubscriptionStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - inactive
+      - adding
+      - addition_failed
+      - terminating
+      - termination_failed
+      - pending_termination
+      title: SubscriptionStatus
+    FacilitySchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          example: 78e4081d-1150-4957-88a4-4558cafc505d
+        name:
+          type: string
+          title: Name
+          example: Medical Center West Dunshire
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SubscriptionStatus'
+          - type: 'null'
+          example: active
+      type: object
+      required:
+      - id
+      - name
+      title: FacilitySchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

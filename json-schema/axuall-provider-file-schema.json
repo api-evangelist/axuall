@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/axuall/main/json-schema/axuall-provider-file-schema.json",
+  "title": "ProviderFile",
+  "x-generated": "2026-09-27",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/axuall-openapi.json#/components/schemas/ProviderFile",
+  "properties": {
+    "file_type": {
+      "$ref": "#/$defs/FileType",
+      "description": "Type of file"
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 2083,
+      "minLength": 1,
+      "format": "uri",
+      "title": "Url",
+      "description": "Link for file download"
+    },
+    "created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Created At",
+      "description": "Timestamp when the file was created"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Expires At",
+      "description": "Expiration date of the file URL in UTC"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name",
+      "description": "Axuall defined file name"
+    },
+    "external_file_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "External File Name",
+      "description": "Client defined file name if applicable"
+    },
+    "readable_file_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Readable File Name",
+      "description": "Client determined file naming convention"
+    },
+    "continuity_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Continuity Id",
+      "description": "An ID that stays constant for the same credential even as its data changes."
+    },
+    "artifact_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Artifact Id",
+      "description": "Unique ID of the artifact"
+    }
+  },
+  "type": "object",
+  "required": [
+    "file_type",
+    "url",
+    "expires_at",
+    "name"
+  ],
+  "$defs": {
+    "FileType": {
+      "type": "string",
+      "enum": [
+        "artifact",
+        "attestation",
+        "document",
+        "signature",
+        "supplemental"
+      ],
+      "title": "FileType",
+      "description": "File type categories\n\nartifact - File associated with a verified credential\nattestation - File associated with a providers attestations\ndocument - File uploaded and shared by a provider\nsignature - File of a document with a provider's signature\nsupplemental - File associated with a providers supplemental information"
+    }
+  }
+}

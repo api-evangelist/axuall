@@ -1,0 +1,414 @@
+openapi: 3.2.0
+info:
+  title: Axuall Address Deduplications API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Address Deduplications
+paths:
+  /v2/address_deduplications:
+    post:
+      tags:
+      - Address Deduplications
+      summary: Rank candidate addresses against a target address
+      description: Enqueue an address deduplication run; response body is task_id only. Poll GET /address_deduplications/{task_id} for the ranked candidates.
+      operationId: create_address_deduplication_v2_address_deduplications_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddressDeduplicationRequestSchema'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDeduplicationTaskSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/address_deduplications/{task_id}:
+    get:
+      tags:
+      - Address Deduplications
+      summary: Get address deduplication status and result
+      description: Report the state of a run and, once it completes, the ranked candidates. Waits a few seconds for a pending run, then returns 202 so the caller can re-poll.
+      operationId: get_address_deduplication_v2_address_deduplications__task_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Task Id
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDeduplicationStatusSchema'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDeduplicationStatusSchema'
+          description: Internal Server Error
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressDeduplicationStatusSchema'
+          description: Accepted
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TaskStatus:
+      type: string
+      enum:
+      - pending
+      - complete
+      - failed
+      title: TaskStatus
+      description: What a dispatched run is doing, derived from the Celery task state.
+    AddressDeduplicationRequestSchema:
+      properties:
+        target:
+          $ref: '#/components/schemas/app__routes__address_deduplications__AddressSchema'
+          description: The address the candidates are ranked against
+        candidates:
+          items:
+            $ref: '#/components/schemas/app__routes__address_deduplications__AddressSchema'
+          type: array
+          maxItems: 5
+          minItems: 1
+          title: Candidates
+          description: Addresses to rank; ids are derived from content, not supplied. At most 5 per request.
+        record_type:
+          anyOf:
+          - $ref: '#/components/schemas/RecordType'
+          - type: 'null'
+          description: What these addresses are; omit to send no context to the agent
+      type: object
+      required:
+      - target
+      - candidates
+      title: AddressDeduplicationRequestSchema
+      description: Request body for POST /address_deduplications.
+    AddressDeduplicationSchema:
+      properties:
+        target:
+          $ref: '#/components/schemas/AddressSchema-Output'
+        candidates:
+          items:
+            $ref: '#/components/schemas/RankedAddressSchema'
+          type: array
+          title: Candidates
+      type: object
+      required:
+      - target
+      - candidates
+      title: AddressDeduplicationSchema
+      description: 'Completed result: the target and its ranked candidates, in request order.'
+    AddressDeduplicationStatusSchema:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+        status:
+          $ref: '#/components/schemas/TaskStatus'
+        expires:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Expires
+          description: Seconds until this task id is forgotten; null once it has no expiry
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/AddressDeduplicationSchema'
+          - type: 'null'
+          description: The ranked candidates; null unless status is complete
+      type: object
+      required:
+      - task_id
+      - status
+      title: AddressDeduplicationStatusSchema
+      description: The state of a dispatched run, with the ranked result once it completes.
+    RecordType:
+      type: string
+      enum:
+      - education
+      - affiliation
+      title: RecordType
+      description: 'What the addresses in a request are. Resolved to a context string by flows.
+
+
+        Duplicated from flows.agent.address_deduplication, which public_api cannot import
+
+        (it pulls axuall_agent_platform). Adding a record type means editing both.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RankedAddressSchema:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        id:
+          type: string
+          title: Id
+          description: Content hash of the candidate address
+        ranking:
+          type: string
+          title: Ranking
+          description: One of same_entity, same_entity_variant, same_org_different_site, different_entity
+        rationale:
+          type: string
+          title: Rationale
+          description: One sentence naming the fields that drove the ranking
+      type: object
+      required:
+      - id
+      - ranking
+      - rationale
+      title: RankedAddressSchema
+      description: One candidate with the ranking the agent gave it.
+    app__routes__address_deduplications__AddressSchema:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+      type: object
+      title: AddressSchema
+      description: A loosely structured postal address. Every field is optional.
+    AddressSchema-Output:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+      type: object
+      title: AddressSchema
+      description: A loosely structured postal address. Every field is optional.
+    AddressDeduplicationTaskSchema:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+      type: object
+      required:
+      - task_id
+      title: AddressDeduplicationTaskSchema
+      description: The dispatched task id, for polling GET /address_deduplications/{task_id}.
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

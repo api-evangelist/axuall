@@ -1,0 +1,864 @@
+openapi: 3.2.0
+info:
+  title: Axuall Monitoring reports API
+  version: 2.144.89
+servers:
+- url: https://api.axuall.net
+tags:
+- name: Monitoring reports
+paths:
+  /v2/monitoring/dimensions:
+    get:
+      tags:
+      - Monitoring reports
+      summary: List Dimensions
+      description: List all available dimensions for the monitoring reports.
+      operationId: list_dimensions_v2_monitoring_dimensions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                type: array
+                title: Response List Dimensions V2 Monitoring Dimensions Get
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v2/monitoring/dimensions/credential:
+    get:
+      tags:
+      - Monitoring reports
+      summary: Get Credential Dimension
+      description: Return credential dimensions as `{id, name, category}` for grouped multi-select.
+      operationId: get_credential_dimension_v2_monitoring_dimensions_credential_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/CredentialDimensionOption'
+                type: array
+                title: Response Get Credential Dimension V2 Monitoring Dimensions Credential Get
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - HTTPBearer: []
+  /v2/monitoring/dimensions/{dimension_name}:
+    get:
+      tags:
+      - Monitoring reports
+      summary: Get Dimension
+      description: 'Get a specific dimension value for the monitoring reports.
+
+
+        `credential` returns `{id, name, category}` objects.
+
+        `degree` returns a sorted list of degree strings.'
+      operationId: get_dimension_v2_monitoring_dimensions__dimension_name__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: dimension_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dimension Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/monitoring/findings:
+    get:
+      tags:
+      - Monitoring reports
+      summary: List Findings
+      description: List clinician verification findings for the Axuall monitoring product.
+      operationId: list_findings_v2_monitoring_findings_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: verification_name
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Deprecated. Use `credential`. The name of the source verification.
+          deprecated: true
+          title: Verification Name
+        description: Deprecated. Use `credential`. The name of the source verification.
+        deprecated: true
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Search text to filter the results.
+          title: Q
+        description: Search text to filter the results.
+      - name: min_reported_at
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          description: The minimum Date Detected (Axuall recorded-at), in UTC, to filter the results.
+          title: Min Reported At
+        description: The minimum Date Detected (Axuall recorded-at), in UTC, to filter the results.
+      - name: max_reported_at
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          description: The maximum Date Detected (Axuall recorded-at), in UTC, to filter the results.
+          title: Max Reported At
+        description: The maximum Date Detected (Axuall recorded-at), in UTC, to filter the results.
+      - name: min_activation_date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          description: The minimum Reported Date (primary-source activation date) to filter the results.
+          title: Min Activation Date
+        description: The minimum Reported Date (primary-source activation date) to filter the results.
+      - name: max_activation_date
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          description: The maximum Reported Date (primary-source activation date) to filter the results.
+          title: Max Activation Date
+        description: The maximum Reported Date (primary-source activation date) to filter the results.
+      - name: most_current
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether the finding relates to the most current credential in Axuall
+          title: Most Current
+        description: Whether the finding relates to the most current credential in Axuall
+      - name: credential_ids
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Comma-separated leftover credential dimension IDs, unioned with `credential_categories`.
+          title: Credential Ids
+        description: Comma-separated leftover credential dimension IDs, unioned with `credential_categories`.
+      - name: credential_categories
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Comma-separated credential category names. Expanded to every matching credential dimension ID and unioned with leftover `credential_ids`.
+          title: Credential Categories
+        description: Comma-separated credential category names. Expanded to every matching credential dimension ID and unioned with leftover `credential_ids`.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+          description: "\n                A comma separated list of the desired sort order of the results.\n\n                For descending order, prefix the field with a minus sign (-).\n\n                Accepted values are:\n                activation_date, credential, degree, full_name, next_revalidation_at, provider_id, reported_at, verification_name\n            "
+          title: Sort
+        description: "\n                A comma separated list of the desired sort order of the results.\n\n                For descending order, prefix the field with a minus sign (-).\n\n                Accepted values are:\n                activation_date, credential, degree, full_name, next_revalidation_at, provider_id, reported_at, verification_name\n            "
+      - name: offset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Page offset
+          default: 0
+          title: Offset
+        description: Page offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Page limit. Use -1 to disable pagination.
+          default: 50
+          title: Limit
+        description: Page limit. Use -1 to disable pagination.
+      - name: credential
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated credential dimension names.
+          title: Credential
+        description: Comma-separated credential dimension names.
+      - name: degree
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree
+      - name: facility_ids
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Comma separated list of facility IDs.
+          title: Facility Ids
+        description: Comma separated list of facility IDs.
+      - name: Accept
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accept
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: List of adverse findings in xslx supported format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringResultSet_Finding_'
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: {}
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v2/monitoring/expirables:
+    get:
+      tags:
+      - Monitoring reports
+      summary: List Expirables
+      description: List clinician verification expirables for the Axuall monitoring product.
+      operationId: list_expirables_v2_monitoring_expirables_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: verification_name
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Deprecated. Use `credential`. The name of the source verification.
+          deprecated: true
+          title: Verification Name
+        description: Deprecated. Use `credential`. The name of the source verification.
+        deprecated: true
+      - name: q
+        in: query
+        required: false
+        schema:
+          type: string
+          description: The search text to filter the results.
+          title: Q
+        description: The search text to filter the results.
+      - name: min_expired_at
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          description: The minimum expiration date, in UTC, to filter the results.
+          title: Min Expired At
+        description: The minimum expiration date, in UTC, to filter the results.
+      - name: max_expired_at
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date
+          description: The maximum expiration date, in UTC, to filter the results.
+          title: Max Expired At
+        description: The maximum expiration date, in UTC, to filter the results.
+      - name: credential_ids
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Comma-separated leftover credential dimension IDs, unioned with `credential_categories`.
+          title: Credential Ids
+        description: Comma-separated leftover credential dimension IDs, unioned with `credential_categories`.
+      - name: credential_categories
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Comma-separated credential category names. Expanded to every matching credential dimension ID and unioned with leftover `credential_ids`.
+          title: Credential Categories
+        description: Comma-separated credential category names. Expanded to every matching credential dimension ID and unioned with leftover `credential_ids`.
+      - name: sort
+        in: query
+        required: false
+        schema:
+          type: string
+          description: "\n                A comma separated list of the desired sort order of the results.\n\n                For descending order, prefix the field with a minus sign (-).\n\n                Accepted values are:\n                credential, degree, expiration_date, full_name, last_verified_at, license_number, provider_id, verification_name\n            "
+          title: Sort
+        description: "\n                A comma separated list of the desired sort order of the results.\n\n                For descending order, prefix the field with a minus sign (-).\n\n                Accepted values are:\n                credential, degree, expiration_date, full_name, last_verified_at, license_number, provider_id, verification_name\n            "
+      - name: offset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Page offset
+          default: 0
+          title: Offset
+        description: Page offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Page limit. Use -1 to disable pagination.
+          default: 50
+          title: Limit
+        description: Page limit. Use -1 to disable pagination.
+      - name: credential
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated credential dimension names.
+          title: Credential
+        description: Comma-separated credential dimension names.
+      - name: degree
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree
+      - name: facility_ids
+        in: query
+        required: false
+        schema:
+          type: string
+          description: Comma separated list of facility IDs.
+          title: Facility Ids
+        description: Comma separated list of facility IDs.
+      - name: Accept
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accept
+      - name: x-axuall-actor
+        in: header
+        required: true
+        schema:
+          type: string
+          format: uuid
+          examples:
+          - af12b4d1-6895-4f39-8215-71653a7cd4ca
+          title: X-Axuall-Actor
+      responses:
+        '200':
+          description: List of clinician verification expirables in xslx supported format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitoringResultSet_Expirable_'
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: {}
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '418':
+          description: Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericErrorSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    MonitoringProfile:
+      properties:
+        provider_id:
+          type: string
+          title: Provider Id
+          description: The provider ID of the clinician
+        first_name:
+          type: string
+          title: First Name
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+        last_name:
+          type: string
+          title: Last Name
+        degree:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree
+          description: The short degree name of the clinician
+          default: ''
+        degree_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree Name
+          description: The full degree name of the clinician
+          default: ''
+        holder_id:
+          type: string
+          format: uuid
+          title: Holder Id
+          description: The Axuall ID of the clinician
+        checklist_id:
+          type: string
+          title: Checklist Id
+          description: The ID used to view the checklist of the clinician
+        checklist_url:
+          type: string
+          title: Checklist Url
+          description: The URL used to view the checklist of the clinician
+      type: object
+      required:
+      - provider_id
+      - first_name
+      - middle_name
+      - last_name
+      - holder_id
+      - checklist_id
+      - checklist_url
+      title: MonitoringProfile
+    Expirable:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The ID of the expirable record
+        dimensions:
+          additionalProperties:
+            type: string
+          type: object
+          title: Dimensions
+          description: The dimensions associated with the expirable record
+        profile:
+          $ref: '#/components/schemas/MonitoringProfile'
+        verification:
+          $ref: '#/components/schemas/Verification'
+          description: The verification record associated with the expirable record
+        license_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: License Number
+          description: The license number, if any, associated with the expirable record
+        expiration_date:
+          type: string
+          format: date
+          title: Expiration Date
+          description: The date the credential is set to expire
+        issue_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Issue Date
+          description: The date the credential was issued
+        status:
+          $ref: '#/components/schemas/ExpirableStatus'
+          description: The current status of the credential
+        reported_at:
+          type: string
+          format: date-time
+          title: Reported At
+          description: The date and time the expirable record was recorded by Axuall
+        artifact_id:
+          type: string
+          format: uuid
+          title: Artifact Id
+          description: The ID of the Axuall credential record associated with the expirable
+      type: object
+      required:
+      - id
+      - dimensions
+      - profile
+      - verification
+      - expiration_date
+      - issue_date
+      - status
+      - reported_at
+      - artifact_id
+      title: Expirable
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    MonitoringResultSet_Finding_:
+      properties:
+        total_clinicians:
+          type: integer
+          title: Total Clinicians
+          description: The total number of currently active clinicians
+        filtered_clinicians:
+          type: integer
+          title: Filtered Clinicians
+          description: The total number of active clinicians applicable to the search criteria
+        total:
+          type: integer
+          title: Total
+          description: The total number of records applicable to the search criteria
+        results:
+          items:
+            $ref: '#/components/schemas/Finding'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_clinicians
+      - filtered_clinicians
+      - total
+      - results
+      title: MonitoringResultSet[Finding]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Verification:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the source verification
+        name_formatted:
+          type: string
+          title: Name Formatted
+          description: The formatted name of the source verification
+        attributes:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Attributes
+          description: Attributes specific to the source verification
+          default: {}
+        last_revalidated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Revalidated At
+          description: The last time the verification was revalidated
+        next_verification_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Verification At
+          description: The approximate next time the verification should be revalidated
+      type: object
+      required:
+      - name
+      - name_formatted
+      title: Verification
+    Finding:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: The ID of the finding record
+        dimensions:
+          additionalProperties:
+            type: string
+          type: object
+          title: Dimensions
+          description: The dimensions associated with the finding
+        profile:
+          $ref: '#/components/schemas/MonitoringProfile'
+        verification:
+          $ref: '#/components/schemas/Verification'
+          description: The verification record associated with the findings
+        reported_at:
+          type: string
+          format: date-time
+          title: Reported At
+          description: The date and time the finding was recorded by Axuall
+        activation_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Activation Date
+          description: The primary-source activation date for the adverse finding, when available (from primary_source_query_log.details). Shown as Reported Date in Admin.
+        most_current:
+          type: boolean
+          title: Most Current
+          description: Whether the finding relates to the most current credential in Axuall
+        artifact_id:
+          type: string
+          format: uuid
+          title: Artifact Id
+          description: The ID of the Axuall credential record associated with the finding
+      type: object
+      required:
+      - id
+      - dimensions
+      - profile
+      - verification
+      - reported_at
+      - most_current
+      - artifact_id
+      title: Finding
+    MonitoringResultSet_Expirable_:
+      properties:
+        total_clinicians:
+          type: integer
+          title: Total Clinicians
+          description: The total number of currently active clinicians
+        filtered_clinicians:
+          type: integer
+          title: Filtered Clinicians
+          description: The total number of active clinicians applicable to the search criteria
+        total:
+          type: integer
+          title: Total
+          description: The total number of records applicable to the search criteria
+        results:
+          items:
+            $ref: '#/components/schemas/Expirable'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_clinicians
+      - filtered_clinicians
+      - total
+      - results
+      title: MonitoringResultSet[Expirable]
+    ExpirableStatus:
+      type: string
+      enum:
+      - unknown
+      - active
+      - expired
+      title: ExpirableStatus
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    CredentialDimensionOption:
+      properties:
+        id:
+          type: integer
+          title: Id
+          description: Stable credential dimension ID used as a filter value.
+        name:
+          type: string
+          title: Name
+          description: Credential dimension name used as a display label.
+        category:
+          type: string
+          title: Category
+          description: Display category for grouping credentials in the Monitoring filter.
+      type: object
+      required:
+      - id
+      - name
+      - category
+      title: CredentialDimensionOption
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
