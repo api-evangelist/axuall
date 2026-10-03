@@ -68,6 +68,51 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    ActorSettings:
+      properties:
+        referrer:
+          anyOf:
+          - type: string
+            format: uuid4
+          - type: 'null'
+          title: Referrer
+          description: Original referrer of the actor to Axuall
+        id_verification:
+          anyOf:
+          - $ref: '#/components/schemas/IDVerification'
+          - type: 'null'
+          description: ID Verification status for the actor
+        credential_sets:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Credential Sets
+          description: Credential sets associated with the actor
+      type: object
+      title: ActorSettings
+    Response_WalletActor_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/WalletActor'
+          - type: 'null'
+      type: object
+      title: Response[WalletActor]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -97,39 +142,6 @@ components:
       - finished
       - invalid
       title: IDVerification
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ActorSettings:
-      properties:
-        referrer:
-          anyOf:
-          - type: string
-            format: uuid4
-          - type: 'null'
-          title: Referrer
-          description: Original referrer of the actor to Axuall
-        id_verification:
-          anyOf:
-          - $ref: '#/components/schemas/IDVerification'
-          - type: 'null'
-          description: ID Verification status for the actor
-        credential_sets:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Credential Sets
-          description: Credential sets associated with the actor
-      type: object
-      title: ActorSettings
     Access:
       type: string
       enum:
@@ -159,6 +171,16 @@ components:
       - recruiter_analyst_delegate
       - medical_service_provider_analyst_delegate
       title: Access
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
     WalletActor:
       properties:
         id:
@@ -226,28 +248,6 @@ components:
       - access_level
       - actions
       title: WalletActor
-    Response_WalletActor_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/WalletActor'
-          - type: 'null'
-      type: object
-      title: Response[WalletActor]
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
   securitySchemes:
     HTTPBearer:
       type: http

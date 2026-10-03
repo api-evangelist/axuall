@@ -139,53 +139,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TaskStatus:
-      type: string
-      enum:
-      - pending
-      - complete
-      - failed
-      title: TaskStatus
-      description: What a dispatched run is doing, derived from the Celery task state.
-    AddressDeduplicationRequestSchema:
-      properties:
-        target:
-          $ref: '#/components/schemas/app__routes__address_deduplications__AddressSchema'
-          description: The address the candidates are ranked against
-        candidates:
-          items:
-            $ref: '#/components/schemas/app__routes__address_deduplications__AddressSchema'
-          type: array
-          maxItems: 5
-          minItems: 1
-          title: Candidates
-          description: Addresses to rank; ids are derived from content, not supplied. At most 5 per request.
-        record_type:
-          anyOf:
-          - $ref: '#/components/schemas/RecordType'
-          - type: 'null'
-          description: What these addresses are; omit to send no context to the agent
-      type: object
-      required:
-      - target
-      - candidates
-      title: AddressDeduplicationRequestSchema
-      description: Request body for POST /address_deduplications.
-    AddressDeduplicationSchema:
-      properties:
-        target:
-          $ref: '#/components/schemas/AddressSchema-Output'
-        candidates:
-          items:
-            $ref: '#/components/schemas/RankedAddressSchema'
-          type: array
-          title: Candidates
-      type: object
-      required:
-      - target
-      - candidates
-      title: AddressDeduplicationSchema
-      description: 'Completed result: the target and its ranked candidates, in request order.'
     AddressDeduplicationStatusSchema:
       properties:
         task_id:
@@ -210,48 +163,6 @@ components:
       - status
       title: AddressDeduplicationStatusSchema
       description: The state of a dispatched run, with the ranked result once it completes.
-    RecordType:
-      type: string
-      enum:
-      - education
-      - affiliation
-      title: RecordType
-      description: 'What the addresses in a request are. Resolved to a context string by flows.
-
-
-        Duplicated from flows.agent.address_deduplication, which public_api cannot import
-
-        (it pulls axuall_agent_platform). Adding a record type means editing both.'
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     RankedAddressSchema:
       properties:
         name:
@@ -308,46 +219,66 @@ components:
       - rationale
       title: RankedAddressSchema
       description: One candidate with the ranking the agent gave it.
-    app__routes__address_deduplications__AddressSchema:
+    AddressDeduplicationSchema:
       properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        line1:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Line1
-        line2:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Line2
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State
-        postal_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Postal Code
-        country:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country
+        target:
+          $ref: '#/components/schemas/AddressSchema-Output'
+        candidates:
+          items:
+            $ref: '#/components/schemas/RankedAddressSchema'
+          type: array
+          title: Candidates
       type: object
-      title: AddressSchema
-      description: A loosely structured postal address. Every field is optional.
+      required:
+      - target
+      - candidates
+      title: AddressDeduplicationSchema
+      description: 'Completed result: the target and its ranked candidates, in request order.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AddressDeduplicationRequestSchema:
+      properties:
+        target:
+          $ref: '#/components/schemas/app__routes__address_deduplications__AddressSchema'
+          description: The address the candidates are ranked against
+        candidates:
+          items:
+            $ref: '#/components/schemas/app__routes__address_deduplications__AddressSchema'
+          type: array
+          maxItems: 5
+          minItems: 1
+          title: Candidates
+          description: Addresses to rank; ids are derived from content, not supplied. At most 5 per request.
+        record_type:
+          anyOf:
+          - $ref: '#/components/schemas/RecordType'
+          - type: 'null'
+          description: What these addresses are; omit to send no context to the agent
+      type: object
+      required:
+      - target
+      - candidates
+      title: AddressDeduplicationRequestSchema
+      description: Request body for POST /address_deduplications.
     AddressSchema-Output:
       properties:
         name:
@@ -388,6 +319,75 @@ components:
       type: object
       title: AddressSchema
       description: A loosely structured postal address. Every field is optional.
+    RecordType:
+      type: string
+      enum:
+      - education
+      - affiliation
+      title: RecordType
+      description: 'What the addresses in a request are. Resolved to a context string by flows.
+
+
+        Duplicated from flows.agent.address_deduplication, which public_api cannot import
+
+        (it pulls axuall_agent_platform). Adding a record type means editing both.'
+    app__routes__address_deduplications__AddressSchema:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+      type: object
+      title: AddressSchema
+      description: A loosely structured postal address. Every field is optional.
+    TaskStatus:
+      type: string
+      enum:
+      - pending
+      - complete
+      - failed
+      title: TaskStatus
+      description: What a dispatched run is doing, derived from the Celery task state.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     AddressDeduplicationTaskSchema:
       properties:
         task_id:

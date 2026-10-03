@@ -87,15 +87,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -117,16 +108,15 @@ components:
       - msg
       - type
       title: ValidationError
-    GenericErrorSchema:
+    HTTPValidationError:
       properties:
         detail:
-          type: string
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
           title: Detail
-          example: The request could not be completed because...
       type: object
-      required:
-      - detail
-      title: GenericErrorSchema
+      title: HTTPValidationError
     CaseLogType:
       type: string
       enum:
@@ -137,6 +127,16 @@ components:
       - encounters_12m
       - procedures_12m
       title: CaseLogType
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
   securitySchemes:
     HTTPBearer:
       type: http

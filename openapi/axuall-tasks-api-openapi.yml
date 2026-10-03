@@ -294,6 +294,40 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    PaginatedResultsSchema_SubscriberGroupTaskSchema_:
+      properties:
+        total_results:
+          type: integer
+          title: Total Results
+          description: The total number of records available
+        results:
+          items:
+            $ref: '#/components/schemas/SubscriberGroupTaskSchema'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_results
+      - results
+      title: PaginatedResultsSchema[SubscriberGroupTaskSchema]
+    PaginatedResultsSchema_AssignedTaskSchema_:
+      properties:
+        total_results:
+          type: integer
+          title: Total Results
+          description: The total number of records available
+        results:
+          items:
+            $ref: '#/components/schemas/AssignedTaskSchema'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_results
+      - results
+      title: PaginatedResultsSchema[AssignedTaskSchema]
     TaskSetSchema:
       properties:
         id:
@@ -316,7 +350,7 @@ components:
       - name
       - tasks
       title: TaskSetSchema
-    PaginatedResultsSchema_SubscriberGroupTaskSchema_:
+    PaginatedResultsSchema_TaskSetSchema_:
       properties:
         total_results:
           type: integer
@@ -324,7 +358,7 @@ components:
           description: The total number of records available
         results:
           items:
-            $ref: '#/components/schemas/SubscriberGroupTaskSchema'
+            $ref: '#/components/schemas/TaskSetSchema'
           type: array
           title: Results
           description: The list of records returned by the search criteria
@@ -332,7 +366,54 @@ components:
       required:
       - total_results
       - results
-      title: PaginatedResultsSchema[SubscriberGroupTaskSchema]
+      title: PaginatedResultsSchema[TaskSetSchema]
+    SubscriberGroupTaskSchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
+        name:
+          type: string
+          title: Name
+          description: Name of the task
+          example: Initial Appoinment
+        description:
+          type: string
+          title: Description
+          description: A description of the subscriber group task
+          example: Additional information for physicians
+        task_type:
+          $ref: '#/components/schemas/TaskType'
+          description: This is the type of task (document or question)
+          example: question
+        active:
+          type: boolean
+          title: Active
+          description: An indication if this task is still a task that is available to be assigned to the clinician
+          example: true
+        provider_task_name:
+          type: string
+          title: Provider Task Name
+          description: The clinician facing task name
+          example: Direct Deposit
+        config:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Config
+          description: Task configuration including wallet_location
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - task_type
+      - active
+      - provider_task_name
+      title: SubscriberGroupTaskSchema
     AssignedTaskSchema:
       properties:
         id:
@@ -397,22 +478,6 @@ components:
       - assigned
       - completed
       title: AssignedTaskSchema
-    RelatedTaskSchema:
-      properties:
-        task_id:
-          type: string
-          format: uuid
-          title: Task Id
-          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
-        task_name:
-          type: string
-          title: Task Name
-          example: Initial Appointment
-      type: object
-      required:
-      - task_id
-      - task_name
-      title: RelatedTaskSchema
     ValidationError:
       properties:
         loc:
@@ -434,106 +499,6 @@ components:
       - msg
       - type
       title: ValidationError
-    PaginatedResultsSchema_TaskSetSchema_:
-      properties:
-        total_results:
-          type: integer
-          title: Total Results
-          description: The total number of records available
-        results:
-          items:
-            $ref: '#/components/schemas/TaskSetSchema'
-          type: array
-          title: Results
-          description: The list of records returned by the search criteria
-      type: object
-      required:
-      - total_results
-      - results
-      title: PaginatedResultsSchema[TaskSetSchema]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    PaginatedResultsSchema_AssignedTaskSchema_:
-      properties:
-        total_results:
-          type: integer
-          title: Total Results
-          description: The total number of records available
-        results:
-          items:
-            $ref: '#/components/schemas/AssignedTaskSchema'
-          type: array
-          title: Results
-          description: The list of records returned by the search criteria
-      type: object
-      required:
-      - total_results
-      - results
-      title: PaginatedResultsSchema[AssignedTaskSchema]
-    SubscriberGroupTaskSchema:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
-        name:
-          type: string
-          title: Name
-          description: Name of the task
-          example: Initial Appoinment
-        description:
-          type: string
-          title: Description
-          description: A description of the subscriber group task
-          example: Additional information for physicians
-        task_type:
-          $ref: '#/components/schemas/TaskType'
-          description: This is the type of task (document or question)
-          example: question
-        active:
-          type: boolean
-          title: Active
-          description: An indication if this task is still a task that is available to be assigned to the clinician
-          example: true
-        provider_task_name:
-          type: string
-          title: Provider Task Name
-          description: The clinician facing task name
-          example: Direct Deposit
-        config:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Config
-          description: Task configuration including wallet_location
-      type: object
-      required:
-      - id
-      - name
-      - description
-      - task_type
-      - active
-      - provider_task_name
-      title: SubscriberGroupTaskSchema
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
     TaskType:
       type: string
       enum:
@@ -544,6 +509,41 @@ components:
       - signature
       - privileging
       title: TaskType
+    RelatedTaskSchema:
+      properties:
+        task_id:
+          type: string
+          format: uuid
+          title: Task Id
+          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
+        task_name:
+          type: string
+          title: Task Name
+          example: Initial Appointment
+      type: object
+      required:
+      - task_id
+      - task_name
+      title: RelatedTaskSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
   securitySchemes:
     HTTPBearer:
       type: http

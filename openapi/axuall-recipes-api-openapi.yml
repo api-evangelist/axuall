@@ -77,57 +77,6 @@ components:
           - type: 'null'
       type: object
       title: Response[ApplicationRequirementsSchema]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CycleType:
-      type: string
-      enum:
-      - initial
-      - continuous_monitoring
-      - re_appointment
-      - prescreen
-      - intersystem
-      - task_only
-      title: CycleType
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ApplicationRequirementsSchema:
-      properties:
-        app_reqs:
-          items:
-            $ref: '#/components/schemas/ApplicationRequirementSchema'
-          type: array
-          title: App Reqs
-      type: object
-      required:
-      - app_reqs
-      title: ApplicationRequirementsSchema
     ApplicationRequirementSchema:
       properties:
         app_req:
@@ -157,6 +106,57 @@ components:
       - name
       - recipe_type
       title: ApplicationRequirementSchema
+    CycleType:
+      type: string
+      enum:
+      - initial
+      - continuous_monitoring
+      - re_appointment
+      - prescreen
+      - intersystem
+      - task_only
+      title: CycleType
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ApplicationRequirementsSchema:
+      properties:
+        app_reqs:
+          items:
+            $ref: '#/components/schemas/ApplicationRequirementSchema'
+          type: array
+          title: App Reqs
+      type: object
+      required:
+      - app_reqs
+      title: ApplicationRequirementsSchema
     GenericErrorSchema:
       properties:
         detail:

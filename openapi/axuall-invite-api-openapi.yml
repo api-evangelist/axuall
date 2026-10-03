@@ -205,71 +205,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    EmploymentRelationship:
-      type: string
-      enum:
-      - employed
-      - contract
-      title: EmploymentRelationship
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    InviteExternalDelegateSchema:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-          example: delegate@email.com
-      type: object
-      required:
-      - email
-      title: InviteExternalDelegateSchema
-      description: 'Optional external delegate assigned during Admin Invite Clinician.
-
-
-        Display name is collected at enroll time; invite only needs the email so
-
-        ``user_creator`` can enqueue ``create_external_delegate`` after the holder
-
-        actor exists.'
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ClinicianIdSchema:
       properties:
         external_id:
@@ -320,6 +255,15 @@ components:
           - type: 'null'
       type: object
       title: Response[InviteSchema]
+    InviteSchema:
+      properties:
+        invite_id:
+          type: string
+          title: Invite Id
+      type: object
+      required:
+      - invite_id
+      title: InviteSchema
     ClinicianSettingsSchema:
       properties:
         alternate_emails:
@@ -433,6 +377,52 @@ components:
       required:
       - degree_type
       title: ClinicianSettingsSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EmploymentRelationship:
+      type: string
+      enum:
+      - employed
+      - contract
+      title: EmploymentRelationship
+    InviteExternalDelegateSchema:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          example: delegate@email.com
+      type: object
+      required:
+      - email
+      title: InviteExternalDelegateSchema
+      description: 'Optional external delegate assigned during Admin Invite Clinician.
+
+
+        Display name is collected at enroll time; invite only needs the email so
+
+        ``user_creator`` can enqueue ``create_external_delegate`` after the holder
+
+        actor exists.'
     SendInviteRequestSchema:
       properties:
         invite_id:
@@ -593,15 +583,25 @@ components:
       - email
       - settings
       title: SendInviteRequestSchema
-    InviteSchema:
+    HTTPValidationError:
       properties:
-        invite_id:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
           type: string
-          title: Invite Id
+          title: Detail
+          example: The request could not be completed because...
       type: object
       required:
-      - invite_id
-      title: InviteSchema
+      - detail
+      title: GenericErrorSchema
   securitySchemes:
     HTTPBearer:
       type: http

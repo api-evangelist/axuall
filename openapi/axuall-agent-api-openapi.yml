@@ -476,70 +476,38 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AgentSuggestPromptsListSchema:
+    AgentSuggestPromptItemSchema:
       properties:
-        suggest_prompts:
-          items:
-            $ref: '#/components/schemas/AgentSuggestPromptItemSchema'
-          type: array
-          title: Suggest Prompts
-          description: Non-deleted suggestions with show_in_ux true (chat UI chips)
-      type: object
-      required:
-      - suggest_prompts
-      title: AgentSuggestPromptsListSchema
-      description: Response for GET /agent/suggest-prompts.
-    AgentTaskStatusSchema:
-      properties:
-        status:
+        id:
           type: string
-          title: Status
-          description: PENDING, SUCCESS, or FAILURE
-        conversation_id:
+          title: Id
+          description: Suggested prompt UUID
+        display_name:
+          type: string
+          title: Display Name
+          description: Short label for the suggestion
+        description:
           anyOf:
           - type: string
           - type: 'null'
-          title: Conversation Id
-          description: Set on SUCCESS
-        content:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Content
-          description: Assistant reply as envelope (parts) on SUCCESS
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-          description: Error message on FAILURE
+          title: Description
+          description: Optional longer helper text (subtitle, tooltip, extra context)
+        prompt_text:
+          type: string
+          title: Prompt Text
+          description: Full prompt text to send or prefill
+        sort_order:
+          type: integer
+          title: Sort Order
+          description: Display order within the agent type (lower values first)
       type: object
       required:
-      - status
-      title: AgentTaskStatusSchema
-      description: Response for GET /agent/task/{task_id}.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - id
+      - display_name
+      - prompt_text
+      - sort_order
+      title: AgentSuggestPromptItemSchema
+      description: One suggested starter prompt for AI chat.
     AgentChatRequestSchema:
       properties:
         agent_type_id:
@@ -599,38 +567,143 @@ components:
       - message
       title: AgentChatRequestSchema
       description: Request body for POST /agent/chat.
-    AgentSuggestPromptItemSchema:
+    AgentSuggestPromptsListSchema:
+      properties:
+        suggest_prompts:
+          items:
+            $ref: '#/components/schemas/AgentSuggestPromptItemSchema'
+          type: array
+          title: Suggest Prompts
+          description: Non-deleted suggestions with show_in_ux true (chat UI chips)
+      type: object
+      required:
+      - suggest_prompts
+      title: AgentSuggestPromptsListSchema
+      description: Response for GET /agent/suggest-prompts.
+    AgentChatResponseSchema:
+      properties:
+        task_id:
+          type: string
+          title: Task Id
+          description: Flow task ID; poll GET /agent/task/{task_id} for conversation_id and assistant reply
+      type: object
+      required:
+      - task_id
+      title: AgentChatResponseSchema
+      description: 'Response for POST /agent/chat: Flow task id for polling GET /agent/task/{task_id}.'
+    AgentConversationItemSchema:
       properties:
         id:
           type: string
           title: Id
-          description: Suggested prompt UUID
-        display_name:
-          type: string
-          title: Display Name
-          description: Short label for the suggestion
-        description:
+          description: Conversation UUID
+        title:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-          description: Optional longer helper text (subtitle, tooltip, extra context)
-        prompt_text:
+          title: Title
+          description: Short label from first user message, if set
+        created_at:
           type: string
-          title: Prompt Text
-          description: Full prompt text to send or prefill
-        sort_order:
-          type: integer
-          title: Sort Order
-          description: Display order within the agent type (lower values first)
+          title: Created At
+          description: ISO 8601 created timestamp
+        modified_at:
+          type: string
+          title: Modified At
+          description: ISO 8601 modified timestamp
       type: object
       required:
       - id
-      - display_name
-      - prompt_text
-      - sort_order
-      title: AgentSuggestPromptItemSchema
-      description: One suggested starter prompt for AI chat.
+      - created_at
+      - modified_at
+      title: AgentConversationItemSchema
+      description: Single conversation in list response.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AgentTaskStatusSchema:
+      properties:
+        status:
+          type: string
+          title: Status
+          description: PENDING, SUCCESS, or FAILURE
+        conversation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Conversation Id
+          description: Set on SUCCESS
+        content:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Content
+          description: Assistant reply as envelope (parts) on SUCCESS
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+          description: Error message on FAILURE
+      type: object
+      required:
+      - status
+      title: AgentTaskStatusSchema
+      description: Response for GET /agent/task/{task_id}.
+    AgentConversationsListSchema:
+      properties:
+        total:
+          type: integer
+          title: Total
+          description: Total count for scope
+        conversations:
+          items:
+            $ref: '#/components/schemas/AgentConversationItemSchema'
+          type: array
+          title: Conversations
+          description: Page of conversations
+      type: object
+      required:
+      - total
+      - conversations
+      title: AgentConversationsListSchema
+      description: Response for GET /agent/conversations.
+    AgentMessageFeedbackResponseSchema:
+      properties:
+        feedback_rating:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Feedback Rating
+          description: 1 positive, -1 negative, null if cleared or not set
+        copy_count:
+          type: integer
+          title: Copy Count
+          description: Total copy events recorded for this message
+      type: object
+      required:
+      - copy_count
+      title: AgentMessageFeedbackResponseSchema
+      description: Response after recording message feedback.
     HTTPValidationError:
       properties:
         detail:
@@ -684,33 +757,6 @@ components:
       - created_at
       title: AgentMessageSchema
       description: Single message in a conversation.
-    AgentConversationItemSchema:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Conversation UUID
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: Short label from first user message, if set
-        created_at:
-          type: string
-          title: Created At
-          description: ISO 8601 created timestamp
-        modified_at:
-          type: string
-          title: Modified At
-          description: ISO 8601 modified timestamp
-      type: object
-      required:
-      - id
-      - created_at
-      - modified_at
-      title: AgentConversationItemSchema
-      description: Single conversation in list response.
     AgentMessageFeedbackRequestSchema:
       properties:
         action:
@@ -735,52 +781,6 @@ components:
       - action
       title: AgentMessageFeedbackRequestSchema
       description: Request body for POST .../messages/{message_id}/feedback.
-    AgentMessageFeedbackResponseSchema:
-      properties:
-        feedback_rating:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Feedback Rating
-          description: 1 positive, -1 negative, null if cleared or not set
-        copy_count:
-          type: integer
-          title: Copy Count
-          description: Total copy events recorded for this message
-      type: object
-      required:
-      - copy_count
-      title: AgentMessageFeedbackResponseSchema
-      description: Response after recording message feedback.
-    AgentConversationsListSchema:
-      properties:
-        total:
-          type: integer
-          title: Total
-          description: Total count for scope
-        conversations:
-          items:
-            $ref: '#/components/schemas/AgentConversationItemSchema'
-          type: array
-          title: Conversations
-          description: Page of conversations
-      type: object
-      required:
-      - total
-      - conversations
-      title: AgentConversationsListSchema
-      description: Response for GET /agent/conversations.
-    AgentChatResponseSchema:
-      properties:
-        task_id:
-          type: string
-          title: Task Id
-          description: Flow task ID; poll GET /agent/task/{task_id} for conversation_id and assistant reply
-      type: object
-      required:
-      - task_id
-      title: AgentChatResponseSchema
-      description: 'Response for POST /agent/chat: Flow task id for polling GET /agent/task/{task_id}.'
     GenericErrorSchema:
       properties:
         detail:

@@ -176,54 +176,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AuthResponse:
-      properties:
-        access_token:
-          type: string
-          title: Access Token
-          description: The token for clients to use when querying the Axuall API
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-        scope:
-          type: string
-          title: Scope
-          example: openid email profile
-        expires_in:
-          type: integer
-          title: Expires In
-          example: 86400
-        token_type:
-          type: string
-          title: Token Type
-          example: Bearer
-      type: object
-      required:
-      - access_token
-      - scope
-      - expires_in
-      - token_type
-      title: AuthResponse
-      description: Authentication response contains a token which is valid for 24 hours
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     AuthRequest:
       properties:
         client_id:
@@ -263,25 +215,33 @@ components:
           - type: 'null'
       type: object
       title: Response[SSOResponse]
-    SSOResponse:
+    AuthResponse:
       properties:
-        url:
+        access_token:
           type: string
-          title: Url
-          example: https://example.com/authorize?state=state&grant=grant
+          title: Access Token
+          description: The token for clients to use when querying the Axuall API
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        scope:
+          type: string
+          title: Scope
+          example: openid email profile
+        expires_in:
+          type: integer
+          title: Expires In
+          example: 86400
+        token_type:
+          type: string
+          title: Token Type
+          example: Bearer
       type: object
       required:
-      - url
-      title: SSOResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - access_token
+      - scope
+      - expires_in
+      - token_type
+      title: AuthResponse
+      description: Authentication response contains a token which is valid for 24 hours
     AuthError:
       properties:
         error:
@@ -297,6 +257,46 @@ components:
       - error
       - error_description
       title: AuthError
+    SSOResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+          example: https://example.com/authorize?state=state&grant=grant
+      type: object
+      required:
+      - url
+      title: SSOResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     GenericErrorSchema:
       properties:
         detail:

@@ -77,6 +77,27 @@ components:
           - type: 'null'
       type: object
       title: Response[FacilitiesSchema]
+    FacilitySchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          example: 78e4081d-1150-4957-88a4-4558cafc505d
+        name:
+          type: string
+          title: Name
+          example: Medical Center West Dunshire
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SubscriptionStatus'
+          - type: 'null'
+          example: active
+      type: object
+      required:
+      - id
+      - name
+      title: FacilitySchema
     ValidationError:
       properties:
         loc:
@@ -98,15 +119,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     FacilitiesSchema:
       properties:
         facilities:
@@ -117,6 +129,15 @@ components:
           default: []
       type: object
       title: FacilitiesSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     GenericErrorSchema:
       properties:
         detail:
@@ -139,27 +160,6 @@ components:
       - termination_failed
       - pending_termination
       title: SubscriptionStatus
-    FacilitySchema:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          example: 78e4081d-1150-4957-88a4-4558cafc505d
-        name:
-          type: string
-          title: Name
-          example: Medical Center West Dunshire
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/SubscriptionStatus'
-          - type: 'null'
-          example: active
-      type: object
-      required:
-      - id
-      - name
-      title: FacilitySchema
   securitySchemes:
     HTTPBearer:
       type: http

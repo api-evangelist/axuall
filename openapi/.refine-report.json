@@ -1,7 +1,7 @@
 {
   "provider": "axuall",
   "sources": [
-    "axuall-openapi.json"
+    "_original/axuall-openapi.json"
   ],
   "outputs": [
     "axuall-actor-api-openapi.yml",
@@ -20,12 +20,11 @@
     "axuall-recipes-api-openapi.yml",
     "axuall-tasks-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/axuall-openapi.json"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "axuall-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "axuall-openapi.json: declared missing tag: Actor",
     "axuall-openapi.json: declared missing tag: Address Deduplications",
@@ -42,7 +41,23 @@
     "axuall-openapi.json: declared missing tag: Providers",
     "axuall-openapi.json: declared missing tag: Recipes",
     "axuall-openapi.json: declared missing tag: Tasks",
-    "apis.yml register: written (+15 apis, 15 total)"
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "axuall-actor-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-address-deduplications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-agent-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-case-log-artifact-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-email-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-facilities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-fsmb-artifact-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-invite-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-monitoring-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-provider-preview-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-providers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-recipes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "axuall-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

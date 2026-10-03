@@ -536,142 +536,13 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    MonitoringProfile:
-      properties:
-        provider_id:
-          type: string
-          title: Provider Id
-          description: The provider ID of the clinician
-        first_name:
-          type: string
-          title: First Name
-        middle_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Middle Name
-        last_name:
-          type: string
-          title: Last Name
-        degree:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Degree
-          description: The short degree name of the clinician
-          default: ''
-        degree_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Degree Name
-          description: The full degree name of the clinician
-          default: ''
-        holder_id:
-          type: string
-          format: uuid
-          title: Holder Id
-          description: The Axuall ID of the clinician
-        checklist_id:
-          type: string
-          title: Checklist Id
-          description: The ID used to view the checklist of the clinician
-        checklist_url:
-          type: string
-          title: Checklist Url
-          description: The URL used to view the checklist of the clinician
-      type: object
-      required:
-      - provider_id
-      - first_name
-      - middle_name
-      - last_name
-      - holder_id
-      - checklist_id
-      - checklist_url
-      title: MonitoringProfile
-    Expirable:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The ID of the expirable record
-        dimensions:
-          additionalProperties:
-            type: string
-          type: object
-          title: Dimensions
-          description: The dimensions associated with the expirable record
-        profile:
-          $ref: '#/components/schemas/MonitoringProfile'
-        verification:
-          $ref: '#/components/schemas/Verification'
-          description: The verification record associated with the expirable record
-        license_number:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: License Number
-          description: The license number, if any, associated with the expirable record
-        expiration_date:
-          type: string
-          format: date
-          title: Expiration Date
-          description: The date the credential is set to expire
-        issue_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Issue Date
-          description: The date the credential was issued
-        status:
-          $ref: '#/components/schemas/ExpirableStatus'
-          description: The current status of the credential
-        reported_at:
-          type: string
-          format: date-time
-          title: Reported At
-          description: The date and time the expirable record was recorded by Axuall
-        artifact_id:
-          type: string
-          format: uuid
-          title: Artifact Id
-          description: The ID of the Axuall credential record associated with the expirable
-      type: object
-      required:
-      - id
-      - dimensions
-      - profile
-      - verification
-      - expiration_date
-      - issue_date
-      - status
-      - reported_at
-      - artifact_id
-      title: Expirable
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+    ExpirableStatus:
+      type: string
+      enum:
+      - unknown
+      - active
+      - expired
+      title: ExpirableStatus
     MonitoringResultSet_Finding_:
       properties:
         total_clinicians:
@@ -699,15 +570,6 @@ components:
       - total
       - results
       title: MonitoringResultSet[Finding]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     Verification:
       properties:
         name:
@@ -745,6 +607,27 @@ components:
       - name
       - name_formatted
       title: Verification
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Finding:
       properties:
         id:
@@ -821,23 +704,76 @@ components:
       - total
       - results
       title: MonitoringResultSet[Expirable]
-    ExpirableStatus:
-      type: string
-      enum:
-      - unknown
-      - active
-      - expired
-      title: ExpirableStatus
-    GenericErrorSchema:
+    Expirable:
       properties:
-        detail:
+        id:
           type: string
-          title: Detail
-          example: The request could not be completed because...
+          format: uuid
+          title: Id
+          description: The ID of the expirable record
+        dimensions:
+          additionalProperties:
+            type: string
+          type: object
+          title: Dimensions
+          description: The dimensions associated with the expirable record
+        profile:
+          $ref: '#/components/schemas/MonitoringProfile'
+        verification:
+          $ref: '#/components/schemas/Verification'
+          description: The verification record associated with the expirable record
+        license_number:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: License Number
+          description: The license number, if any, associated with the expirable record
+        expiration_date:
+          type: string
+          format: date
+          title: Expiration Date
+          description: The date the credential is set to expire
+        issue_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Issue Date
+          description: The date the credential was issued
+        status:
+          $ref: '#/components/schemas/ExpirableStatus'
+          description: The current status of the credential
+        reported_at:
+          type: string
+          format: date-time
+          title: Reported At
+          description: The date and time the expirable record was recorded by Axuall
+        artifact_id:
+          type: string
+          format: uuid
+          title: Artifact Id
+          description: The ID of the Axuall credential record associated with the expirable
       type: object
       required:
-      - detail
-      title: GenericErrorSchema
+      - id
+      - dimensions
+      - profile
+      - verification
+      - expiration_date
+      - issue_date
+      - status
+      - reported_at
+      - artifact_id
+      title: Expirable
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     CredentialDimensionOption:
       properties:
         id:
@@ -858,6 +794,70 @@ components:
       - name
       - category
       title: CredentialDimensionOption
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    MonitoringProfile:
+      properties:
+        provider_id:
+          type: string
+          title: Provider Id
+          description: The provider ID of the clinician
+        first_name:
+          type: string
+          title: First Name
+        middle_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Middle Name
+        last_name:
+          type: string
+          title: Last Name
+        degree:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree
+          description: The short degree name of the clinician
+          default: ''
+        degree_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree Name
+          description: The full degree name of the clinician
+          default: ''
+        holder_id:
+          type: string
+          format: uuid
+          title: Holder Id
+          description: The Axuall ID of the clinician
+        checklist_id:
+          type: string
+          title: Checklist Id
+          description: The ID used to view the checklist of the clinician
+        checklist_url:
+          type: string
+          title: Checklist Url
+          description: The URL used to view the checklist of the clinician
+      type: object
+      required:
+      - provider_id
+      - first_name
+      - middle_name
+      - last_name
+      - holder_id
+      - checklist_id
+      - checklist_url
+      title: MonitoringProfile
   securitySchemes:
     HTTPBearer:
       type: http
