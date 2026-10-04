@@ -243,27 +243,6 @@ components:
         request entry passes through ``normalize_clinician_ids`` and into the
 
         ``user_creator`` job body without remapping.'
-    Response_InviteSchema_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/InviteSchema'
-          - type: 'null'
-      type: object
-      title: Response[InviteSchema]
-    InviteSchema:
-      properties:
-        invite_id:
-          type: string
-          title: Invite Id
-      type: object
-      required:
-      - invite_id
-      title: InviteSchema
     ClinicianSettingsSchema:
       properties:
         alternate_emails:
@@ -377,6 +356,34 @@ components:
       required:
       - degree_type
       title: ClinicianSettingsSchema
+    InviteSchema:
+      properties:
+        invite_id:
+          type: string
+          title: Invite Id
+      type: object
+      required:
+      - invite_id
+      title: InviteSchema
+    InviteExternalDelegateSchema:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+          example: delegate@email.com
+      type: object
+      required:
+      - email
+      title: InviteExternalDelegateSchema
+      description: 'Optional external delegate assigned during Admin Invite Clinician.
+
+
+        Display name is collected at enroll time; invite only needs the email so
+
+        ``user_creator`` can enqueue ``create_external_delegate`` after the holder
+
+        actor exists.'
     ValidationError:
       properties:
         loc:
@@ -398,31 +405,34 @@ components:
       - msg
       - type
       title: ValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    Response_InviteSchema_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/InviteSchema'
+          - type: 'null'
+      type: object
+      title: Response[InviteSchema]
     EmploymentRelationship:
       type: string
       enum:
       - employed
       - contract
       title: EmploymentRelationship
-    InviteExternalDelegateSchema:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-          example: delegate@email.com
-      type: object
-      required:
-      - email
-      title: InviteExternalDelegateSchema
-      description: 'Optional external delegate assigned during Admin Invite Clinician.
-
-
-        Display name is collected at enroll time; invite only needs the email so
-
-        ``user_creator`` can enqueue ``create_external_delegate`` after the holder
-
-        actor exists.'
     SendInviteRequestSchema:
       properties:
         invite_id:
@@ -592,16 +602,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
   securitySchemes:
     HTTPBearer:
       type: http

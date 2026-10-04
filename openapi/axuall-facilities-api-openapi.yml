@@ -65,6 +65,18 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    SubscriptionStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - inactive
+      - adding
+      - addition_failed
+      - terminating
+      - termination_failed
+      - pending_termination
+      title: SubscriptionStatus
     Response_FacilitiesSchema_:
       properties:
         success:
@@ -77,27 +89,6 @@ components:
           - type: 'null'
       type: object
       title: Response[FacilitiesSchema]
-    FacilitySchema:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          example: 78e4081d-1150-4957-88a4-4558cafc505d
-        name:
-          type: string
-          title: Name
-          example: Medical Center West Dunshire
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/SubscriptionStatus'
-          - type: 'null'
-          example: active
-      type: object
-      required:
-      - id
-      - name
-      title: FacilitySchema
     ValidationError:
       properties:
         loc:
@@ -119,6 +110,16 @@ components:
       - msg
       - type
       title: ValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
     FacilitiesSchema:
       properties:
         facilities:
@@ -138,28 +139,27 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    GenericErrorSchema:
+    FacilitySchema:
       properties:
-        detail:
+        id:
           type: string
-          title: Detail
-          example: The request could not be completed because...
+          format: uuid
+          title: Id
+          example: 78e4081d-1150-4957-88a4-4558cafc505d
+        name:
+          type: string
+          title: Name
+          example: Medical Center West Dunshire
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SubscriptionStatus'
+          - type: 'null'
+          example: active
       type: object
       required:
-      - detail
-      title: GenericErrorSchema
-    SubscriptionStatus:
-      type: string
-      enum:
-      - pending
-      - active
-      - inactive
-      - adding
-      - addition_failed
-      - terminating
-      - termination_failed
-      - pending_termination
-      title: SubscriptionStatus
+      - id
+      - name
+      title: FacilitySchema
   securitySchemes:
     HTTPBearer:
       type: http

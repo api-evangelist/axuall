@@ -68,6 +68,57 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    Response_WalletActor_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/WalletActor'
+          - type: 'null'
+      type: object
+      title: Response[WalletActor]
+    IDVerification:
+      type: string
+      enum:
+      - not_started
+      - pending
+      - finished
+      - invalid
+      title: IDVerification
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
     ActorSettings:
       properties:
         referrer:
@@ -92,56 +143,6 @@ components:
           description: Credential sets associated with the actor
       type: object
       title: ActorSettings
-    Response_WalletActor_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/WalletActor'
-          - type: 'null'
-      type: object
-      title: Response[WalletActor]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    IDVerification:
-      type: string
-      enum:
-      - not_started
-      - pending
-      - finished
-      - invalid
-      title: IDVerification
     Access:
       type: string
       enum:
@@ -171,16 +172,6 @@ components:
       - recruiter_analyst_delegate
       - medical_service_provider_analyst_delegate
       title: Access
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
     WalletActor:
       properties:
         id:
@@ -248,6 +239,15 @@ components:
       - access_level
       - actions
       title: WalletActor
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

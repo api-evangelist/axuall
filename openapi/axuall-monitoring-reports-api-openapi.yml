@@ -536,40 +536,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ExpirableStatus:
-      type: string
-      enum:
-      - unknown
-      - active
-      - expired
-      title: ExpirableStatus
-    MonitoringResultSet_Finding_:
-      properties:
-        total_clinicians:
-          type: integer
-          title: Total Clinicians
-          description: The total number of currently active clinicians
-        filtered_clinicians:
-          type: integer
-          title: Filtered Clinicians
-          description: The total number of active clinicians applicable to the search criteria
-        total:
-          type: integer
-          title: Total
-          description: The total number of records applicable to the search criteria
-        results:
-          items:
-            $ref: '#/components/schemas/Finding'
-          type: array
-          title: Results
-          description: The list of records returned by the search criteria
-      type: object
-      required:
-      - total_clinicians
-      - filtered_clinicians
-      - total
-      - results
-      title: MonitoringResultSet[Finding]
     Verification:
       properties:
         name:
@@ -628,82 +594,6 @@ components:
       - msg
       - type
       title: ValidationError
-    Finding:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: The ID of the finding record
-        dimensions:
-          additionalProperties:
-            type: string
-          type: object
-          title: Dimensions
-          description: The dimensions associated with the finding
-        profile:
-          $ref: '#/components/schemas/MonitoringProfile'
-        verification:
-          $ref: '#/components/schemas/Verification'
-          description: The verification record associated with the findings
-        reported_at:
-          type: string
-          format: date-time
-          title: Reported At
-          description: The date and time the finding was recorded by Axuall
-        activation_date:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Activation Date
-          description: The primary-source activation date for the adverse finding, when available (from primary_source_query_log.details). Shown as Reported Date in Admin.
-        most_current:
-          type: boolean
-          title: Most Current
-          description: Whether the finding relates to the most current credential in Axuall
-        artifact_id:
-          type: string
-          format: uuid
-          title: Artifact Id
-          description: The ID of the Axuall credential record associated with the finding
-      type: object
-      required:
-      - id
-      - dimensions
-      - profile
-      - verification
-      - reported_at
-      - most_current
-      - artifact_id
-      title: Finding
-    MonitoringResultSet_Expirable_:
-      properties:
-        total_clinicians:
-          type: integer
-          title: Total Clinicians
-          description: The total number of currently active clinicians
-        filtered_clinicians:
-          type: integer
-          title: Filtered Clinicians
-          description: The total number of active clinicians applicable to the search criteria
-        total:
-          type: integer
-          title: Total
-          description: The total number of records applicable to the search criteria
-        results:
-          items:
-            $ref: '#/components/schemas/Expirable'
-          type: array
-          title: Results
-          description: The list of records returned by the search criteria
-      type: object
-      required:
-      - total_clinicians
-      - filtered_clinicians
-      - total
-      - results
-      title: MonitoringResultSet[Expirable]
     Expirable:
       properties:
         id:
@@ -765,35 +655,55 @@ components:
       - reported_at
       - artifact_id
       title: Expirable
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CredentialDimensionOption:
+    Finding:
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           title: Id
-          description: Stable credential dimension ID used as a filter value.
-        name:
+          description: The ID of the finding record
+        dimensions:
+          additionalProperties:
+            type: string
+          type: object
+          title: Dimensions
+          description: The dimensions associated with the finding
+        profile:
+          $ref: '#/components/schemas/MonitoringProfile'
+        verification:
+          $ref: '#/components/schemas/Verification'
+          description: The verification record associated with the findings
+        reported_at:
           type: string
-          title: Name
-          description: Credential dimension name used as a display label.
-        category:
+          format: date-time
+          title: Reported At
+          description: The date and time the finding was recorded by Axuall
+        activation_date:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Activation Date
+          description: The primary-source activation date for the adverse finding, when available (from primary_source_query_log.details). Shown as Reported Date in Admin.
+        most_current:
+          type: boolean
+          title: Most Current
+          description: Whether the finding relates to the most current credential in Axuall
+        artifact_id:
           type: string
-          title: Category
-          description: Display category for grouping credentials in the Monitoring filter.
+          format: uuid
+          title: Artifact Id
+          description: The ID of the Axuall credential record associated with the finding
       type: object
       required:
       - id
-      - name
-      - category
-      title: CredentialDimensionOption
+      - dimensions
+      - profile
+      - verification
+      - reported_at
+      - most_current
+      - artifact_id
+      title: Finding
     GenericErrorSchema:
       properties:
         detail:
@@ -804,6 +714,33 @@ components:
       required:
       - detail
       title: GenericErrorSchema
+    MonitoringResultSet_Finding_:
+      properties:
+        total_clinicians:
+          type: integer
+          title: Total Clinicians
+          description: The total number of currently active clinicians
+        filtered_clinicians:
+          type: integer
+          title: Filtered Clinicians
+          description: The total number of active clinicians applicable to the search criteria
+        total:
+          type: integer
+          title: Total
+          description: The total number of records applicable to the search criteria
+        results:
+          items:
+            $ref: '#/components/schemas/Finding'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_clinicians
+      - filtered_clinicians
+      - total
+      - results
+      title: MonitoringResultSet[Finding]
     MonitoringProfile:
       properties:
         provider_id:
@@ -858,6 +795,69 @@ components:
       - checklist_id
       - checklist_url
       title: MonitoringProfile
+    CredentialDimensionOption:
+      properties:
+        id:
+          type: integer
+          title: Id
+          description: Stable credential dimension ID used as a filter value.
+        name:
+          type: string
+          title: Name
+          description: Credential dimension name used as a display label.
+        category:
+          type: string
+          title: Category
+          description: Display category for grouping credentials in the Monitoring filter.
+      type: object
+      required:
+      - id
+      - name
+      - category
+      title: CredentialDimensionOption
+    ExpirableStatus:
+      type: string
+      enum:
+      - unknown
+      - active
+      - expired
+      title: ExpirableStatus
+    MonitoringResultSet_Expirable_:
+      properties:
+        total_clinicians:
+          type: integer
+          title: Total Clinicians
+          description: The total number of currently active clinicians
+        filtered_clinicians:
+          type: integer
+          title: Filtered Clinicians
+          description: The total number of active clinicians applicable to the search criteria
+        total:
+          type: integer
+          title: Total
+          description: The total number of records applicable to the search criteria
+        results:
+          items:
+            $ref: '#/components/schemas/Expirable'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_clinicians
+      - filtered_clinicians
+      - total
+      - results
+      title: MonitoringResultSet[Expirable]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

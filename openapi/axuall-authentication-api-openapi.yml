@@ -176,33 +176,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    AuthRequest:
-      properties:
-        client_id:
-          type: string
-          title: Client Id
-          description: The Client ID as provided by Axuall for your account
-        client_secret:
-          type: string
-          title: Client Secret
-          description: The Client secret key as provided by Axuall
-        audience:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audience
-          default: cred-api
-        grant_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Grant Type
-          default: client_credentials
-      type: object
-      required:
-      - client_id
-      - client_secret
-      title: AuthRequest
     Response_SSOResponse_:
       properties:
         success:
@@ -242,31 +215,6 @@ components:
       - token_type
       title: AuthResponse
       description: Authentication response contains a token which is valid for 24 hours
-    AuthError:
-      properties:
-        error:
-          type: string
-          title: Error
-        error_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error Description
-      type: object
-      required:
-      - error
-      - error_description
-      title: AuthError
-    SSOResponse:
-      properties:
-        url:
-          type: string
-          title: Url
-          example: https://example.com/authorize?state=state&grant=grant
-      type: object
-      required:
-      - url
-      title: SSOResponse
     ValidationError:
       properties:
         loc:
@@ -288,15 +236,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     GenericErrorSchema:
       properties:
         detail:
@@ -307,6 +246,67 @@ components:
       required:
       - detail
       title: GenericErrorSchema
+    SSOResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+          example: https://example.com/authorize?state=state&grant=grant
+      type: object
+      required:
+      - url
+      title: SSOResponse
+    AuthRequest:
+      properties:
+        client_id:
+          type: string
+          title: Client Id
+          description: The Client ID as provided by Axuall for your account
+        client_secret:
+          type: string
+          title: Client Secret
+          description: The Client secret key as provided by Axuall
+        audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audience
+          default: cred-api
+        grant_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Grant Type
+          default: client_credentials
+      type: object
+      required:
+      - client_id
+      - client_secret
+      title: AuthRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AuthError:
+      properties:
+        error:
+          type: string
+          title: Error
+        error_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Description
+      type: object
+      required:
+      - error
+      - error_description
+      title: AuthError
   securitySchemes:
     HTTPBearer:
       type: http

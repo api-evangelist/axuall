@@ -167,6 +167,45 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ProviderPrefillIdentifiersSchema:
+      properties:
+        id_type:
+          $ref: '#/components/schemas/ProviderPrefillIdType'
+        npi:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Npi
+          example: '1234567890'
+        ncsbn:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ncsbn
+          example: '12345678'
+        clinician_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Clinician Id
+          description: The clinician's ID for this client's default external system, or null when they hold none for it. Only ever populated for the `existing_clinician` source; NPPES and resume-reader prefills have no clinician ID to offer.
+          example: CS-10042
+      type: object
+      required:
+      - id_type
+      title: ProviderPrefillIdentifiersSchema
+    SubscriptionStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - inactive
+      - adding
+      - addition_failed
+      - terminating
+      - termination_failed
+      - pending_termination
+      title: SubscriptionStatus
     ProviderPrefillSchema:
       properties:
         source:
@@ -187,6 +226,105 @@ components:
       - demographics
       - identifiers
       title: ProviderPrefillSchema
+    ProviderPreviewSchema:
+      properties:
+        name:
+          $ref: '#/components/schemas/NameSchema-Output'
+        degree:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Degree
+          example: MD
+        date_of_birth:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Date Of Birth
+          example: 01-05-1970
+        state_licenses:
+          items:
+            $ref: '#/components/schemas/StateLicenseSchema-Output'
+          type: array
+          title: State Licenses
+          default: []
+        dea_licenses:
+          items:
+            $ref: '#/components/schemas/DEALicenseSchema'
+          type: array
+          title: Dea Licenses
+          default: []
+        abms_board_certifications:
+          items:
+            $ref: '#/components/schemas/ABMSBoardCertSchema'
+          type: array
+          title: Abms Board Certifications
+          default: []
+      type: object
+      required:
+      - name
+      title: ProviderPreviewSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    DEALicenseSchema:
+      properties:
+        state:
+          type: string
+          title: State
+          example: OH
+        license_number:
+          type: string
+          title: License Number
+          example: DE1234
+      type: object
+      required:
+      - state
+      - license_number
+      title: DEALicenseSchema
+    ABMSBoardCertSchema:
+      properties:
+        board:
+          type: string
+          title: Board
+          example: American Board of Medicine
+        specialty:
+          type: string
+          title: Specialty
+          example: Internal Medicine
+      type: object
+      required:
+      - board
+      - specialty
+      title: ABMSBoardCertSchema
     ProviderPrefillDemographicsSchema:
       properties:
         first_name:
@@ -227,6 +365,74 @@ components:
           example: Jr
       type: object
       title: ProviderPrefillDemographicsSchema
+    ProviderPrefillIdType:
+      type: string
+      enum:
+      - NPI
+      - NCSBN
+      title: ProviderPrefillIdType
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FacilitySchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          example: 78e4081d-1150-4957-88a4-4558cafc505d
+        name:
+          type: string
+          title: Name
+          example: Medical Center West Dunshire
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/SubscriptionStatus'
+          - type: 'null'
+          example: active
+      type: object
+      required:
+      - id
+      - name
+      title: FacilitySchema
+    StateLicenseSchema-Output:
+      properties:
+        state:
+          type: string
+          title: State
+          example: PA
+        license_number:
+          type: string
+          title: License Number
+          example: AS1234
+        status:
+          type: string
+          title: Status
+          example: Active
+        board_actions:
+          type: boolean
+          title: Board Actions
+          example: false
+      type: object
+      required:
+      - state
+      - license_number
+      - status
+      - board_actions
+      title: StateLicenseSchema
+    ProviderPrefillSource:
+      type: string
+      enum:
+      - existing_clinician
+      - nppes
+      - resume_reader
+      title: ProviderPrefillSource
     NameSchema-Output:
       properties:
         first_name:
@@ -254,212 +460,6 @@ components:
       - first_name
       - last_name
       title: NameSchema
-    StateLicenseSchema-Output:
-      properties:
-        state:
-          type: string
-          title: State
-          example: PA
-        license_number:
-          type: string
-          title: License Number
-          example: AS1234
-        status:
-          type: string
-          title: Status
-          example: Active
-        board_actions:
-          type: boolean
-          title: Board Actions
-          example: false
-      type: object
-      required:
-      - state
-      - license_number
-      - status
-      - board_actions
-      title: StateLicenseSchema
-    ProviderPreviewSchema:
-      properties:
-        name:
-          $ref: '#/components/schemas/NameSchema-Output'
-        degree:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Degree
-          example: MD
-        date_of_birth:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Date Of Birth
-          example: 01-05-1970
-        state_licenses:
-          items:
-            $ref: '#/components/schemas/StateLicenseSchema-Output'
-          type: array
-          title: State Licenses
-          default: []
-        dea_licenses:
-          items:
-            $ref: '#/components/schemas/DEALicenseSchema'
-          type: array
-          title: Dea Licenses
-          default: []
-        abms_board_certifications:
-          items:
-            $ref: '#/components/schemas/ABMSBoardCertSchema'
-          type: array
-          title: Abms Board Certifications
-          default: []
-      type: object
-      required:
-      - name
-      title: ProviderPreviewSchema
-    ABMSBoardCertSchema:
-      properties:
-        board:
-          type: string
-          title: Board
-          example: American Board of Medicine
-        specialty:
-          type: string
-          title: Specialty
-          example: Internal Medicine
-      type: object
-      required:
-      - board
-      - specialty
-      title: ABMSBoardCertSchema
-    FacilitySchema:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          example: 78e4081d-1150-4957-88a4-4558cafc505d
-        name:
-          type: string
-          title: Name
-          example: Medical Center West Dunshire
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/SubscriptionStatus'
-          - type: 'null'
-          example: active
-      type: object
-      required:
-      - id
-      - name
-      title: FacilitySchema
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ProviderPrefillIdType:
-      type: string
-      enum:
-      - NPI
-      - NCSBN
-      title: ProviderPrefillIdType
-    DEALicenseSchema:
-      properties:
-        state:
-          type: string
-          title: State
-          example: OH
-        license_number:
-          type: string
-          title: License Number
-          example: DE1234
-      type: object
-      required:
-      - state
-      - license_number
-      title: DEALicenseSchema
-    ProviderPrefillSource:
-      type: string
-      enum:
-      - existing_clinician
-      - nppes
-      - resume_reader
-      title: ProviderPrefillSource
-    SubscriptionStatus:
-      type: string
-      enum:
-      - pending
-      - active
-      - inactive
-      - adding
-      - addition_failed
-      - terminating
-      - termination_failed
-      - pending_termination
-      title: SubscriptionStatus
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ProviderPrefillIdentifiersSchema:
-      properties:
-        id_type:
-          $ref: '#/components/schemas/ProviderPrefillIdType'
-        npi:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Npi
-          example: '1234567890'
-        ncsbn:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ncsbn
-          example: '12345678'
-        clinician_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Clinician Id
-          description: The clinician's ID for this client's default external system, or null when they hold none for it. Only ever populated for the `existing_clinician` source; NPPES and resume-reader prefills have no clinician ID to offer.
-          example: CS-10042
-      type: object
-      required:
-      - id_type
-      title: ProviderPrefillIdentifiersSchema
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
   securitySchemes:
     HTTPBearer:
       type: http

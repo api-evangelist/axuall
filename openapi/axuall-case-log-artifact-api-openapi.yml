@@ -108,6 +108,16 @@ components:
       - msg
       - type
       title: ValidationError
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
     HTTPValidationError:
       properties:
         detail:
@@ -127,16 +137,6 @@ components:
       - encounters_12m
       - procedures_12m
       title: CaseLogType
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
   securitySchemes:
     HTTPBearer:
       type: http
