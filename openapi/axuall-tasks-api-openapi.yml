@@ -294,6 +294,45 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    PaginatedResultsSchema_SubscriberGroupTaskSchema_:
+      properties:
+        total_results:
+          type: integer
+          title: Total Results
+          description: The total number of records available
+        results:
+          items:
+            $ref: '#/components/schemas/SubscriberGroupTaskSchema'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_results
+      - results
+      title: PaginatedResultsSchema[SubscriberGroupTaskSchema]
+    TaskSetSchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          example: 1ae8ff2b-5316-4fb3-95b0-88b15fbf741f
+        name:
+          type: string
+          title: Name
+          example: Cardiology Tasks
+        tasks:
+          items:
+            $ref: '#/components/schemas/RelatedTaskSchema'
+          type: array
+          title: Tasks
+      type: object
+      required:
+      - id
+      - name
+      - tasks
+      title: TaskSetSchema
     SubscriberGroupTaskSchema:
       properties:
         id:
@@ -341,28 +380,15 @@ components:
       - active
       - provider_task_name
       title: SubscriberGroupTaskSchema
-    TaskSetSchema:
+    HTTPValidationError:
       properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          example: 1ae8ff2b-5316-4fb3-95b0-88b15fbf741f
-        name:
-          type: string
-          title: Name
-          example: Cardiology Tasks
-        tasks:
+        detail:
           items:
-            $ref: '#/components/schemas/RelatedTaskSchema'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Tasks
+          title: Detail
       type: object
-      required:
-      - id
-      - name
-      - tasks
-      title: TaskSetSchema
+      title: HTTPValidationError
     PaginatedResultsSchema_TaskSetSchema_:
       properties:
         total_results:
@@ -380,71 +406,32 @@ components:
       - total_results
       - results
       title: PaginatedResultsSchema[TaskSetSchema]
-    PaginatedResultsSchema_AssignedTaskSchema_:
+    TaskType:
+      type: string
+      enum:
+      - enroll
+      - work_history
+      - question
+      - document
+      - signature
+      - privileging
+      title: TaskType
+    RelatedTaskSchema:
       properties:
-        total_results:
-          type: integer
-          title: Total Results
-          description: The total number of records available
-        results:
-          items:
-            $ref: '#/components/schemas/AssignedTaskSchema'
-          type: array
-          title: Results
-          description: The list of records returned by the search criteria
-      type: object
-      required:
-      - total_results
-      - results
-      title: PaginatedResultsSchema[AssignedTaskSchema]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        task_id:
           type: string
-          title: Message
-        type:
+          format: uuid
+          title: Task Id
+          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
+        task_name:
           type: string
-          title: Error Type
+          title: Task Name
+          example: Initial Appointment
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PaginatedResultsSchema_SubscriberGroupTaskSchema_:
-      properties:
-        total_results:
-          type: integer
-          title: Total Results
-          description: The total number of records available
-        results:
-          items:
-            $ref: '#/components/schemas/SubscriberGroupTaskSchema'
-          type: array
-          title: Results
-          description: The list of records returned by the search criteria
-      type: object
-      required:
-      - total_results
-      - results
-      title: PaginatedResultsSchema[SubscriberGroupTaskSchema]
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
+      - task_id
+      - task_name
+      title: RelatedTaskSchema
     AssignedTaskSchema:
       properties:
         id:
@@ -509,41 +496,54 @@ components:
       - assigned
       - completed
       title: AssignedTaskSchema
-    HTTPValidationError:
+    GenericErrorSchema:
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          type: string
           title: Detail
-      type: object
-      title: HTTPValidationError
-    RelatedTaskSchema:
-      properties:
-        task_id:
-          type: string
-          format: uuid
-          title: Task Id
-          example: 3ae8ff2b-5316-4fb3-95b0-88b15fbf741f
-        task_name:
-          type: string
-          title: Task Name
-          example: Initial Appointment
+          example: The request could not be completed because...
       type: object
       required:
-      - task_id
-      - task_name
-      title: RelatedTaskSchema
-    TaskType:
-      type: string
-      enum:
-      - enroll
-      - work_history
-      - question
-      - document
-      - signature
-      - privileging
-      title: TaskType
+      - detail
+      title: GenericErrorSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResultsSchema_AssignedTaskSchema_:
+      properties:
+        total_results:
+          type: integer
+          title: Total Results
+          description: The total number of records available
+        results:
+          items:
+            $ref: '#/components/schemas/AssignedTaskSchema'
+          type: array
+          title: Results
+          description: The list of records returned by the search criteria
+      type: object
+      required:
+      - total_results
+      - results
+      title: PaginatedResultsSchema[AssignedTaskSchema]
   securitySchemes:
     HTTPBearer:
       type: http

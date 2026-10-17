@@ -176,18 +176,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Response_SSOResponse_:
+    HTTPValidationError:
       properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/SSOResponse'
-          - type: 'null'
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: Response[SSOResponse]
+      title: HTTPValidationError
     AuthResponse:
       properties:
         access_token:
@@ -215,27 +212,6 @@ components:
       - token_type
       title: AuthResponse
       description: Authentication response contains a token which is valid for 24 hours
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     GenericErrorSchema:
       properties:
         detail:
@@ -246,16 +222,6 @@ components:
       required:
       - detail
       title: GenericErrorSchema
-    SSOResponse:
-      properties:
-        url:
-          type: string
-          title: Url
-          example: https://example.com/authorize?state=state&grant=grant
-      type: object
-      required:
-      - url
-      title: SSOResponse
     AuthRequest:
       properties:
         client_id:
@@ -283,15 +249,49 @@ components:
       - client_id
       - client_secret
       title: AuthRequest
-    HTTPValidationError:
+    Response_SSOResponse_:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/SSOResponse'
+          - type: 'null'
       type: object
-      title: HTTPValidationError
+      title: Response[SSOResponse]
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SSOResponse:
+      properties:
+        url:
+          type: string
+          title: Url
+          example: https://example.com/authorize?state=state&grant=grant
+      type: object
+      required:
+      - url
+      title: SSOResponse
     AuthError:
       properties:
         error:

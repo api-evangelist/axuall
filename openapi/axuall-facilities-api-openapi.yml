@@ -65,18 +65,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SubscriptionStatus:
-      type: string
-      enum:
-      - pending
-      - active
-      - inactive
-      - adding
-      - addition_failed
-      - terminating
-      - termination_failed
-      - pending_termination
-      title: SubscriptionStatus
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Response_FacilitiesSchema_:
       properties:
         success:
@@ -89,56 +86,18 @@ components:
           - type: 'null'
       type: object
       title: Response[FacilitiesSchema]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
-    FacilitiesSchema:
-      properties:
-        facilities:
-          items:
-            $ref: '#/components/schemas/FacilitySchema'
-          type: array
-          title: Facilities
-          default: []
-      type: object
-      title: FacilitiesSchema
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+    SubscriptionStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - inactive
+      - adding
+      - addition_failed
+      - terminating
+      - termination_failed
+      - pending_termination
+      title: SubscriptionStatus
     FacilitySchema:
       properties:
         id:
@@ -160,6 +119,47 @@ components:
       - id
       - name
       title: FacilitySchema
+    GenericErrorSchema:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          example: The request could not be completed because...
+      type: object
+      required:
+      - detail
+      title: GenericErrorSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FacilitiesSchema:
+      properties:
+        facilities:
+          items:
+            $ref: '#/components/schemas/FacilitySchema'
+          type: array
+          title: Facilities
+          default: []
+      type: object
+      title: FacilitiesSchema
   securitySchemes:
     HTTPBearer:
       type: http

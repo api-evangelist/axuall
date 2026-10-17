@@ -87,6 +87,16 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    CaseLogType:
+      type: string
+      enum:
+      - all
+      - encounters
+      - procedures
+      - all_12m
+      - encounters_12m
+      - procedures_12m
+      title: CaseLogType
     ValidationError:
       properties:
         loc:
@@ -108,6 +118,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     GenericErrorSchema:
       properties:
         detail:
@@ -118,25 +137,6 @@ components:
       required:
       - detail
       title: GenericErrorSchema
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CaseLogType:
-      type: string
-      enum:
-      - all
-      - encounters
-      - procedures
-      - all_12m
-      - encounters_12m
-      - procedures_12m
-      title: CaseLogType
   securitySchemes:
     HTTPBearer:
       type: http

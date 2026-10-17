@@ -68,6 +68,23 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    IDVerification:
+      type: string
+      enum:
+      - not_started
+      - pending
+      - finished
+      - invalid
+      title: IDVerification
     Response_WalletActor_:
       properties:
         success:
@@ -80,45 +97,6 @@ components:
           - type: 'null'
       type: object
       title: Response[WalletActor]
-    IDVerification:
-      type: string
-      enum:
-      - not_started
-      - pending
-      - finished
-      - invalid
-      title: IDVerification
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
     ActorSettings:
       properties:
         referrer:
@@ -239,15 +217,37 @@ components:
       - access_level
       - actions
       title: WalletActor
-    HTTPValidationError:
+    GenericErrorSchema:
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          type: string
           title: Detail
+          example: The request could not be completed because...
       type: object
-      title: HTTPValidationError
+      required:
+      - detail
+      title: GenericErrorSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

@@ -65,49 +65,16 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Response_ApplicationRequirementsSchema_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/ApplicationRequirementsSchema'
-          - type: 'null'
-      type: object
-      title: Response[ApplicationRequirementsSchema]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
+    CycleType:
+      type: string
+      enum:
+      - initial
+      - continuous_monitoring
+      - re_appointment
+      - prescreen
+      - intersystem
+      - task_only
+      title: CycleType
     ApplicationRequirementSchema:
       properties:
         app_req:
@@ -137,6 +104,15 @@ components:
       - name
       - recipe_type
       title: ApplicationRequirementSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ApplicationRequirementsSchema:
       properties:
         app_reqs:
@@ -148,25 +124,49 @@ components:
       required:
       - app_reqs
       title: ApplicationRequirementsSchema
-    HTTPValidationError:
+    Response_ApplicationRequirementsSchema_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/ApplicationRequirementsSchema'
+          - type: 'null'
+      type: object
+      title: Response[ApplicationRequirementsSchema]
+    GenericErrorSchema:
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          type: string
           title: Detail
+          example: The request could not be completed because...
       type: object
-      title: HTTPValidationError
-    CycleType:
-      type: string
-      enum:
-      - initial
-      - continuous_monitoring
-      - re_appointment
-      - prescreen
-      - intersystem
-      - task_only
-      title: CycleType
+      required:
+      - detail
+      title: GenericErrorSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

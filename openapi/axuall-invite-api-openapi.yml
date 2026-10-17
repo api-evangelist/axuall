@@ -205,44 +205,33 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ClinicianIdSchema:
+    EmploymentRelationship:
+      type: string
+      enum:
+      - employed
+      - contract
+      title: EmploymentRelationship
+    HTTPValidationError:
       properties:
-        external_id:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: External Id
-          description: The clinician's ID in the external system.
-          example: CS-10042
-        external_system:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - credential_stream
-          - custom
-          - echo
-          - modio
-          - onbase
-          - symplr
-          title: External System
-          description: External system this ID belongs to. Omit to use the subscriber group's configured default external system; omitting it when no default is configured is a validation error.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - external_id
-      title: ClinicianIdSchema
-      description: 'One client-supplied clinician ID, optionally scoped to an external system.
-
-
-        Always nested under a ``clinician_ids`` list. ``external_id`` is the DAL''s own
-
-        column name -- ``external_clinician_ids`` inherits it from the mixin it shares with
-
-        the affiliation, education and role mapping tables -- and keeping it here means a
-
-        request entry passes through ``normalize_clinician_ids`` and into the
-
-        ``user_creator`` job body without remapping.'
+      title: HTTPValidationError
+    Response_InviteSchema_:
+      properties:
+        success:
+          type: boolean
+          title: Success
+          default: true
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/InviteSchema'
+          - type: 'null'
+      type: object
+      title: Response[InviteSchema]
     ClinicianSettingsSchema:
       properties:
         alternate_emails:
@@ -356,15 +345,6 @@ components:
       required:
       - degree_type
       title: ClinicianSettingsSchema
-    InviteSchema:
-      properties:
-        invite_id:
-          type: string
-          title: Invite Id
-      type: object
-      required:
-      - invite_id
-      title: InviteSchema
     InviteExternalDelegateSchema:
       properties:
         email:
@@ -384,55 +364,44 @@ components:
         ``user_creator`` can enqueue ``create_external_delegate`` after the holder
 
         actor exists.'
-    ValidationError:
+    ClinicianIdSchema:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        external_id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    GenericErrorSchema:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          example: The request could not be completed because...
-      type: object
-      required:
-      - detail
-      title: GenericErrorSchema
-    Response_InviteSchema_:
-      properties:
-        success:
-          type: boolean
-          title: Success
-          default: true
-        data:
+          maxLength: 255
+          minLength: 1
+          title: External Id
+          description: The clinician's ID in the external system.
+          example: CS-10042
+        external_system:
           anyOf:
-          - $ref: '#/components/schemas/InviteSchema'
+          - type: string
           - type: 'null'
+          enum:
+          - credential_stream
+          - custom
+          - echo
+          - modio
+          - onbase
+          - symplr
+          title: External System
+          description: External system this ID belongs to. Omit to use the subscriber group's configured default external system; omitting it when no default is configured is a validation error.
       type: object
-      title: Response[InviteSchema]
-    EmploymentRelationship:
-      type: string
-      enum:
-      - employed
-      - contract
-      title: EmploymentRelationship
+      required:
+      - external_id
+      title: ClinicianIdSchema
+      description: 'One client-supplied clinician ID, optionally scoped to an external system.
+
+
+        Always nested under a ``clinician_ids`` list. ``external_id`` is the DAL''s own
+
+        column name -- ``external_clinician_ids`` inherits it from the mixin it shares with
+
+        the affiliation, education and role mapping tables -- and keeping it here means a
+
+        request entry passes through ``normalize_clinician_ids`` and into the
+
+        ``user_creator`` job body without remapping.'
     SendInviteRequestSchema:
       properties:
         invite_id:
@@ -593,15 +562,46 @@ components:
       - email
       - settings
       title: SendInviteRequestSchema
-    HTTPValidationError:
+    GenericErrorSchema:
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          type: string
           title: Detail
+          example: The request could not be completed because...
       type: object
-      title: HTTPValidationError
+      required:
+      - detail
+      title: GenericErrorSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    InviteSchema:
+      properties:
+        invite_id:
+          type: string
+          title: Invite Id
+      type: object
+      required:
+      - invite_id
+      title: InviteSchema
   securitySchemes:
     HTTPBearer:
       type: http
