@@ -64,5 +64,150 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Axuall is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://equityzen.com/company/axuall
+Axuall provides a healthcare data network that empowers credentialing teams with AI‑assisted insights. Their platform integrates with enterprise systems to streamline verification of clinicians, reduce administrative workload, and improve patient access. Axuall offers solutions for exploring, confirming, and syncing credential data, targeting hospitals, health systems, and insurers.
+
+**Areas:** Company · Healthcare · Data · Credentialing · Artificial Intelligence
+
+## Axuall on APIs.io
+
+Everything profiled for Axuall is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/axuall/](https://apis.io/providers/axuall/)** — or go straight to one of the APIs or properties below.
+
+### APIs (15)
+
+- [Axuall Actor API](https://apis.io/apis/axuall/axuall-actor-api/) — The Actor API from Axuall — 1 operation(s) for actor.
+- [Axuall Address Deduplications API](https://apis.io/apis/axuall/axuall-address-deduplications-api/) — The Address Deduplications API from Axuall — 2 operation(s) for address deduplications.
+- [Axuall Agent API](https://apis.io/apis/axuall/axuall-agent-api/) — The Agent API from Axuall — 6 operation(s) for agent.
+- [Axuall Authentication API](https://apis.io/apis/axuall/axuall-authentication-api/) — The Authentication API from Axuall — 2 operation(s) for authentication.
+- [Axuall Case Log Artifact API](https://apis.io/apis/axuall/axuall-case-log-artifact-api/) — The Case Log Artifact API from Axuall — 1 operation(s) for case log artifact.
+- [Axuall Documents API](https://apis.io/apis/axuall/axuall-documents-api/) — The Documents API from Axuall — 1 operation(s) for documents.
+- [Axuall Email API](https://apis.io/apis/axuall/axuall-email-api/) — The Email API from Axuall — 2 operation(s) for email.
+- [Axuall Facilities API](https://apis.io/apis/axuall/axuall-facilities-api/) — The Facilities API from Axuall — 1 operation(s) for facilities.
+- [Axuall FSMB Artifact API](https://apis.io/apis/axuall/axuall-fsmb-artifact-api/) — The FSMB Artifact API from Axuall — 1 operation(s) for fsmb artifact.
+- [Axuall Invite API](https://apis.io/apis/axuall/axuall-invite-api/) — The Invite API from Axuall — 2 operation(s) for invite.
+- [Axuall Monitoring reports API](https://apis.io/apis/axuall/axuall-monitoring-reports-api/) — The Monitoring reports API from Axuall — 5 operation(s) for monitoring reports.
+- [Axuall Provider Preview API](https://apis.io/apis/axuall/axuall-provider-preview-api/) — The Provider Preview API from Axuall — 2 operation(s) for provider preview.
+- [Axuall Providers API](https://apis.io/apis/axuall/axuall-providers-api/) — The Providers API from Axuall — 13 operation(s) for providers.
+- [Axuall Recipes API](https://apis.io/apis/axuall/axuall-recipes-api/) — The Recipes API from Axuall — 1 operation(s) for recipes.
+- [Axuall Tasks API](https://apis.io/apis/axuall/axuall-tasks-api/) — The Tasks API from Axuall — 3 operation(s) for tasks.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Axuall Webhooks](https://apis.io/asyncapis/axuall/axuall-webhooks/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Axuall Agentic Access](https://apis.io/agentic-access/axuall/axuall-agentic-access/)
+
+#### JSON Schema (6)
+
+The data models the API reads and writes.
+
+- [AgentChatRequestSchema](https://apis.io/schemas/axuall/axuall-agent-chat-request-schema/)
+- [ProviderFile](https://apis.io/schemas/axuall/axuall-provider-file/)
+- [ProviderProfile](https://apis.io/schemas/axuall/axuall-provider-profile/)
+- [ProviderRegistrationRequestSchema](https://apis.io/schemas/axuall/axuall-provider-registration-request-schema/)
+- [ProviderSearchResult](https://apis.io/schemas/axuall/axuall-provider-search-result/)
+- [SendInviteRequestSchema](https://apis.io/schemas/axuall/axuall-send-invite-request-schema/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Axuall Context](https://apis.io/jsonld/axuall/axuall-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Axuall API Rules](https://apis.io/rules/axuall/axuall-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Axuall Authentication](https://apis.io/security/axuall/axuall-authentication/)
+- [Axuall Domain Security](https://apis.io/security/axuall/axuall-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Axuall Plans Pricing](https://apis.io/plans/axuall/axuall-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://axuall.com)
+- [Documentation](https://axuall.readme.io)
+- [Getting started](https://axuall.readme.io/docs/welcome-to-axuall)
+- [API reference](https://axuall.readme.io/reference)
+- [Pricing](https://docs.readme.com/main/docs/plans-and-pricing)
+- [Support](https://help.axuall.net/en)
+- [Changelog](https://axuall.com/post/whats-new)
+- [Trust centre](https://trust.axuall.com/)
+- [Terms of service](https://axuall.com/utility/termsofuse)
+- [Privacy policy](https://axuall.com/utility/privacy)
+
+## API Evangelist rating
+
+**Kin Score 61.4** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 70.6 |
+| Contract governance | 35.6 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 54.2 |
+| Access clarity | 71.1 |
+
+**Agent readiness 37.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.1** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/axuall/](https://apis.io/providers/axuall/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Axuall: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/axuall/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
